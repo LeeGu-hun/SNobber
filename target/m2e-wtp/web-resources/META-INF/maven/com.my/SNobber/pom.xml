@@ -189,20 +189,6 @@
 			<version>11.2.0.3</version>
 		</dependency>
 
-		<!-- mysql driver -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.45</version>
-		</dependency>
-
-		<!-- maria driver -->
-		<dependency>
-			<groupId>org.mariadb.jdbc</groupId>
-			<artifactId>mariadb-java-client</artifactId>
-			<version>1.1.7</version>
-		</dependency>
-
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
