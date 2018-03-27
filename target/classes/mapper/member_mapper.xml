@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberSQL">
+	<select id="getById" parameterType="Long" resultType="spring.Member">
+		SELECT * FROM MEMBERs WHERE id=#{id}
+	</select>
+	<select id="getByRegdateList" parameterType="bean.ListCommand"
+		resultType="spring.Member">
+		select * from MEMBERs where regdate
+		between #{from} and #{to}
+		order by regdate desc
+	</select>
+
+	<insert id="memberInsert" parameterType="spring.Member">
+		<!-- member는 spring.Member의 별칭. mybatis-config.xml 설정 -->
+		insert into members 
+		values(members_id_seq.nextval,#{email},
+		#{password}, #{name}, sysdate)
+	</insert>
+	
+	<update id="memberUpdate" parameterType="spring.Member">
+		update members set
+		name=#{name}, password=#{password}
+		, email=#{email} where
+		email=#{email}
+	</update>
+	
+	<delete id="memberDelete" parameterType="spring.Member">
+		delete members where id =
+		#{id} and password = #{password}
+	</delete>
+	<select id="loginCheck" parameterType="String" resultType="spring.Member">
+		select
+		* from members where email = #{email}
+	</select>
+	
+	<select id="getMemberList" resultType="spring.Member">
+		select * from members
+	</select>
+
+</mapper>
+

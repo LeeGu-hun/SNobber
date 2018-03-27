@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardSQL">
+	<select id="boardView" parameterType="Long" resultType="bean.BoardBean">
+		SELECT *
+		FROM BOARDS WHERE BOARD_NUM=#{BOARD_NUM}
+	</select>
+
+	<insert id="boardInsert" parameterType="bean.BoardBean">
+		insert into BOARDS
+		values((select nvl(max(board_num),0)+1 from boards)
+		,#{BOARD_NAME},#{BOARD_NUM},
+		#{BOARD_SUBJECT},#{BOARD_CONTENT},#{BOARD_FILE},
+		(select
+		nvl(max(board_num),0)+1 from boards)
+		,0,0,0,sysdate,#{HOST},#{WRITER})
+		<!-- 시퀀스 사용하면 셀렉트 하고 인설트 해야됨 -->
+	</insert>
+
+	<insert id="boardReply" parameterType="bean.BoardBean">
+		insert into boards
+		values((select nvl(max(board_num),0)+1 from boards),
+		#{BOARD_NAME},#{BOARD_PASS},#{BOARD_SUBJECT},#{BOARD_CONTENT},#{BOARD_FILE},
+		#{BOARD_RE_REF},#{BOARD_RE_LEV},#{BOARD_RE_SEQ},0,sysdate,#{HOST},#{WRITER})
+	</insert>
+
+	<update id="boardUpdateReply" parameterType="bean.BoardBean">
+		update board set
+		board_re_seq=BOARD_RE_REF+1
+		where
+		board_re_ref=BOARD_RE_LEV+1 and
+		board_re_seq>BOARD_RE_SEQ
+	</update>
+	<update id="boardRedCnt" parameterType="bean.BoardBean">
+		update boards set
+		board_readcount=#{BOARD_READCOUNT}+1 where board_num =#{BOARD_NUM}
+	</update>
+	
+	<select id="boardList" parameterType="String" resultType="bean.BoardBean">
+		<include refid="pagingHeader"></include>
+		SELECT rownum, board_num, board_name,
+		board_subject, board_content, board_file,
+		board_re_ref, board_re_lev, board_re_seq,
+		board_readcount, board_date, board_pass, board_host, board_writer
+		FROM boards
+		<include refid="search"></include>
+		ORDER BY board_re_ref desc, board_re_seq
+		<include refid="pagingFooter"></include>
+	</select>
+
+	<update id="boardUpdate" parameterType="bean.BoardBean">
+		update boards set
+		BOARD_SUBJECT=#{BOARD_SUBJECT},
+		BOARD_CONTENT=#{BOARD_CONTENT} where
+		BOARD_NUM = #{BOARD_NUM}
+	</update>
+
+	<delete id="boardDelete" parameterType="Long">
+		delete BOARDS where
+		board_num = #{id}
+	</delete>
+
+	<select id="boardCnt" resultType="int">
+		select count(*) from BOARDS
+		<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<!-- 검색옵션이 전체 검색일 경우 -->
+			<when test="searchOption == 'all'">
+				WHERE board_host = #{host}
+				<if test="keyword != null">
+					AND
+					(board_content like '%'||#{keyword}||'%'
+					OR
+					board_subject like
+					'%'||#{keyword}||'%')
+				</if>
+			</when>
+			<!-- 전체 검색이 아닐 경우 -->
+			<otherwise>
+				WHERE board_host = #{host}
+				AND ${searchOption} like
+				'%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
+
+	<!-- 페이징 sql -->
+	<sql id="pagingHeader">
+		SELECT * FROM (
+		SELECT ROWNUM AS rn, A.* FROM (
+	</sql>
+
+	<sql id="pagingFooter">
+		) A
+		) WHERE rn BETWEEN #{start} AND #{end}
+	</sql>
+</mapper>
