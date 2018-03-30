@@ -15,7 +15,6 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String root() {
-		int a;
 		return "login/login";
 		
 	}
