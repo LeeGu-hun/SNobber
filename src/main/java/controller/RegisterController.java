@@ -53,11 +53,11 @@ public class RegisterController {
 		try {
 			memberRegisterService.regist(rr);
 		} catch (AlreadyExistingMemberException e) {
-			errors.rejectValue("email", "duplicate");
+			errors.rejectValue("mem_Id", "duplicate");
 			return "register/step2";
 		}
 		LoginCommand loginCommand = new LoginCommand();
-		loginCommand.setEmail(rr.getEmail());
+		loginCommand.setId(rr.getMem_Id());
 		model.addAttribute("loginCommand", loginCommand);
 		return "register/step3";
 	}

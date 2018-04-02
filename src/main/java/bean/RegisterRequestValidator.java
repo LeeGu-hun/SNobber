@@ -12,10 +12,12 @@ import spring.RegisterRequest;
 public class RegisterRequestValidator implements Validator {
 	private static final String emailRegExp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	private Pattern pattern;
+	private static final String idRegExp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*";
+	private Pattern idpattern, emailpattern;
 
 	public RegisterRequestValidator() {
-		pattern = Pattern.compile(emailRegExp);
+		idpattern = Pattern.compile(idRegExp);
+		emailpattern = Pattern.compile(emailRegExp);
 	}
 
 	@Override
@@ -26,20 +28,20 @@ public class RegisterRequestValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		RegisterRequest regReq = (RegisterRequest) target;
-		if (regReq.getEmail() == null || regReq.getEmail().trim().isEmpty()) {
-			errors.rejectValue("email", "required");
+		if (regReq.getMem_Id() == null || regReq.getMem_Id().trim().isEmpty()) {
+			errors.rejectValue("mem_Id", "required");
 		} else {
-			Matcher matcher = pattern.matcher(regReq.getEmail());
+			Matcher matcher = idpattern.matcher(regReq.getMem_Id());
 			if (!matcher.matches()) {
-				errors.rejectValue("email", "bad");
+				errors.rejectValue("mem_Id", "bad");
 			}
 		}
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
-		ValidationUtils.rejectIfEmpty(errors, "password", "required");
-		ValidationUtils.rejectIfEmpty(errors, "confirmPassword", "required");
-		if (!regReq.getPassword().isEmpty()) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mem_Name", "required");
+		ValidationUtils.rejectIfEmpty(errors, "mem_Password", "required");
+		ValidationUtils.rejectIfEmpty(errors, "mem_ConfirmPassword", "required");
+		if (!regReq.getMem_Password().isEmpty()) {
 			if (!regReq.isPasswordEqualToConfirmPassword()) {
-				errors.rejectValue("confirmPassword", "nomatch");
+				errors.rejectValue("mem_ConfirmPassword", "nomatch");
 			}
 		}
 	}

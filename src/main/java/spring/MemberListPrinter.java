@@ -2,20 +2,18 @@ package spring;
 
 import java.util.Collection;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import dao.MemberDao;
+import org.springframework.transaction.annotation.Transactional;
 
 public class MemberListPrinter {
-
-	private MemberDao memberDao;
-
-	public void setMemberDao(MemberDao memberDao) {
-		this.memberDao = memberDao;
-	}
-
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Transactional
 	public void printAll() {
-		Collection<Member> members = memberDao.selectAll();
+		Collection<Member> members = sqlSession.selectList("memberSQL.getMemberList");
 		for (Member m : members) {
 			System.out.println(m);
 		}

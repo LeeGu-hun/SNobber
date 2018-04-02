@@ -1,145 +1,109 @@
 package bean;
 
+import java.sql.Blob;
 import java.util.Date;
 
 public class BoardBean {
-	private int BOARD_NUM;
-	private String BOARD_NAME;
-	private String BOARD_PASS;
-	private String BOARD_SUBJECT;
-	private String BOARD_CONTENT;
-	private String BOARD_FILE;
-	private int BOARD_RE_REF;
-	private int BOARD_RE_LEV;
-	private int BOARD_RE_SEQ;
-	private int BOARD_READCOUNT;
-	private Date BOARD_DATE;
-	private Long HOST;
-	private Long WRITER;
+	private int mem_Num;
+	private String mem_Photo;
+	private String mem_Nickname;
+	private String board_Content;
+	private Date board_Date;
+	private int board_Secret;
+	private int board_Read_Count;
+	private int re_Num;
+	private int like_Num;
+	private Blob board_File;
+	private int board_Type;
+
+	public int getMem_Num() {
+		return mem_Num;
+	}
+
+	public void setMem_Num(int mem_Num) {
+		this.mem_Num = mem_Num;
+	}
+
+	public String getMem_Photo() {
+		return mem_Photo;
+	}
+
+	public void setMem_Photo(String mem_Photo) {
+		this.mem_Photo = mem_Photo;
+	}
+
+	public String getMem_Nickname() {
+		return mem_Nickname;
+	}
+
+	public void setMem_Nickname(String mem_Nickname) {
+		this.mem_Nickname = mem_Nickname;
+	}
+
+	public String getBoard_Content() {
+		return board_Content;
+	}
+
+	public void setBoard_Content(String board_Content) {
+		this.board_Content = board_Content;
+	}
+
+	public Date getBoard_Date() {
+		return board_Date;
+	}
+
+	public void setBoard_Date(Date board_Date) {
+		this.board_Date = board_Date;
+	}
+
+	public int getBoard_Secret() {
+		return board_Secret;
+	}
+
+	public void setBoard_Secret(int board_Secret) {
+		this.board_Secret = board_Secret;
+	}
+
+	public int getBoard_Read_Count() {
+		return board_Read_Count;
+	}
+
+	public void setBoard_Read_Count(int board_Read_Count) {
+		this.board_Read_Count = board_Read_Count;
+	}
+
+	public int getRe_Num() {
+		return re_Num;
+	}
+
+	public void setRe_Num(int re_Num) {
+		this.re_Num = re_Num;
+	}
+
+	public int getLike_Num() {
+		return like_Num;
+	}
+
+	public void setLike_Num(int like_Num) {
+		this.like_Num = like_Num;
+	}
+
+	public Blob getBoard_File() {
+		return board_File;
+	}
+
+	public void setBoard_File(Blob board_File) {
+		this.board_File = board_File;
+	}
+
+	public int getBoard_Type() {
+		return board_Type;
+	}
+
+	public void setBoard_Type(int board_Type) {
+		this.board_Type = board_Type;
+	}
 
 	public BoardBean() {
-	}
-
-	public BoardBean(int bOARD_NUM, String bOARD_NAME, String bOARD_PASS, String bOARD_SUBJECT, String bOARD_CONTENT,
-			String bOARD_FILE, int bOARD_RE_REF, int bOARD_RE_LEV, int bOARD_RE_SEQ, int bOARD_READCOUNT,
-			Date bOARD_DATE, Long hOST, Long wRITER) {
-		super();
-		BOARD_NUM = bOARD_NUM;
-		BOARD_NAME = bOARD_NAME;
-		BOARD_PASS = bOARD_PASS;
-		BOARD_SUBJECT = bOARD_SUBJECT;
-		BOARD_CONTENT = bOARD_CONTENT;
-		BOARD_FILE = bOARD_FILE;
-		BOARD_RE_REF = bOARD_RE_REF;
-		BOARD_RE_LEV = bOARD_RE_LEV;
-		BOARD_RE_SEQ = bOARD_RE_SEQ;
-		BOARD_READCOUNT = bOARD_READCOUNT;
-		BOARD_DATE = bOARD_DATE;
-		HOST = hOST;
-		WRITER = wRITER;
-	}
-
-	public int getBOARD_NUM() {
-		return BOARD_NUM;
-	}
-
-	public void setBOARD_NUM(int bId) {
-		BOARD_NUM = bId;
-	}
-
-	public String getBOARD_NAME() {
-		return BOARD_NAME;
-	}
-
-	public void setBOARD_NAME(String board_name) {
-		BOARD_NAME = board_name;
-	}
-
-	public String getBOARD_PASS() {
-		return BOARD_PASS;
-	}
-
-	public void setBOARD_PASS(String board_pass) {
-		BOARD_PASS = board_pass;
-	}
-
-	public String getBOARD_SUBJECT() {
-		return BOARD_SUBJECT;
-	}
-
-	public void setBOARD_SUBJECT(String board_subject) {
-		BOARD_SUBJECT = board_subject;
-	}
-
-	public String getBOARD_CONTENT() {
-		return BOARD_CONTENT;
-	}
-
-	public void setBOARD_CONTENT(String board_content) {
-		BOARD_CONTENT = board_content;
-	}
-
-	public String getBOARD_FILE() {
-		return BOARD_FILE;
-	}
-
-	public void setBOARD_FILE(String board_file) {
-		BOARD_FILE = board_file;
-	}
-
-	public int getBOARD_RE_REF() {
-		return BOARD_RE_REF;
-	}
-
-	public void setBOARD_RE_REF(int board_re_ref) {
-		BOARD_RE_REF = board_re_ref;
-	}
-
-	public int getBOARD_RE_LEV() {
-		return BOARD_RE_LEV;
-	}
-
-	public void setBOARD_RE_LEV(int board_re_lev) {
-		BOARD_RE_LEV = board_re_lev;
-	}
-
-	public int getBOARD_RE_SEQ() {
-		return BOARD_RE_SEQ;
-	}
-
-	public void setBOARD_RE_SEQ(int board_re_seq) {
-		BOARD_RE_SEQ = board_re_seq;
-	}
-
-	public int getBOARD_READCOUNT() {
-		return BOARD_READCOUNT;
-	}
-
-	public void setBOARD_READCOUNT(int board_readcount) {
-		BOARD_READCOUNT = board_readcount;
-	}
-
-	public Date getBOARD_DATE() {
-		return BOARD_DATE;
-	}
-
-	public void setBOARD_DATE(Date board_date) {
-		BOARD_DATE = board_date;
-	}
-
-	public Long getHOST() {
-		return HOST;
-	}
-
-	public void setHOST(Long long1) {
-		HOST = long1;
-	}
-
-	public Long getWRITER() {
-		return WRITER;
-	}
-
-	public void setWRITER(Long wRITER) {
-		WRITER = wRITER;
 	}
 }

@@ -35,7 +35,9 @@ public class ChangePwdController {
 			return "edit/changePwdForm";
 		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
 		try {
-			changePasswordService.changePassword(auth.getEmail(), pwdCmd.getCurrentPassword(), pwdCmd.getNewPassword());
+			changePasswordService.changePassword(auth.getId(), pwdCmd.getCurrentPassword(),
+					pwdCmd.getNewPassword(), auth.getName(), auth.getEmail(), auth.getPhoto(), 
+					auth.getIntroduce());
 		} catch (IdPasswordNotMatchingException e) {
 			errors.rejectValue("currentPassword", "notMatching");
 			return "edit/changePwdForm";

@@ -1,8 +1,6 @@
 package controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
@@ -33,17 +31,17 @@ public class MainController {
 	@RequestMapping("/")
 	public String root(LoginCommand loginCommand, @CookieValue(value = "REMEMBER", required = false) Cookie rCookie) {
 		if (rCookie != null) {
-			loginCommand.setEmail(rCookie.getValue());
-			loginCommand.setRememberEmail(true);
+			loginCommand.setId(rCookie.getValue());
+			loginCommand.setRememberId(true);
 		}
-		return "lo";
+		return "login/loginForm";
 	}
 
 	@RequestMapping("/main")
 	public String home(Model model, @ModelAttribute("cmd") BoardCommand boardCommand, HttpSession session,
 			@RequestParam(defaultValue = "all") String searchOption, @RequestParam(defaultValue = "") String keyword,
 			@RequestParam(defaultValue = "1") int curPage) {
-		Long host = ((AuthInfo) session.getAttribute("authInfo")).getId();
+		String host = ((AuthInfo) session.getAttribute("authInfo")).getId();
 		List<BoardBean> list = null;
 		int count = boardService.boardCount(searchOption, keyword, host);
 		Paging paging = new Paging();
@@ -52,12 +50,13 @@ public class MainController {
 		paging.setTotalCount(count);
 		int start = paging.getPageBegin();
 		int end = paging.getPageEnd();
-
+		System.out.println("1");
 		try {
 			list = boardService.boardList(start, end, searchOption, keyword, host);
+			System.out.println("2");
 		} catch (Exception e) {
 		}
-
+		System.out.println("3");
 		MainBean bean = new MainBean();
 		bean.setList(list);
 		bean.setCount(count);

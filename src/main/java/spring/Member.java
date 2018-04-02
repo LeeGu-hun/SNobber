@@ -6,53 +6,86 @@ import exception.IdPasswordNotMatchingException;
 
 public class Member {
 
-	private Long id;
-	private String email;
-	private String password;
-	private String name;
-	private Date regdate;
+	private String mem_Id;
+	private String mem_Email;
+	private String mem_Password;
+	private String mem_Nickname;
+	private String mem_Photo;
+	private String mem_Introduce;
 
-	public Member(String email, String password, String name, Date regdate) {
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.regdate = regdate;
-	}
-	public Member() {}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
+	public Member(String mem_Id, String mem_Email, String mem_Password, String mem_Nickname, String mem_Photo,
+			String mem_Introduce) {
+		super();
+		this.mem_Id = mem_Id;
+		this.mem_Email = mem_Email;
+		this.mem_Password = mem_Password;
+		this.mem_Nickname = mem_Nickname;
+		this.mem_Photo = mem_Photo;
+		this.mem_Introduce = mem_Introduce;
 	}
 
-	public String getEmail() {
-		return email;
+	public Member() {
 	}
 
-	public String getPassword() {
-		return password;
+
+	public String getMem_Id() {
+		return mem_Id;
 	}
 
-	public String getName() {
-		return name;
+	public void setMem_Id(String mem_Id) {
+		this.mem_Id = mem_Id;
 	}
 
-	public Date getRegdate() {
-		return regdate;
+	public String getMem_Email() {
+		return mem_Email;
+	}
+
+	public void setMem_Email(String mem_Email) {
+		this.mem_Email = mem_Email;
+	}
+
+	public String getMem_Password() {
+		return mem_Password;
+	}
+
+	public void setMem_Password(String mem_Password) {
+		this.mem_Password = mem_Password;
+	}
+
+	public String getMem_Nickname() {
+		return mem_Nickname;
+	}
+
+	public void setMem_Nickname(String mem_Nickname) {
+		this.mem_Nickname = mem_Nickname;
+	}
+
+	public String getMem_Photo() {
+		return mem_Photo;
+	}
+
+	public void setMem_Photo(String mem_Photo) {
+		this.mem_Photo = mem_Photo;
+	}
+
+	public String getMem_Introduce() {
+		return mem_Introduce;
+	}
+
+	public void setMem_Introduce(String mem_Introduce) {
+		this.mem_Introduce = mem_Introduce;
 	}
 
 	public void changePassword(String oldPassword, String newPassword) {
-		if (!password.equals(oldPassword))
+		if (!mem_Password.equals(oldPassword))
 			throw new IdPasswordNotMatchingException();
-		this.password = newPassword;
+		this.mem_Password = newPassword;
 	}
+
 	public boolean mathPassword(String password) {
-		if (this.password.equals(password))
+		if (this.mem_Password.equals(password))
 			return true;
-		else 
+		else
 			return false;
 	}
 }

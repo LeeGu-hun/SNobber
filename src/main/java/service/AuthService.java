@@ -15,12 +15,13 @@ public class AuthService {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public AuthInfo authenticate(String email, String password) {
-		Member m = sqlSession.selectOne("memberSQL.loginCheck", email);
+	public AuthInfo authenticate(String id, String password) {
+		Member m = sqlSession.selectOne("memberSQL.loginCheck", id);
 		if(m == null) 
 			throw new MemberNotFoundException();
 		if(!m.mathPassword(password))
 			throw new IdPasswordNotMatchingException();
-		return new AuthInfo(m.getId(), m.getEmail(), m.getName());
+		return new AuthInfo(m.getMem_Id(), m.getMem_Email(), m.getMem_Nickname(),
+				m.getMem_Photo(), m.getMem_Introduce());
 	}
 }

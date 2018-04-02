@@ -1,26 +1,22 @@
 package spring;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import dao.MemberDao;
 import exception.MemberNotFoundException;
 
 public class ChangePasswordService {
 
-	private MemberDao memberDao;
-
-	public ChangePasswordService(MemberDao memberDao) {
-		this.memberDao = memberDao;
-	}
+	@Autowired
+	private SqlSession sqlSession;
 
 	@Transactional
-	public void changePassword(String email, String oldPwd, String newPwd) {
-		Member member = memberDao.selectByEmail(email);
+	public void changePassword(String id, String oldPwd, String newPwd, String email, String nickname, String photo, String introduce) {
+		Member member = sqlSession.selectOne("memberSQL.memberUpdate", id);
 		if (member == null)
 			throw new MemberNotFoundException();
 		
 		member.changePassword(oldPwd, newPwd);
-		
-		memberDao.update(member);
 	}
 }

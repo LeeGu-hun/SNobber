@@ -69,7 +69,7 @@
 						onmouseover="this.style.backgroundColor='F8F8F8'"
 						onmouseout="this.style.backgroundColor=''">
 						<td height="23" style="font-family: Tahoma; font-size: 10pt;">
-							${bo.BOARD_NUM}</td>
+							</td>
 						<td style="font-family: Tahoma; font-size: 10pt;">
 
 							<div align="left">

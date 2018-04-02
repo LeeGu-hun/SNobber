@@ -10,6 +10,15 @@
 	<bean class="controller.MainController" >
 		<property name="boardService" ref="boardService"/>
 	</bean>
+	<bean class="controller.SessionController">
+		<property name="authService" ref="authService" />
+	</bean>
+	<bean class="controller.MemberController">
+		<property name="memberService" ref="memberService" />
+	</bean>
+	<bean class="controller.RegisterController">
+		<property name="memberRegisterService" ref="memberRegisterService" />
+	</bean>
 	
 	<mvc:interceptors>
 		<mvc:interceptor>

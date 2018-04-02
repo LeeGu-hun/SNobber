@@ -3,11 +3,11 @@ package bean;
 public class PageBean {
 	private int start, end;
 	private String searchOption, keyword;
-	private Long host;
+	private String host;
 	
 	public PageBean() { }
 	
-	public PageBean(int start, int end, String searchOption, String keyword, Long host) {
+	public PageBean(int start, int end, String searchOption, String keyword, String host) {
 		super();
 		this.start = start;
 		this.end = end;
@@ -48,11 +48,11 @@ public class PageBean {
 		this.keyword = keyword;
 	}
 
-	public Long getHost() {
+	public String getHost() {
 		return host;
 	}
 
-	public void setHost(Long host) {
+	public void setHost(String host) {
 		this.host = host;
 	}
 	

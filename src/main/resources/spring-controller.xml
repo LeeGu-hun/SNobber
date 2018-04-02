@@ -20,10 +20,6 @@
 		<property name="memberRegisterService" ref="memberRegisterService" />
 	</bean>
 	
-	<bean class="controller.BoardController">
-		<property name="boardService" ref="boardService" />
-	</bean>
-	
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/edit/**" />

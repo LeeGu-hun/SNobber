@@ -1,21 +1,19 @@
 package spring;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
-import dao.MemberDao;
 import exception.MemberNotFoundException;
 
 public class MemberInfoPrinter {
 
-	private MemberDao memberDao;
+	@Autowired
+	private SqlSession sqlSession;
 
-	public void setMemberDao(MemberDao memberDao) {
-		System.out.println("MemberInfoPrinter"+ memberDao);
-		this.memberDao = memberDao;
-	}
-
-	public void memPrint(String email){
-		Member mem = memberDao.selectByEmail(email);
+	@Transactional
+	public void memPrint(RegisterRequest rs){
+		Member mem = (Member) sqlSession.selectOne("memberSQL.getById", rs.getMem_Id());
 		if(mem == null) 
 			throw new MemberNotFoundException();
 		System.out.println(mem);

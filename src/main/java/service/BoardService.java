@@ -1,23 +1,15 @@
 package service;
 
-import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import bean.BoardBean;
 import bean.BoardCommand;
 import bean.PageBean;
-import exception.AlreadyExistingMemberException;
 import exception.BoardNotFoundException;
-import spring.AuthInfo;
-import spring.Member;
-import spring.RegisterRequest;
 
 @Service
 public class BoardService {
@@ -64,13 +56,13 @@ public class BoardService {
 		sqlSession.update("boardSQL.boardRedCnt", bb);
 	}
 
-	public int boardCount(String searchOption, String keyword, Long host) {
+	public int boardCount(String searchOption, String keyword, String host) {
 		PageBean pb = new PageBean(0, 0, searchOption, keyword, host);
 		int count = sqlSession.selectOne("boardSQL.boardCnt",pb);
 		return count;
 	}
 
-	public List<BoardBean> boardList(int start, int end, String searchOption, String keyword, Long host) {
+	public List<BoardBean> boardList(int start, int end, String searchOption, String keyword, String host) {
 		PageBean pb = new PageBean(start, end, searchOption, keyword, host);
 		List<BoardBean> boards = sqlSession.selectList("boardSQL.boardList", pb);
 		return boards;
