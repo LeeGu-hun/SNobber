@@ -79,36 +79,22 @@ function ch(){
 
 		</div>
 	</nav>
+	<div class="wrap">
+			<%@ include file="/include/header.jsp"%>
+		</div>
 	<!-- !PAGE CONTENT! -->
 	<div class="w3-content" style="max-width: 1500px">
 		<!-- Header -->
+		
 		<div class="w3-opacity">
 
-			<span class="w3-button w3-xxlarge w3-white w3-right">
-				<div class="wrap">
-					<c:if test="${sessionScope.authInfo.mem_num != null}">
-						<label onclick="logout()" class="button">logout</label>
-						<span class="w3-button w3-xxlarge w3-white w3-right"
-							style="float: left;" onclick="w3_open()"><i
-							class="fa fa-bars"></i></span>
-					</c:if>
-					<c:if test="${sessionScope.authInfo.mem_num == null}">
-						<button
-							onclick="document.getElementById('id01').style.display='block'"
-							class="w3-button w3-black">Login</button>
-
-					</c:if>
-				</div>
-			</span>
+				
 
 			<div class="w3-clear"></div>
-			<header class="w3-center w3-margin-bottom">
+			<header class="w3-center w3-margin-bottom" style="margin-top:150px">
 				
 					<img src="./image/snn.png" style="width:auto; height:auto;">
-					
-		
-					
-					
+
 				<br>
 				<p>
 					<h3><b>Show your talents here!</b></h3>
@@ -144,9 +130,6 @@ function ch(){
 				</div>
 				<div style="margin-top:20px; margin-bottom:20px">
 				<footer class="w3-container w3-black"  >
-
-					<a href="./register/step1">회원가입</a> <a href="./find/findId">ID
-						찾기</a> <a href="./find/findPass">비번 찾기</a>
 				<br>
 				</footer>
 				</div>
