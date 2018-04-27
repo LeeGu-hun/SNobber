@@ -53,7 +53,7 @@ html, body, h1, h2, h3, h4, h5 {
 
 <body class="w3-theme-l5">
 
-	<!-- Navbar -->
+	<!-- Navbar test-->
 
 	<!-- Navbar on small screens -->
 	<div id="navDemo"
