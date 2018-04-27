@@ -38,7 +38,7 @@
 	</bean>
 	
 	<bean class="controller.MinController">
-		<property name="minService" ref="minuService"/>
+		<property name="minService" ref="minService"/>
 	</bean>
 	
 	<bean class="controller.SuController">
