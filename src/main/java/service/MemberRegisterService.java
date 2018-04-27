@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import bean.MemberBean;
 import exception.AlreadyExistingMemberException;
 import spring.Member;
-import spring.RegisterRequest;
 
 @Service
 public class MemberRegisterService {
@@ -17,14 +16,18 @@ public class MemberRegisterService {
 	private SqlSession sqlSession;
 
 	@Transactional
-	public void regist(RegisterRequest req) {
-		Member member = sqlSession.selectOne("memberSQL.loginCheck", req.getMem_Id());
+	public void regist(MemberBean mem) {
+		Member member = sqlSession.selectOne("memberSQL.loginCheck", mem.getMem_Id());
+		Member name = sqlSession.selectOne("memberSQL.nameCheck", mem.getMem_Nickname());
 		if (member != null) {
-			throw new AlreadyExistingMemberException("dup id " + req.getMem_Id());
+			throw new AlreadyExistingMemberException("dup mem_Id " + mem.getMem_Id());
+		} else if(name != null) {
+			throw new AlreadyExistingMemberException("dup mem_Name " + mem.getMem_Nickname());
 		}
 
-		Member newMem = new Member(req.getMem_Id(), req.getMem_Name(), req.getMem_Password(), req.getMem_Email(),
-				req.getMem_Photo(), req.getMem_Introduce());
+		Member newMem = new Member(mem.getMem_Id(), mem.getMem_Nickname(), mem.getMem_Password(), mem.getMem_Email(),
+				mem.getMem_Photo(), mem.getMem_Introduce());
 		sqlSession.insert("memberSQL.memberInsert", newMem);
+		sqlSession.insert("memberSQL.boardBasic",mem.getMem_num());
 	}
 }

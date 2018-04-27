@@ -19,7 +19,16 @@
 	<bean class="controller.RegisterController">
 		<property name="memberRegisterService" ref="memberRegisterService" />
 	</bean>
-	
+	<bean class="controller.FindIdController">
+		<property name="findIdService" ref="findIdService" />
+	</bean>
+	<bean class="controller.FindPassController">
+		<property name="findPassService" ref="findPassService" />
+	</bean>
+	<bean class="controller.BoardController">
+		<property name="boardService" ref="boardService" />
+	</bean>
+			
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/edit/**" />

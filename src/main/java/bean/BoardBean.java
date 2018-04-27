@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.Date;
 
 public class BoardBean {
+	private int board_Num;
 	private int mem_Num;
 	private String mem_Photo;
 	private String mem_Nickname;
@@ -13,8 +14,48 @@ public class BoardBean {
 	private int board_Read_Count;
 	private int re_Num;
 	private int like_Num;
-	private Blob board_File;
+	private String board_File;
 	private int board_Type;
+	private int folder_Num;
+	
+	
+	//매퍼의 리스트 수정하면서 이부분 추가했습니다   setter,getter포함
+		private int like_on;
+		private int count;
+
+	public int getFolder_Num() {
+		return folder_Num;
+	}
+
+	public void setFolder_Num(int folder_Num) {
+		this.folder_Num = folder_Num;
+	}
+
+	
+
+	public int getLike_on() {
+		return like_on;
+	}
+
+	public void setLike_on(int like_on) {
+		this.like_on = like_on;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getBoard_Num() {
+		return board_Num;
+	}
+
+	public void setBoard_Num(int board_Num) {
+		this.board_Num = board_Num;
+	}
 
 	public int getMem_Num() {
 		return mem_Num;
@@ -88,11 +129,11 @@ public class BoardBean {
 		this.like_Num = like_Num;
 	}
 
-	public Blob getBoard_File() {
+	public String getBoard_File() {
 		return board_File;
 	}
 
-	public void setBoard_File(Blob board_File) {
+	public void setBoard_File(String board_File) {
 		this.board_File = board_File;
 	}
 

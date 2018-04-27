@@ -11,5 +11,7 @@
 	<bean id="authService" class="service.AuthService" />
 	<bean id="memberRegisterService" class="service.MemberRegisterService" />
 	<bean id="boardService" class="service.BoardService" />
+	<bean id="findIdService" class="service.FindIdService" />
+	<bean id="findPassService" class="service.FindPassService" />
  
 </beans>

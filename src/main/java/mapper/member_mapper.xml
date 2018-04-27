@@ -4,35 +4,139 @@
 
 <mapper namespace="memberSQL">
 	<select id="getById" parameterType="String" resultType="spring.Member">
-		SELECT * FROM A_MEMBER WHERE mem_id=#{id}
+		SELECT *
+		FROM A_MEMBER WHERE mem_num=#{mem_Num}
 	</select>
 
 	<insert id="memberInsert" parameterType="spring.Member">
 		<!-- member는 spring.Member의 별칭. mybatis-config.xml 설정 -->
-		insert into a_member 
-		values(a_member_mem_num_seq.nextval,#{id},
-		#{password}, #{name}, #{email}, #{photo}, #{introduce}, 1)
+		insert into a_member values(a_member_seq.nextval,#{mem_Id},
+		#{mem_Nickname}, #{mem_Password}, #{mem_Email}, #{mem_Photo},
+		#{mem_Introduce}, 1)
 	</insert>
 	
-	<update id="memberUpdate" parameterType="spring.Member">
-		update a_member set
-		mem_nickname=#{name}, mem_password=#{password}
-		, mem_email=#{email}, mem_photo=#{photo}, mem_introduce=#{introduce} where
-		mem_id=#{id}
-	</update>
+	<insert id="boardBasic" parameterType="spring.Member">
+		insert into a_folder(folder_num,mem_num,folder_title,folder_secret) values(a_folder_seq.nextval,a_member_seq.currval,'기본','1')
+	</insert>
 	
-	<delete id="memberDelete" parameterType="spring.Member">
-		delete a_member where mem_id =
-		#{id} and mem_password = #{password}
-	</delete>
-	<select id="loginCheck" parameterType="String" resultType="spring.Member">
-		select
-		* from a_member where mem_id = #{id}
+	<select id="selectById" parameterType="String" resultType="spring.Member">
+		SELECT *
+		FROM A_MEMBER WHERE mem_id=#{mem_Id}
 	</select>
 	
+	<update id="memberDelete" parameterType="spring.Member">
+		update a_member set
+		mem_condition=2 where mem_num=
+		#{mem_Num} and mem_password =
+		#{mem_Password}
+	</update>
+	
+	<update id="memberRepair" parameterType="spring.Member">
+		update a_member set
+		mem_condition=1 where mem_num=
+		#{mem_Num}
+	</update>
+	
+	<select id="loginCheck" parameterType="String" resultType="spring.Member">
+		select
+		* from a_member where mem_Id = #{mem_Id}
+	</select>
+
+	<select id="nameCheck" parameterType="String" resultType="spring.Member">
+		select
+		* from a_member where mem_Nickname = #{mem_Nickname}
+	</select>
+
+	<select id="findCheck" parameterType="String" resultType="spring.Member">
+		select
+		* from a_member where mem_id = #{mem_Id} and mem_nickname =
+		#{mem_Name}
+	</select>
+
+	<select id="findNameCheck" parameterType="String" resultType="spring.Member">
+		select
+		* from a_member where mem_nickname = #{mem_Name} and mem_email =
+		#{mem_Email}
+	</select>
+
+	<select id="findEmailCheck" parameterType="String" resultType="spring.Member">
+		select
+		* from a_member where mem_id = #{mem_Id} and mem_nickname =
+		#{mem_Name} and mem_email = #{mem_Email}
+	</select>
+
+	<select id="emailCheck" parameterType="String" resultType="spring.Member">
+		select
+		* from a_member where mem_Email = #{mem_Email}
+	</select>
+
 	<select id="getMemberList" resultType="spring.Member">
 		select * from a_member
 	</select>
 
+	<select id="following" resultType="bean.FollowBean"
+		parameterType="bean.FollowBean">
+		select
+		f.mem_num,f.follow_you_num,m.MEM_NICKNAME,m.MEM_INTRODUCE,m.MEM_PHOTO,follow
+		from a_follow f,a_member m where
+		f.follow_you_num=m.mem_num and
+		f.mem_num = ${mem_Num}
+	</select>
+
+	<select id="follower" resultType="bean.FollowBean"
+		parameterType="bean.FollowBean">
+		select
+		f.mem_num,f.follow_you_num,m.MEM_NICKNAME,m.MEM_INTRODUCE,m.MEM_PHOTO,follow
+		from a_follow f,a_member m where
+		f.mem_num=m.mem_num and
+		f.follow_you_num = ${mem_Num}
+	</select>
+
+	<delete id="followCancle" parameterType="bean.FollowSubmitBean">
+		delete from a_follow
+		where mem_num=#{mem_Num} and follow_you_num=${follow_You_Num}
+	</delete>
+
+	<update id="cancleUpdate" parameterType="bean.FollowBean">
+		update a_follow set
+		follow='0' where mem_num=${follow_You_Num} and
+		follow_you_num=#{mem_Num}
+	</update>
+
+	<update id="applyUpdate" parameterType="bean.FollowBean">
+		update a_follow set
+		follow='1' where mem_num=${follow_You_Num} and
+		follow_you_num=#{mem_Num}
+	</update>
+
+	<insert id="followApply" parameterType="bean.FollowSubmitBean">
+		insert into a_follow
+		values(a_follow_seq.nextval,#{mem_Num},${follow_You_Num},null,1)
+	</insert>
+
+	<update id="memberUpdate" parameterType="spring.Member">
+		update a_member set
+		mem_nickname=#{mem_Nickname}, mem_password=#{mem_Password}
+		,
+		mem_email=#{mem_Email}, mem_introduce=#{mem_Introduce} where
+		mem_num=#{mem_num}
+	</update>
+
+	<select id="findId" parameterType="String" resultType="spring.Member">
+		SELECT
+		mem_id FROM A_MEMBER WHERE mem_email=#{mem_Email}
+	</select>
+
+	<select id="findPass" parameterType="String" resultType="spring.Member">
+		SELECT
+		mem_password FROM A_MEMBER WHERE mem_id=#{mem_Id} and
+		mem_email=#{mem_Email}
+	</select>
+
+	<update id="photoUpdate" parameterType="spring.Member">
+		update a_member set
+		mem_photo=#{mem_Photo} where mem_num=#{mem_num}
+	</update>
+	
 </mapper>
 

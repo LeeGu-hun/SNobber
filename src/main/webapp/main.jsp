@@ -1,114 +1,121 @@
+
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!DOCTYPE html>
 <html lang="ko">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><spring:message code="login.title" /></title>
-<script>
-	function list(curPage) {
-		location.href = "./main?curPage=" + curPage
-				+ "&searchOption=${map.searchOption}"
-				+ "&keyword=${map.keyword}";
+<title>SNobber</title>
+<metahttp-equiv ="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/w3.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css">
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+<script src="${pageContext.request.contextPath}/js/scriptSc.js?ver=2"></script>
+<script type="text/javascript">
+	function toggle() {
+		document.getElementById('writeDiv').style.display = 'block';
+	}
+	function hide() {
+		document.getElementById("writeDiv").style.display = 'none';
 	}
 </script>
-</head>
-<body>
-	<div style="text-align: right">
-		<p>${sessionScope.authInfo.name}님
-			환영합니다. <a href="./member/list">회원관리</a>&nbsp;&nbsp;&nbsp; <a
-				href="./logout">로그아웃</a>
-		</p>
-		<label>글갯수 :${bean.count}</label>
-	</div>
-	<br>
-	<h1 style="text-align: center">다이어리</h1>
-	<div style="text-align: right">
-		<a href="./BoardWrite">[글 쓰기]</a>
-	</div>
-	<br>
-	<div>
-		<c:if test="${bean.count > 0}">
-			<table>
-				<form name="form1" method="post" action="./main">
-					<select name="searchOption">
-						<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-						<option value="all"
-							<c:out value="${bean.searchOption == 'all'?'selected':''}"/>>제목+내용</option>
-						<option value="board_subject"
-							<c:out value="${bean.searchOption == 'board_subject'?'selected':''}"/>>제목</option>
-						<option value="board_content"
-							<c:out value="${bean.searchOption == 'board_content'?'selected':''}"/>>내용</option>
-					</select> <input name="keyword" value="${bean.keyword}"> <input
-						type="submit" value="조회">
-				</form>
-				<tr align="center" valign="middle" bordercolor="#333333">
-					<td style="font-family: Tahoma; font-size: 10pt;" width="8%"
-						height="26">
-						<div align="center">번호</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 10pt;" width="50%">
-						<div align="center">제목</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 10pt;" width="14%">
-						<div align="center">작성자</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 10pt;" width="17%">
-						<div align="center">날짜</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 10pt;" width="11%">
-						<div align="center">조회수</div>
-					</td>
-				</tr>
-				<c:forEach var="bo" items="${bean.list}">
-					<tr align="center" valign="middle" bordercolor="#333333"
-						onmouseover="this.style.backgroundColor='F8F8F8'"
-						onmouseout="this.style.backgroundColor=''">
-						<td height="23" style="font-family: Tahoma; font-size: 10pt;">
-							</td>
-						<td style="font-family: Tahoma; font-size: 10pt;">
+<body class="w3-theme-l5">
 
-							<div align="left">
-								<c:if test="${!empty bo.BOARD_RE_LEV}">
-									<c:forEach begin="0" end="${bo.BOARD_RE_LEV*2}">
-											&nbsp;
-										</c:forEach>
-									▶
-									</c:if>
-								<c:if test="${empty bo.BOARD_RE_LEV}">
-									▶
-									</c:if>
-								<a href="<c:url value="/BoardDetail/${bo.BOARD_NUM}"/>">
-									${bo.BOARD_SUBJECT} </a>
-							</div>
-						</td>
-						<td>${bo.BOARD_NAME}</td>
-						<td><fmt:formatDate value="${bo.BOARD_DATE}"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${bo.BOARD_READCOUNT}</td>
-					</tr>
-				</c:forEach>
-				<tr align=center height=20>
-					<td colspan=5 style="font-family: Tahoma; font-size: 10pt;"><jsp:include
-							page="/include/paging.jsp" flush="true">
-							<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
-							<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
-							<jsp:param name="startPageNo" value="${paging.startPageNo}" />
-							<jsp:param name="pageNo" value="${paging.pageNo}" />
-							<jsp:param name="endPageNo" value="${paging.endPageNo}" />
-							<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
-							<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
-						</jsp:include></td>
-				</tr>
-			</table>
-		</c:if>
-		<c:if test="${bean.count <= 0}">
-			<h1>등록된 글이 없습니다</h1>
-		</c:if>
+	<c:if test="${sessionScope.authInfo.mem_num == 3}">
+		<div>
+			<%@ include file="/include/headerAdmin.jsp"%>
+		</div>
+	</c:if>
+	<c:if test="${sessionScope.authInfo.mem_num != 3}">
+		<div>
+			<%@ include file="/include/header.jsp"%>
+		</div>
+		<br>
+		<div style="margin-left: 10px;margin-top: 60px;">
+			<input type="radio" id="timeline" value="timeline" name="list"
+				onclick="javascript:contentsView(timeline);" checked>타임라인
+			보여주기 <input type="radio" id="foldertimeline" value="foldertimeline"
+				name="list" onclick="javascript:contentsView(foldertimeline);">팔로한
+			폴더 보여주기
+		</div>
+		<div class="w3-row-padding" style="margin-top: 100px;">
+			<div class="w3-col m12" style="width: 60%; ">
+				<div class="w3-card w3-round w3-white" style="width: 80%; margin-left: 360px; text-align: center;">
+					<div class="w3-container w3-padding">
+						<a href="#" onclick="toggle()"> 글 작성</a>
+						<div id="writeDiv" style="display: none">
+							<%@ include file="/board/board_write.jsp"%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+
+
+	<!-- Navbar -->
+
+	<!-- Page Container -->
+
+	<div style="width: 80%; height: 100%; width: 100%;">
+
+		<div id="followList" >
+			<%@ include file="/include/boardList.jsp"%>
+			<!--팔로 리스트 보여줌 -->
+		</div>
+
+
+
+		<div id="followFolderList" style="display: none; width: 60%; margin-left: 100px"">
+			<%@ include file="/include/followFolderList.jsp"%></div>
 	</div>
+
+	<!-- Footer -->
+	<div>
+
+		<%@ include file="/include/footer.jsp"%>
+
+	</div>
+
+	<script>
+		// Accordion
+		function myFunction(id) {
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+				x.previousElementSibling.className += " w3-theme-d1";
+			} else {
+				x.className = x.className.replace("w3-show", "");
+				x.previousElementSibling.className = x.previousElementSibling.className
+						.replace(" w3-theme-d1", "");
+			}
+		}
+
+		// Used to toggle the menu on smaller screens when clicking on the menu button
+		function openNav() {
+			var x = document.getElementById("navDemo");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
+
 </body>
 </html>

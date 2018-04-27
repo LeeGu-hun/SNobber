@@ -15,7 +15,7 @@ public class ChangePasswordService {
 	public void changePassword(String id, String oldPwd, String newPwd, String email, String nickname, String photo, String introduce) {
 		Member member = sqlSession.selectOne("memberSQL.memberUpdate", id);
 		if (member == null)
-			throw new MemberNotFoundException();
+			throw new MemberNotFoundException("dup mem_Id " + member.getMem_Id());
 		
 		member.changePassword(oldPwd, newPwd);
 	}

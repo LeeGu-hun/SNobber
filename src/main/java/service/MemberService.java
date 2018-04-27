@@ -13,11 +13,6 @@ import org.springframework.stereotype.Service;
 import bean.ListCommand;
 import spring.Member;
 
-//DAO는 단일 데이터 접근/갱신만 처리
-//Service는 여러 DAO를 호출하여 여러번의 데이터 접근/갱신을 하며
-//그렇게 읽은 데이터에 대한 비즈니스 로직을 수행하고, 
-//그것을 하나의(혹은 여러개의) 트랜잭션으로 묶는다.
-//즉, Service가 트랜잭션 단위. 
 @Service
 public class MemberService {
 
@@ -57,8 +52,16 @@ public class MemberService {
 		return results;
 	}
 
-	public Member selectById(Long memId) {
-		Member member = sqlSession.selectOne("memberSQL.getById", memId);
+	public Member selectById(String memId) {
+		Member member = sqlSession.selectOne("memberSQL.selectById", memId);
 		return member;
+	}
+
+	public void delete(int host) {
+		sqlSession.update("memberSQL.memberDelete", host);
+	}
+	
+	public void repair(int host) {
+		sqlSession.update("memberSQL.memberRepair", host);
 	}
 }

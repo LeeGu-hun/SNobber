@@ -10,81 +10,45 @@
 <title>회원 조회</title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-	$(function() {
-		$("#from, #to").datepicker(
-				{
-					dateFormat : 'yy-mm-dd',
-					prevText : '이전 달',
-					nextText : '다음 달',
-					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-							'8월', '9월', '10월', '11월', '12월' ],
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ],
-					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-					showMonthAfterYear : true,
-					yearSuffix : '년'
-				});
-		getDate();
-	});
-
-	function getDate() {
-		var newDate = new Date();
-		var yyyy = newDate.getFullYear();
-		var mm = newDate.getMonth() + 1;
-		if (mm < 10) {
-			mm = "0" + mm;
-		}
-		var dd = newDate.getDate();
-		if (dd < 10) {
-			dd = "0" + dd;
-		}
-		var fromDay = yyyy + "-" + mm + "-01";
-		var toDay = yyyy + "-" + mm + "-" + dd;
-		<c:if test="${cmd.from eq null }">
-		document.getElementById("from").value = fromDay;
-		</c:if>
-		<c:if test="${cmd.to eq null }">
-		document.getElementById("to").value = toDay;
-		</c:if>
-	}
+	
 </script>
 <body>
-	<form:form commandName="cmd">
-		<p>
-			<label>from :
-			<form:input path="from" value="${requestScope.from }" readonly="readonly" /></label>
-			<form:errors path="from" />
-			~ <label>to :
-			<form:input path="to" value="${requestScope.to }" readonly="readonly" /></label>
-			<form:errors path="to" />
-			<input type="submit" value="조회">
-		</p>
-	</form:form>
-
+	<%@ include file="/include/headerAdmin.jsp"%>
+	<div style="margin-top:100px;">
 	<c:if test="${! empty members}">
-		<table>
+		<table class="w3-table w3-bordered">
 			<tr>
 				<th>아이디</th>
 				<th>이메일</th>
 				<th>이름</th>
-				<th>가입일</th>
+				<th>소개</th>
+				<th>상태</th>
 			</tr>
+
 			<c:forEach var="mem" items="${members}">
 				<tr>
-					<td>${mem.id}</td>
-					<td><a href="<c:url value="/member/detail/${mem.id}"/>">
-							${mem.email}</a></td>
-					<td>${mem.name}</td>
-					<td><fmt:formatDate value="${mem.regdate}"
-							pattern="yyyy-MM-dd" /></td>
+					<th><a
+						href="<c:url value="/member/detail/${mem.mem_Id}"/>">${mem.mem_Id}</a></th>
+					<th>${mem.mem_Email}</th>
+					<th>${mem.mem_Nickname}</th>
+					<th>${mem.mem_Introduce}</th>
+					<th>${mem.mem_Condition}</th>
 				</tr>
 			</c:forEach>
+
+
 		</table>
+
+
+
 	</c:if>
+	</div>
 </body>
 </html>

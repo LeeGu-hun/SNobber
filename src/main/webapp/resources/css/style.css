@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+.hidden {
+	display: none;
+	visibility: hidden;
+}
+
+/* 본문 디자인 */
+
+/* 버튼으로 사용할 라벨 디자인 */
+.button {
+	font-size: 19`x;
+	font-weight: 600;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+/* 모달 윈도우 디자인 */
+.box_modal {
+	position: fixed;
+	display: block;
+	width: 80%;
+	height: 60%;
+	top: auto;
+	left: auto;
+	margin-top: auto;
+	margin-left: auto;
+	background: #fff;
+	border: 1px solid #386980;
+	/* 아래 부분은 애니메이션 효과를 위한 부분 */
+	visibility: collapse;
+
+	-webkit-transition: all .2s ease;
+	transition: all .2s ease;
+	-webkit-transform: scale(0, 0);
+	-ms-transform: scale(0, 0);
+	transform: scale(0, 0);
+overflow-y:auto;
+}
+
+/* .box_modal:hover {
+	opacity: 1;
+	filter: alpha(opacity = 100);
+} */
+
+/* 닫기 버튼으로 사용할 라벨 */
+.closer {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 0;
+	right: 0;
+	background: #eee;
+	border-left: 1px solid #386980;
+	border-bottom: 1px solid #386980;
+	text-align: center;
+	line-height: 26px;
+	font-size: 16x;
+	cursor: pointer;
+	
+}
+
+.text {
+	display: inline-block;
+	padding: 5px;
+}
+
+.text h3 {
+	font-size: 19px;
+	margin: 0;
+}
+
+.text p {
+	font-size: 13px;
+}
+
+/* 모달 윈도우가 팝업되는 코어 소스 */
+input#modal[type=checkbox]:checked ~ .box_modal {
+	visibility: visible;
+	-webkit-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	transform: scale(1, 1);
+}

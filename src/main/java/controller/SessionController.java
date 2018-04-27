@@ -1,6 +1,6 @@
 package controller;
 
-import javax.servlet.http.Cookie;
+import javax.servlet.http.Cookie; 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import bean.LoginCommand;
 import bean.LoginCommandValidator;
 import exception.IdPasswordNotMatchingException;
+import exception.MemberNotFoundException;
+import exception.MemberStopException;
 import service.AuthService;
 import spring.AuthInfo;
 
@@ -36,7 +38,7 @@ public class SessionController {
 			return "login/loginForm";
 		try {
 			AuthInfo authInfo = authService.authenticate(loginCommand.getId(), loginCommand.getPassword());
-			session.setAttribute("authInfo", authInfo);
+			session.setAttribute("authInfo", authInfo);	//로그인 한사람의 정보들 
 			Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getId());
 			rememberCookie.setPath("/");
 			if (loginCommand.isRememberId())
@@ -47,6 +49,12 @@ public class SessionController {
 			return "redirect:/main";
 		} catch (IdPasswordNotMatchingException e) {
 			errors.reject("idPasswordNotMatching");
+			return "login/loginForm";
+		} catch (MemberNotFoundException e) {
+			errors.reject("MemberNotFound");
+			return "login/loginForm";
+		} catch (MemberStopException e) {
+			errors.reject("MemberStop");
 			return "login/loginForm";
 		}
 	}

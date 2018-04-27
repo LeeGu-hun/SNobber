@@ -1,24 +1,54 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import bean.BoardBean;
 import bean.BoardCommand;
+import bean.BoardMemberBean;
+import bean.FolderBean;
+import bean.FolderLikekey;
+import bean.FolderListBean;
+import bean.FolderUpdateStateBean;
+import bean.FolderlikeChangeBean;
+import bean.FollowBean;
+import bean.FollowFolderBean;
+import bean.FollowFolderKeyBean;
+import bean.FollowSubmitBean;
+import bean.LikeKeyBean;
+import bean.ListBean;
+import bean.ListBeanScroll;
 import bean.LoginCommand;
-import bean.MainBean;
-import bean.Paging;
+import bean.MemberBean;
+import bean.ReBean;
+import bean.SearchKeyBean;
+import bean.UpdateStateBean;
+import bean.likeChangeBean;
+import bean.mypageEditCommand;
 import service.BoardService;
 import spring.AuthInfo;
+import spring.Board;
+import spring.Member;
 
 @Controller
 public class MainController {
@@ -29,41 +59,701 @@ public class MainController {
 	}
 
 	@RequestMapping("/")
-	public String root(LoginCommand loginCommand, @CookieValue(value = "REMEMBER", required = false) Cookie rCookie) {
+	public String root(LoginCommand loginCommand, @CookieValue(value = "REMEMBER", required = false) Cookie rCookie,
+			Model model, HttpSession session) {
+		session.setAttribute("test", 0);
+
 		if (rCookie != null) {
 			loginCommand.setId(rCookie.getValue());
 			loginCommand.setRememberId(true);
 		}
+
+		// 폴더 인덱스 리스트
+		List<FolderListBean> fList = boardService.folderListInDex();
+		model.addAttribute("fList", fList);
+
 		return "login/loginForm";
+	}
+
+	
+	@RequestMapping(value = "memberlist")
+	public String memberGet(HttpSession session, Model model) {
+		List<Member> member = boardService.memberList();
+		model.addAttribute("members", member);
+		return "member/memberList";
+	}
+	
+	//////////////////////////// 추가 ///////////////////////////////////
+	// 인덱스 파일 리스트 스크롤
+	@ResponseBody
+	@RequestMapping(value = "/issue_folderScroll", method = RequestMethod.POST)
+	public HashMap<String, Object> rootScroll(
+			@RequestParam(value = "issue_rowsCount", required = false) int issue_rowsCount, HttpSession session) {
+	//	int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		// 폴더 인덱스 리스트
+		// int is_rowCount=issue_rowsCount-1;
+		List<FolderListBean> fList = boardService.folderListInDexScroll(issue_rowsCount + 1);
+
+		HashMap<String, Object> issuemap = new HashMap<String, Object>();
+		List<FolderListBean> issue_allList = boardService.folderListInDexScrollAll();
+
+		for (int w = fList.size() - 1; w < fList.size(); w++) {
+			FolderListBean flb = (FolderListBean) fList.get(w);
+
+			String issue_title = flb.getFolder_title();
+			int issue_rownum = flb.getRownum();
+			int issue_mem_num = flb.getMem_num();
+			int issue_fol_num = flb.getFolder_num();
+			String issue_mem_nickname = flb.getMem_nickname();
+			String issue_mem_photo=flb.getMem_photo();
+			
+			issuemap.put("issue_mem_photo", issue_mem_photo);
+			issuemap.put("issue_mem_num", issue_mem_num);
+			issuemap.put("issue_scrollAddTitle", issue_title);
+			issuemap.put("issue_scrollAddRownum", issue_rownum);
+			issuemap.put("issue_scrollAddnickname", issue_mem_nickname);
+			issuemap.put("issue_scrollAddfoldernum", issue_fol_num);
+
+		}
+		
+		issuemap.put("issue_allListsize", issue_allList.size());
+		issuemap.put("issue_fListsize", fList.size());
+		issuemap.put("issue_rowsCount", issue_rowsCount);
+
+		return issuemap;
+	}
+
+	@RequestMapping(value = "mypage/photoEdit")
+	public String photoEditGet(HttpSession session, Model model) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		Member member = boardService.selectById(host);
+		model.addAttribute("member", member);
+		return "mypage/photoEdit";
+	}
+
+	@RequestMapping(value = "mypage/photoEdit", method = RequestMethod.POST)
+	public String photoEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request,
+			Errors errors) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		MultipartFile multi = command.getMem_photo();
+		String originalFilename = "", newFilename = "";
+		if (multi != null) {
+			originalFilename = multi.getOriginalFilename();
+			newFilename = System.currentTimeMillis() + "_" + originalFilename;
+
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String path = root_path + newFilename;
+
+			try {
+				File file = new File(path);
+				multi.transferTo(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
+			Member mem = new Member();
+			mem.setMem_num(host);
+			mem.setMem_Photo(newFilename);
+			boardService.photoUpdate(mem);
+		}
+		return "redirect:/main";
 	}
 
 	@RequestMapping("/main")
 	public String home(Model model, @ModelAttribute("cmd") BoardCommand boardCommand, HttpSession session,
-			@RequestParam(defaultValue = "all") String searchOption, @RequestParam(defaultValue = "") String keyword,
-			@RequestParam(defaultValue = "1") int curPage) {
-		String host = ((AuthInfo) session.getAttribute("authInfo")).getId();
-		List<BoardBean> list = null;
-		int count = boardService.boardCount(searchOption, keyword, host);
-		Paging paging = new Paging();
-		paging.setPageNo(curPage); // get방식의 parameter값으로 반은 page변수, 현재 페이지 번호
-		paging.setPageSize(10); // 한페이지에 불러낼 게시물의 개수 지정
-		paging.setTotalCount(count);
-		int start = paging.getPageBegin();
-		int end = paging.getPageEnd();
-		System.out.println("1");
-		try {
-			list = boardService.boardList(start, end, searchOption, keyword, host);
-			System.out.println("2");
-		} catch (Exception e) {
-		}
-		System.out.println("3");
-		MainBean bean = new MainBean();
-		bean.setList(list);
-		bean.setCount(count);
-		bean.setSearchOption(searchOption);
-		bean.setKeyword(keyword);
-		model.addAttribute("bean", bean);
-		model.addAttribute("paging", paging);
+			@RequestParam(defaultValue = "") String keyword) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		FolderBean bean = new FolderBean();
+		bean.setMem_Num(host);
+		List<FolderBean> folderList = boardService.getFolder(bean);
+		model.addAttribute("title", folderList);
+
+		ListBean lb = new ListBean();
+
+		lb.setB_mem_num(host);
+		lb.setF_mem_num(host);
+		List<BoardBean> list = boardService.boardListTiemLine(lb);
+
+		List<FollowFolderBean> folderfollowList = boardService.myFollowFolder(host);
+		model.addAttribute("folderfollowList", folderfollowList);
+		List<FolderListBean> fList = boardService.folderListMain(host);
+		model.addAttribute("list", list);
+		model.addAttribute("fList", fList);
+		model.addAttribute("folderfollowList", folderfollowList);
 		return "main";
+	}
+
+	@RequestMapping(value = "/main", method = RequestMethod.POST)
+	public String homePost(HttpSession session, BoardCommand board, HttpServletRequest request) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		MultipartFile multi = board.getBOARD_FILE();
+		String originalFilename = "", newFilename = "";
+		if (multi != null) {
+			originalFilename = multi.getOriginalFilename();
+			newFilename = System.currentTimeMillis() + "_" + originalFilename;
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String path = root_path + newFilename;
+			try {
+				File file = new File(path);
+				multi.transferTo(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Board bb = new Board();
+			bb.setMem_Num(host);
+			bb.setBOARD_CONTENT(board.getBOARD_CONTENT());
+			bb.setFolderMode(board.getFolderMode());
+			bb.setWriteMode(board.getWriteMode());
+			bb.setSecretMode(board.getSecretMode());
+			bb.setBOARD_FILE(newFilename);
+			if (board.getFolderMode().equals("0")) {
+				boardService.writeNull(bb);
+			} else {
+				boardService.write(bb);
+			}
+		}
+		return "redirect:/main";
+	}
+
+	// 무한 스크롤~~~~~~~~~~~~~~~~~~
+	@ResponseBody
+	@RequestMapping(value = "/boardScroll", method = RequestMethod.POST)
+	public HashMap<String, Object> boardScroll(HttpSession session,
+			@RequestParam(value = "lastbno", required = false) int lastbno) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		ListBeanScroll lbs = new ListBeanScroll();
+		/* int row = rowsCount - 1; */
+		int lastbnoPlus = lastbno + 1;
+		lbs.setB_mem_num(host);
+		lbs.setF_mem_num(host);
+		lbs.setRowsCount(lastbnoPlus);
+
+		ListBean lb = new ListBean();
+
+		lb.setB_mem_num(host);
+		lb.setF_mem_num(host);
+
+		List<BoardBean> allList = boardService.showListSize(lb);
+
+		List<BoardBean> list = boardService.boardListScroll(lbs);
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		for (int b = list.size() - 1; b < list.size(); b++) {
+			BoardBean bb = (BoardBean) list.get(b);
+
+			String content = bb.getBoard_Content();
+			int board_num = bb.getBoard_Num();
+			int like_on = bb.getLike_on();
+			String mem_nickname = bb.getMem_Nickname();
+			int mem_num = bb.getMem_Num();
+			map.put("scrollAddCon", content);
+			map.put("scrollAddLi", like_on);
+			map.put("scrollAddMeN", mem_nickname);
+			map.put("scrollAddBoardBum", board_num);
+			map.put("scrollAddMeNu", mem_num);
+
+		}
+		map.put("allList", allList.size());
+		map.put("listSize", list.size());
+		// map.put("rowsCount", rowsCount);
+		map.put("scrollIndex", lastbno);
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/folderScrollFollow", method = RequestMethod.POST)
+	public HashMap<String, Object> followfolderScroll(
+			@RequestParam(value = "follow_rowsCount", required = false) int follow_rowsCount, HttpSession session) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+
+		FollowFolderKeyBean ffk = new FollowFolderKeyBean();
+		int follow_rowsCountPlus = follow_rowsCount + 1;
+		ffk.setHost(host);
+
+		ffk.setRown(follow_rowsCountPlus);
+		List<FollowFolderBean> followFlist = boardService.myFollowFolderScroll(ffk);
+		List<FollowFolderBean> allfollowFlist = boardService.myFollowFolderScrollAll(host);
+		HashMap<String, Object> follow_map = new HashMap<String, Object>();
+
+		for (int b = followFlist.size() - 1; b < followFlist.size(); b++) {
+			FollowFolderBean bb = (FollowFolderBean) followFlist.get(b);
+
+			String folder_creater = bb.getFolder_creater();
+			String folder_title = bb.getFolder_title();
+
+			follow_map.put("scrollAddFolder_creator", folder_creater);
+			follow_map.put("scrollAddFolder_title", folder_title);
+
+		}
+
+		follow_map.put("followFlist", followFlist.size());
+		follow_map.put("allfollowFlist", allfollowFlist.size());
+		follow_map.put("follow_rowsCount", follow_rowsCount);
+		return follow_map;
+	}
+
+	@RequestMapping(value = "/follow", method = RequestMethod.GET)
+	public String follow(Model model, HttpSession session) {
+		int mem_Num = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		FollowBean bean = new FollowBean(mem_Num);
+		List<FollowBean> followerBean = boardService.getFollower(bean);
+		List<FollowBean> followingBean = boardService.getFollowing(bean);
+		model.addAttribute("follower", followerBean);
+		model.addAttribute("following", followingBean);
+		return "follow/follow";
+	}
+
+	@RequestMapping("/followsubmit")
+	public String follower(@RequestParam(value = "type", defaultValue = "false") String type,
+			@RequestParam(value = "title", defaultValue = "false") String num, HttpSession session) {
+		int mem_Num = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		int follow_You_Num = Integer.parseInt(num);
+		FollowSubmitBean bean = new FollowSubmitBean();
+		bean.setMem_Num(mem_Num);
+		bean.setFollow_You_Num(follow_You_Num);
+		List<FollowSubmitBean> list = null;
+		if (type.equals("1")) { // 팔로잉 신청
+			boardService.cancle(bean);
+			boardService.cancleUpdate(bean);
+		} else if (type.equals("2")) { // 팔로워 취소
+			boardService.apply(bean);
+			boardService.applyUpdate(bean);
+		}
+		return "redirect:/follow";
+	}
+
+	@RequestMapping("mypage/mypagePro")
+	public String mypagePro() {
+		return "include/";
+	}
+
+	@RequestMapping("mypage/mypageSNS")
+	public String mypageSNS() {
+		return "my/mypage";
+	}
+
+	@RequestMapping(value = "/searching", method = RequestMethod.GET)
+	public String boardSearchGet() {
+		return "serch/searchList";
+	}
+
+	@RequestMapping(value = "/searching", method = RequestMethod.POST)
+	public String boardSearchPost(@RequestParam(required = false) String[] searchOption,
+			@RequestParam(required = false) String keyword, Model model, SearchKeyBean skb) {
+
+		skb.setKeyword(keyword);
+		skb.setSearchOption0(searchOption[0]);
+		skb.setSearchOption1(searchOption[1]);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+
+		int cntboard = 0, cntMember = 0;
+		List<BoardBean> boardList = null;
+		List<MemberBean> memberList = null;
+		try {
+			if (searchOption[0].equals("board_content")) {
+				boardList = boardService.boardSearchList(skb);
+				cntboard = boardService.boardCount(skb);
+			} else {
+				memberList = boardService.boardSearchList2(skb);
+				cntMember = boardService.memberCount(skb);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (searchOption[0].equals("board_content")) {
+			map.put("boardList", boardList);
+			map.put("cntboard", cntboard);
+		} else {
+			map.put("memberList", memberList);
+			map.put("cntMember", cntMember);
+		}
+		model.addAttribute("map", map);
+		return "serch/searchList";
+	}
+
+	@RequestMapping(value = "mypagePro") // 마이페이지 첫 창
+	public String mypagePro(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		if (request.getParameter("num") != null) {
+			int pageNum = Integer.parseInt(request.getParameter("num"));
+
+			model.addAttribute("host", host);
+			Member member = boardService.selectById(pageNum);
+			model.addAttribute("member", member);
+			if (host == pageNum) { // 내 페이지로 가는거
+				List<BoardBean> folder = boardService.mypagePro(pageNum);
+				model.addAttribute("folder", folder);
+				List<BoardBean> boardProBoard = boardService.mypageProBoard(pageNum);
+				model.addAttribute("boardProBoard", boardProBoard);
+			} else if (host != pageNum) { // 남 페이지에 갔을 때
+				List<BoardBean> folder = boardService.mypageProNam(pageNum);
+				model.addAttribute("folder", folder);
+				
+				List<BoardBean> boardProBoard = boardService.mypageProBoardNam(pageNum);
+				model.addAttribute("boardProBoard", boardProBoard);
+			}
+
+			return "mypage/mypagePro";
+		}
+		return "./main";
+	}
+
+	@RequestMapping(value = "mypageSNS") // sns클릭 시
+	public String mypageSns(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int pageNum = Integer.parseInt(request.getParameter("num"));
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		Member member = boardService.selectById(pageNum);
+		model.addAttribute("member", member);
+		List<BoardBean> boardSNS = boardService.mypageSNS(pageNum);
+		model.addAttribute("boardSNS", boardSNS);
+
+		return "mypage/mypageSNS";
+	}
+
+	@RequestMapping(value = "mypageFolder", method = RequestMethod.GET) // 폴더 창으로 이동
+	public String mypageFolder(HttpSession session, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		if (session.equals(null)) {
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>alert('로그인이 필요합니다'); " + "location.href='/';</script>");
+
+			out.flush();
+		}
+		// int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+
+		String num1 = request.getParameter("num");
+		int num = Integer.parseInt(num1);
+		BoardBean bean = new BoardBean();
+		bean.setFolder_Num(num);
+		List<BoardBean> board = boardService.FolderPage(bean);
+		model.addAttribute("board", board);
+
+		String folderName = boardService.folderName(num1);
+		model.addAttribute("folderName", folderName);
+
+		return "mypage/mypageFolder";
+	}
+
+	@RequestMapping(value = "mypageWritingView") // 글 보기
+	public String mypageWritionView(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String num = request.getParameter("num");
+		// num 은 보드의 넘버임
+
+		// List<BoardBean> board = boardService.mypageWritingView(num1);
+		// model.addAttribute("board", board);
+		//조회수 증가 쿼리
+		boardService.boardReadCount(num);
+		model.addAttribute("host", host);
+		List<BoardMemberBean> boardMember = boardService.BoardMemberBean(num);
+		model.addAttribute("bm", boardMember);
+		int likeNum = boardService.boardLikeNum(num);
+		model.addAttribute("likeNum", likeNum);
+		List<ReBean> re = boardService.reBean(num);
+		model.addAttribute("re", re);
+		List<likeChangeBean> like = boardService.boardLike(num);
+		// 좋아요 회원의 정보 가지고 오는거
+
+		return "mypage/mypageWritingView";
+	}
+
+	@RequestMapping(value = "mypageRe")
+	public String mypageRe(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String Content = request.getParameter("Content");
+		int num = Integer.parseInt(request.getParameter("num"));
+		ReBean bean = new ReBean();
+		bean.setRe_Content(Content);
+		bean.setMem_Num(host);
+		bean.setTarget_Num(num);
+
+		boardService.mypageRe(bean);
+		return "./main";
+	}
+	@RequestMapping(value="modifyRe")
+	public String modifyRe(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String num = request.getParameter("num");
+		
+		boardService.modifyRe(num);
+		
+		return "./main";
+	}
+	@RequestMapping(value="deleteRe")
+	public String deleteRe(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String num = request.getParameter("num");
+		
+		boardService.deleteRe(num);
+		
+		return "./main";
+	}
+	@RequestMapping(value="mypageBoardDelete")
+	public String mypageBoardDelete(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String num = request.getParameter("num");
+		
+		boardService.mypageBoardDelete(num);
+		
+		return "./main";
+	}
+
+	@RequestMapping(value = "mypageFolderCreate", method = { RequestMethod.GET, RequestMethod.POST }) // 폴더 만들기
+	public String mypageFolderCreate(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String id = request.getParameter("id");
+
+		if (id.equals("folder_create_btn")) {
+			int num = 0;
+			String title = request.getParameter("title");
+			String secret = request.getParameter("secret");
+
+			if (secret.equals("공개")) {
+				secret = "1";
+				num = Integer.parseInt(secret);
+			} else if (secret.equals("비공개")) {
+				secret = "2";
+				num = Integer.parseInt(secret);
+			}
+			List<FolderBean> list = boardService.mypageFolder(host, title, num);
+			int folderNum = list.get(0).getFolder_Num();
+
+		}
+		return "main";
+	}
+
+	@RequestMapping(value = "mypageFolderDelete")
+	public String mypageFolderDelete(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+
+		String id = request.getParameter("id");
+		String folderNum = request.getParameter("num");
+
+		if (id != null) {
+			boardService.folderDelete(folderNum);
+		}
+		return "./main";
+	}
+
+	@RequestMapping(value = "mypageFolderFollow", method = { RequestMethod.GET, RequestMethod.POST })
+	public String mypageFolderFollow(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+
+		FollowBean bean = new FollowBean();
+
+		String id = request.getParameter("id");
+		int folderNum = Integer.parseInt(request.getParameter("num"));
+
+		bean.setMem_Num(host);
+		bean.setFolder_Num(folderNum);
+
+		if (id != null) {
+			boardService.folderFollow(bean);
+		}
+		return "./main";
+	}
+
+	@RequestMapping(value = "mypageFolderLike", method = { RequestMethod.GET, RequestMethod.POST })
+	public String mypageFolderLike(HttpSession session, Model model, HttpServletRequest request) throws IOException {
+
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		LikeKeyBean bean = new LikeKeyBean();
+
+		String id = request.getParameter("id");
+		int folderNum = Integer.parseInt(request.getParameter("num"));
+
+		bean.setMem_Num(host);
+		bean.setLike_Target_Num(folderNum);
+
+		if (id != null) {
+			boardService.folderLikeke(bean);
+		}
+
+		return "./main";
+	}
+
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public String mypage(HttpSession session, Model model) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		Member member = boardService.selectById(host);
+		model.addAttribute("member", member);
+		return "mypage/mypage";
+	}
+
+	@RequestMapping(value = "mypage/photo")
+	public String photoGet(HttpSession session, Model model) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		Member member = boardService.selectById(host);
+		model.addAttribute("member", member);
+		return "mypage/photo";
+	}
+
+	@RequestMapping(value = "mypageEdit", method = RequestMethod.GET)
+	public String mypageEditGet(HttpSession session, Model model) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		Member member = boardService.selectById(host);
+		model.addAttribute("member", member);
+		return "mypage/mypageEdit";
+	}
+
+	@RequestMapping(value = "mypageEdit", method = RequestMethod.POST)
+	public String mypageEditPost(mypageEditCommand command, HttpSession session, Model model,
+			HttpServletRequest request) {
+		Member mem = new Member();
+
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		mem.setMem_num(host);
+		mem.setMem_Nickname(command.getMem_nickname());
+		mem.setMem_Email(command.getMem_email());
+		mem.setMem_Password(command.getMem_password());
+		mem.setMem_Introduce(command.getMem_introduce());
+		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
+		auth.setName(command.getMem_nickname());
+		auth.setEmail(command.getMem_email());
+		auth.setIntroduce(command.getMem_introduce());
+
+		boardService.mypageUpdate(mem);
+		return "mypage/success";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/boardLikeTest", method = RequestMethod.POST)
+	public HashMap<String, Object> boardLikeTest(@RequestParam(value = "board_Num", required = false) int board_Num,
+			HttpSession session, @RequestParam(value = "like_on", required = false) int like_on,
+			@RequestParam HashMap<String, Object> param, @RequestParam(value = "index") String index) {
+		LikeKeyBean lk = new LikeKeyBean();
+		likeChangeBean lcb = new likeChangeBean();
+		int mem_num = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String mem_nickname = ((AuthInfo) session.getAttribute("authInfo")).getName();
+		lk.setBoard_Num(board_Num);
+		lk.setLike_Target_Num(board_Num);
+		lk.setMem_Nickname(mem_nickname);
+		lk.setMem_Num(mem_num);
+
+		lcb.setBoard_Num(board_Num);
+		lcb.setMem_Num(mem_num);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		if (like_on == 0) {
+			boardService.insertLike(lk);
+			map.put("test", 0);
+			List<UpdateStateBean> updateList = boardService.updateLikeState(lcb);
+			map.put("updateList", updateList);
+
+			for (int i = 0; i < updateList.size(); i++) {
+				UpdateStateBean bb = (UpdateStateBean) updateList.get(i);
+				int count = bb.getCount();
+				int like_onNew = bb.getLike_on();
+				map.put("count", count);
+				map.put("like_onNew", like_onNew);
+			}
+		} else if (like_on == 2) {
+			boardService.reLike(lk);
+			map.put("test", 2);
+			List<UpdateStateBean> updateList = boardService.updateLikeState(lcb);
+			map.put("updateList", updateList.get(0));
+
+			for (int i = 0; i < updateList.size(); i++) {
+				UpdateStateBean bb = (UpdateStateBean) updateList.get(i);
+				int count = bb.getCount();
+				int like_onNew = bb.getLike_on();
+				map.put("count", count);
+				map.put("like_onNew", like_onNew);
+			}
+
+		} else if (like_on == 1) {
+			boardService.likeChange1(lcb);
+			// map.put("1","1");
+			map.put("test", 1);
+			List<UpdateStateBean> updateList = boardService.updateLikeState(lcb);
+			map.put("updateList", updateList);
+
+			for (int i = 0; i < updateList.size(); i++) {
+				UpdateStateBean bb = (UpdateStateBean) updateList.get(i);
+				int count = bb.getCount();
+				int like_onNew = bb.getLike_on();
+				map.put("count", count);
+				map.put("like_onNew", like_onNew);
+			}
+		}
+		map.put("board_num", board_Num);
+		map.put("index", index);
+		return map;
+	}
+
+	// 330~ 폴더 라이크로 추가된 부분
+	@ResponseBody
+	@RequestMapping(value = "/folderLike", method = RequestMethod.POST)
+	public HashMap<String, Object> folderLikeIn(@RequestParam(value = "folder_num", required = false) int folder_num,
+			HttpSession session, @RequestParam(value = "f_like_on", required = false) int f_like_on,
+			@RequestParam(value = "f_index") String f_index) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		int mem_num = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String mem_nickname = ((AuthInfo) session.getAttribute("authInfo")).getName();
+
+		FolderLikekey fk = new FolderLikekey();
+		fk.setLike_target_num(folder_num);
+		fk.setMem_num(mem_num);
+		fk.setMem_nickname(mem_nickname);
+
+		FolderlikeChangeBean flc = new FolderlikeChangeBean();
+		flc.setLike_target_num(folder_num);
+		flc.setMem_num(mem_num);
+
+		if (f_like_on == 0) {
+			boardService.insertFolderLike(fk);
+			map.put("folderLike", 0);
+
+			List<FolderUpdateStateBean> fup = boardService.folderLikeupdate(flc);
+			map.put("fup", fup);
+
+			for (int i = 0; i < fup.size(); i++) {
+				FolderUpdateStateBean bb = (FolderUpdateStateBean) fup.get(i);
+				int countF = bb.getCount();
+				int like_onNewF = bb.getLike_on();
+				map.put("countF", countF);
+				map.put("like_onNewF", like_onNewF);
+			}
+
+		} else if (f_like_on == 1) {
+			boardService.folderlikedelete(flc);
+			// map.put("1","1");
+			map.put("folderLike", 1);
+
+			List<FolderUpdateStateBean> fup = boardService.folderLikeupdate(flc);
+			map.put("fup", fup);
+
+			for (int i = 0; i < fup.size(); i++) {
+				FolderUpdateStateBean bb = (FolderUpdateStateBean) fup.get(i);
+				int countF = bb.getCount();
+				int like_onNewF = bb.getLike_on();
+				map.put("countF", countF);
+				map.put("like_onNewF", like_onNewF);
+			}
+		} else if (f_like_on == 2) {
+			boardService.folderReLike(flc);
+			map.put("folderLike", 2);
+			List<FolderUpdateStateBean> fup = boardService.folderLikeupdate(flc);
+			map.put("fup", fup);
+
+			for (int i = 0; i < fup.size(); i++) {
+				FolderUpdateStateBean bb = (FolderUpdateStateBean) fup.get(i);
+				int countF = bb.getCount();
+				int like_onNewF = bb.getLike_on();
+				map.put("countF", countF);
+				map.put("like_onNewF", like_onNewF);
+			}
+		}
+		map.put("folder_num", folder_num);
+		map.put("f_index", f_index);
+		return map;
 	}
 }
