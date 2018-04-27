@@ -28,6 +28,23 @@
 	<bean class="controller.BoardController">
 		<property name="boardService" ref="boardService" />
 	</bean>
+	
+	<bean class="controller.KuController">
+		<property name="kuService" ref="kuService"/>
+	</bean>
+	
+	<bean class="controller.GoneController">
+		<property name="goneService" ref="goneService"/>
+	</bean>
+	
+	<bean class="controller.MinController">
+		<property name="minService" ref="minuService"/>
+	</bean>
+	
+	<bean class="controller.SuController">
+		<property name="suService" ref="suService"/>
+	</bean>
+	
 			
 	<mvc:interceptors>
 		<mvc:interceptor>

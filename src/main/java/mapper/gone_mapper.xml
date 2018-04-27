@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goneSQL">
+
+<!-- like type=1 붙여줌 -->
+	<select id="boardList" resultType="bean.BoardBean"
+		parameterType="bean.ListBean">
+		select
+		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		board_file from a_board where board_num=b.board_num) as board_file,
+		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
+		and
+		board_num=b.board_num and like_type=1) as like_on,(select count(board_num) from
+		a_like
+		where board_num=b.board_num and like_on=1) as count
+		from (select
+		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		board_file from a_board where board_num=b.board_num) as board_file,
+		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
+		and
+		board_num=b.board_num and like_type=1) as like_on,(select count(board_num) from
+		a_like
+		where board_num=b.board_num and like_on=1) as count
+		from a_board
+		b
+		where
+		b.mem_num in (select follow_you_num from
+		a_follow where
+		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and <![CDATA[ b.board_num > 0
+		group by
+		b.board_num,b.mem_num,b.mem_nickname,b.board_content,
+		b.board_date
+		order by b.board_date DESC, b.board_num DESC) b where  ROWNUM <=10 ]]>
+	</select>
+	
+	
+	<select id="boardListScroll" resultType="bean.BoardBean" parameterType="bean.ListBeanScroll">
+	
+		select
+		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		board_file from a_board where board_num=b.board_num) as board_file,
+		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
+		and
+		board_num=b.board_num and like_type=1) as like_on,(select count(board_num) from
+		a_like
+		where board_num=b.board_num and like_on=1) as count
+		from (select
+		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		board_file from a_board where board_num=b.board_num) as board_file,
+		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
+		and
+		board_num=b.board_num and like_type=1) as like_on,(select count(board_num) from
+		a_like
+		where board_num=b.board_num and like_on=1) as count
+		from a_board
+		b
+		where
+		b.mem_num in (select follow_you_num from
+		a_follow where
+		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and b.board_num > 0
+		group by
+		b.board_num,b.mem_num,b.mem_nickname,b.board_content,
+		b.board_date
+		order by b.board_date DESC, b.board_num DESC) b where ROWNUM  between 0 and #{rowsCount}
+	</select>
+	
+	
+	<select id="showListSize" resultType="bean.BoardBean" parameterType="bean.ListBean">
+	
+		select
+		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		board_file from a_board where board_num=b.board_num) as board_file,
+		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
+		and
+		board_num=b.board_num and like_type=1) as like_on,(select count(board_num) from
+		a_like
+		where board_num=b.board_num and like_on=1) as count
+		from  a_board
+		b
+		where
+		b.mem_num in (select follow_you_num from
+		a_follow where
+		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and b.board_num > 0
+		group by
+		b.board_num,b.mem_num,b.mem_nickname,b.board_content,
+		b.board_date
+		order by b.board_date DESC, b.board_num DESC
+	</select>
+
+	<select id="search" resultType="bean.SearchBean" parameterType="bean.SearchKeyBean">
+		select
+		m.mem_nickname,m.mem_photo,m.mem_introduce,
+		b.board_read_count,b.board_content,b.board_file
+		from a_member m,a_board
+		b
+		where ${searchOption0} like '%${keyword}%' and ${searchOption1} like
+		'%${keyword}%'
+	</select>
+
+	<select id="searchBoard" resultType="bean.BoardBean"
+		parameterType="bean.SearchKeyBean">
+		<choose>
+			<when test="searchOption0=='board_content'">
+				select board_content,mem_nickname,board_file,mem_num
+				from
+				a_board
+				where
+				${searchOption0} like '%${keyword}%' and board_type=2 or
+				${searchOption1} like
+				'%${keyword}%' and board_type=2
+			</when>
+
+		</choose>
+	</select>
+
+	<select id="searchMember" resultType="bean.MemberBean"
+		parameterType="bean.SearchKeyBean">
+		select mem_nickname,mem_introduce,mem_num
+		from a_member where
+		<choose>
+			<when test="searchOption0=='all'">
+				mem_nickname like '%${keyword}%' or
+				mem_introduce like
+				'%${keyword}%'
+			</when>
+
+			<when test="searchOption0=='mem_nickname'">
+				${searchOption0} like '%${keyword}%'
+			</when>
+
+			<when test="searchOption0=='mem_introduce'">
+				${searchOption0} like '%${keyword}%'
+			</when>
+		</choose>
+	</select>
+
+	<select id="count" resultType="int" parameterType="bean.SearchKeyBean">
+		<choose>
+			<when test="searchOption0=='board_content'">
+				select count(*)
+				from a_board where
+				${searchOption0}
+				like '%${keyword}%' or
+				${searchOption1} like
+				'%${keyword}%' and
+				board_type=2
+			</when>
+		</choose>
+	</select>
+
+	<select id="countMem" resultType="int" parameterType="bean.SearchKeyBean">
+		<choose>
+			<when test="searchOption0=='all'">
+				select count(*)
+				from a_member where
+				mem_nickname
+				like
+				'%${keyword}%' or
+				mem_introduce like
+				'%${keyword}%'
+			</when>
+
+			<when test="searchOption0=='mem_nickname'">
+				select count(mem_nickname)
+				from a_member where
+				${searchOption0} like '%${keyword}%'
+			</when>
+
+			<when test="searchOption0=='mem_introduce'">
+				select count(mem_introduce)
+				from a_member where
+				${searchOption0} like
+				'%${keyword}%'
+			</when>
+		</choose>
+	</select>
+
+	<select id="likeOne" parameterType="bean.LikeKeyBean">
+		insert into
+		a_like(like_num,board_num,mem_num,mem_nickname,like_target_num,like_type,like_on)
+		values(like_seq.nextval,#{board_Num},#{mem_Num},#{mem_Nickname},#{like_Target_Num},1,1)
+	</select>
+
+	<select id="likeTwo" parameterType="bean.LikeKeyBean">
+		update a_board set
+		like_num=(select like_num from a_like where
+		board_num=#{board_Num} and
+		mem_num=#{mem_Num}) where
+		board_num=#{board_Num}
+	</select>
+
+	<select id="reLike" parameterType="bean.LikeKeyBean">
+		update a_like set
+		like_on=1
+		where board_num=#{board_Num} and
+		mem_num=#{mem_Num}
+	</select>
+
+	<select id="likeChange1" parameterType="bean.likeChangeBean">
+		update a_like set
+		like_on=2 where board_num=#{board_Num} and
+		mem_num=#{mem_Num}
+	</select>
+
+	<select id="likeUpdate" parameterType="bean.likeChangeBean"
+		resultType="bean.UpdateStateBean">
+		select like_on ,(select count(board_num) from
+		a_like
+		where
+		board_num=#{board_Num} and
+		like_on=1) as count
+		from a_like where board_num=#{board_Num} and mem_num=#{mem_Num}
+	</select>
+
+	<select id="mypageSNS" parameterType="spring.Member" resultType="bean.BoardBean">
+		select mem_num, mem_nickname , board_content, board_file, board_date,
+			mem_photo, board_read_count, re_num, like_num
+	    	from a_board
+	    	where mem_num=#{mem_Num} and board_secret = 1 and board_type = 1
+	    	ORDER BY board_date DESC
+	</select>
+	
+	<select id="mypageProBoard" parameterType="spring.Member" resultType="bean.BoardBean">
+		select * from a_board
+	    	where mem_num=#{mem_Num} and board_type = 2
+	    	ORDER BY board_date DESC
+	</select>
+	
+	<select id="mypageProBoardNam" parameterType="spring.Member" resultType="bean.BoardBean">
+		select * from a_board
+	    	where mem_num=#{mem_Num} and (board_secret = 1 or board_secret = 2) and board_type = 2
+	    	ORDER BY board_date DESC
+	</select>
+	
+	<select id="mypagePro" parameterType="spring.Member" resultType="bean.FolderBean">
+		select * from a_folder where mem_num=#{mem_Num}
+	</select>
+	
+	<select id="mypageProNam" parameterType="spring.Member" resultType="bean.FolderBean">
+		select * from a_folder where mem_num=#{mem_Num} and folder_secret = 1
+	</select>
+	
+	<insert id="mypageFolder" parameterType="bean.FolderBean">
+		insert into a_folder (folder_num, mem_num, folder_title, folder_secret) values 
+		(a_folder_seq.nextval, #{mem_Num}, #{folder_Title}, #{folder_secret})
+	</insert>
+	
+	<delete id="folderDelete" parameterType="String">
+		delete from a_folder where folder_num = #{num}
+	</delete>
+	<delete id="mypageBoardDelete" parameterType="String">
+		delete from a_board where board_num = #{num}		
+	</delete>
+	<insert id="folderFollow" parameterType="bean.FollowBean">
+		insert into a_follow values (a_follow_seq.nextval, 
+			#{mem_Num}, null, #{folder_Num}, null)
+	</insert>
+	<insert id="folderLikeke" parameterType="bean.LikeKeyBean">
+		insert into a_like values(a_like_seq.nextval, null, 
+			#{mem_Num}, null, #{like_Target_Num}, 3, 1)		
+	</insert>
+	
+	<select id="folderPage" parameterType="bean.BoardBean" resultType="bean.BoardBean">
+		select * from a_board where folder_num = #{folder_Num} and board_type = 2
+	</select>
+	
+	<select id="mypageFolderView" parameterType="bean.FolderBean" resultType="bean.FolderBean">
+		select * from a_folder where folder_title = #{folder_Title}
+	</select>
+	
+	<select id="folderName" parameterType="String" resultType="String">
+		select folder_title from a_folder where folder_num = #{num1}
+	</select>
+	
+	<select id="mypageWritingView" parameterType="String" resultType="bean.BoardBean">
+		select * from a_board where board_num = #{num}
+	</select>
+	<update id="boardReadCount" parameterType="String">
+		update a_board set BOARD_READ_COUNT = BOARD_READ_COUNT+1 where board_num = #{num}
+	</update>
+	<insert id="mypageRe" parameterType="bean.ReBean">
+		insert into a_re values(a_re_seq.nextval, #{mem_Num}, 
+			null, #{target_Num}, sysdate, #{re_Content}, 1)
+	</insert>
+	<delete id="deleteRe" parameterType="String">
+		delete from a_re where re_num = #{num}
+	</delete>
+	
+	<select id="BoardMemberBean" parameterType="String" resultType="bean.BoardMemberBean">
+		select b.board_num, m.mem_num, m.MEM_NICKNAME, B.BOARD_CONTENT, B.BOARD_DATE, B.BOARD_SECRET,
+  		  	B.BOARD_FILE, B.BOARD_TYPE, m.mem_id, m.MEM_PHOTO
+  			from a_board b, a_member m 
+  			where b.mem_num = m.mem_num and b.board_num=#{num}
+	</select>
+	
+	<select id="boardLikeNum" parameterType="String" resultType="int">
+		select count(*) from a_like where like_on = 1 and like_type = 1 and like_target_num= #{num}
+	</select>
+	<select id="boardLike" parameterType="String" resultType="bean.likeChangeBean">
+		select like_target_num, mem_num from a_like 
+			where like_on = 1 and like_type = 1 and like_target_num= #{num}
+	</select>
+	<select id="reBean" parameterType="String" resultType="bean.ReBean">
+		select m.MEM_NICKNAME, m.mem_photo, r.RE_CONTENT, r.RE_DATE, r.mem_num, r.re_num
+    		from a_member m, a_re r where m.MEM_NUM = r.MEM_NUM and r.target_num = #{num}
+	</select>
+	<!-- 폴더 리스트 보여줌 -->
+
+<!-- 라이크 3번 타입 불러옴 // 폴더 리스트,스크롤용 279-383-->
+	<select id="folderListMain" resultType="bean.FolderListBean"
+		parameterType="int">
+		select ROWNUM,folder_title,folder_num,mem_num,
+		(select
+		count(like_target_num) from a_like where like_type=3 and like_on=1
+		and
+		like_target_num=fol.folder_num)
+		as count, (select like_on from a_like
+		where mem_num=#{host} and
+		like_target_num=fol.folder_num and
+		like_type=3) as like_on
+		from (select ROWNUM,
+		folder_title,folder_num,mem_num,
+		(select
+		count(like_target_num) from
+		a_like where like_type=3 and like_on=1
+		and
+		like_target_num=fol.folder_num)
+		as count, (select like_on from a_like
+		where mem_num=#{host} and
+		like_target_num=fol.folder_num and
+		like_type=3) as like_on
+		from a_folder FOL where folder_secret=1 order
+		by count DESC) FOL where <![CDATA[ROWNUM <= 10]]>
+
+	</select>
+
+
+	<select id="folderListInDex" resultType="bean.FolderListBean">
+		select ROWNUM,folder_title,folder_num,mem_num,(select mem_nickname
+		from a_member where
+		mem_num=fol.mem_num) as mem_nickname,(select mem_photo from a_member where mem_num=fol.mem_num) mem_photo,
+		(select
+		count(like_target_num) from a_like where like_type=3 and like_on=1
+		and
+		like_target_num=fol.folder_num)
+		as count
+		from (select ROWNUM,
+		folder_title,folder_num,mem_num,(select mem_nickname from a_member
+		where
+		mem_num=fol.mem_num) as mem_nickname,
+		(select
+		count(like_target_num) from
+		a_like where like_type=3 and like_on=1
+		and
+		like_target_num=fol.folder_num)
+		as count
+		from a_folder FOL where
+		folder_secret=1 order
+		by count DESC) FOL where <![CDATA[ROWNUM <= 10]]>
+
+	</select>
+
+
+
+	<select id="folderListInDexScroll" resultType="bean.FolderListBean"
+		parameterType="int">
+		select ROWNUM,folder_title,folder_num,mem_num,(select
+		mem_nickname from a_member where
+		mem_num=fol.mem_num) as mem_nickname,(select mem_photo from a_member where mem_num=fol.mem_num) mem_photo,
+		(select
+		count(like_target_num) from a_like where like_type=3 and
+		like_on=1
+		and
+		like_target_num=fol.folder_num)
+		as count
+		from (select
+		ROWNUM,
+		folder_title,folder_num,mem_num,(select mem_nickname from
+		a_member where
+		mem_num=fol.mem_num) as mem_nickname,
+		(select
+		count(like_target_num) from
+		a_like where like_type=3 and like_on=1
+		and
+		like_target_num=fol.folder_num)
+		as count
+		from a_folder FOL where
+		folder_secret=1 order
+		by count DESC) FOL where ROWNUM between 0 and
+		#{rows}
+
+	</select>
+
+
+
+
+	<select id="folderListInDexScrollAll" resultType="bean.FolderListBean">
+		select
+		ROWNUM,folder_title,folder_num,mem_num,(select
+		mem_nickname from
+		a_member where
+		mem_num=fol.mem_num) as mem_nickname,(select mem_photo from a_member where mem_num=fol.mem_num) mem_photo,
+		(select
+		count(like_target_num) from a_like where like_type=3 and
+		like_on=1
+		and
+		like_target_num=fol.folder_num)
+		as count
+		from a_folder FOL where
+		folder_secret=1 order
+		by count DESC
+
+	</select>
+
+
+	<!-- 폴더 라이크(값 0 이었을때 ) -->
+	<insert id="folderLike" parameterType="bean.FolderLikekey">
+		insert into
+		a_like(like_num,mem_num,mem_nickname,like_target_num,like_type,like_on)
+		values(like_seq.nextval,#{mem_num},#{mem_nickname},#{like_target_num},3,1)
+	</insert>
+
+	<select id="folderlikeUpdate" parameterType="bean.FolderlikeChangeBean"
+		resultType="bean.FolderUpdateStateBean">
+		select like_on ,(select count(like_target_num) from a_like
+		where like_type=3 and like_on=1 and
+		like_target_num=#{like_target_num}) as count
+		from
+		a_like where
+		like_target_num=#{like_target_num} and mem_num=#{mem_num} and
+		like_type=3
+	</select>
+
+	<!-- 폴더 라이크 취소 -->
+	<update id="folderlikeChange" parameterType="bean.FolderlikeChangeBean">
+		update a_like set
+		like_on=2 where like_target_num=#{like_target_num} and
+		mem_num=#{mem_num} and like_type=3
+	</update>
+	<!-- 리라이크 -->
+	<select id="folderReLike" parameterType="bean.FolderlikeChangeBean">
+		update a_like set
+		like_on=1
+		where like_target_num=#{like_target_num} and
+		mem_num=#{mem_num} and like_type=3
+	</select>
+
+
+<!-- 팔로우 폴더 리스트 -->
+	<select id="myFollowFolder" parameterType="int"
+		resultType="bean.FollowFolderBean">
+		select follow_num,mem_num,folder_num,(select folder_title
+		from a_folder
+		where folder_num=fl.folder_num ) as folder_title,(select
+		mem_nickname
+		from a_folder where folder_num=fl.folder_num )
+		as
+		folder_creater from (
+		select follow_num,mem_num,folder_num,(select folder_title
+		from a_folder
+		where folder_num=fl.folder_num ) as folder_title,(select
+		mem_nickname
+		from a_folder where folder_num=fl.folder_num )
+		as
+		folder_creater from
+		a_follow FL
+		where mem_num=#{host} and follow_you_num is null order by
+		folder_num DESC) FL where <![CDATA[ROWNUM <= 10]]>
+
+
+
+	</select>
+
+
+	<select id="myFollowFolderScroll" parameterType="bean.FollowFolderKeyBean"
+		resultType="bean.FollowFolderBean">
+
+
+		select follow_num,mem_num,folder_num,(select folder_title
+		from a_folder
+		where
+		folder_num=fl.folder_num ) as folder_title,(select
+		mem_nickname
+		from
+		a_folder where folder_num=fl.folder_num )
+		as
+		folder_creater from (
+		select follow_num,mem_num,folder_num,(select folder_title
+		from a_folder
+		where folder_num=fl.folder_num ) as folder_title,(select
+		mem_nickname
+		from a_folder where folder_num=fl.folder_num )
+		as
+		folder_creater from
+		a_follow FL
+		where mem_num=#{host} and follow_you_num is null
+		order by folder_num DESC) FL
+		where ROWNUM between
+		0 and #{rown}
+
+
+	</select>
+
+
+
+
+<select id="myFollowFolderScrollAll" parameterType="int" resultType="bean.FollowFolderBean">
+
+		select follow_num,mem_num,folder_num,(select folder_title
+		from a_folder
+		where
+		folder_num=fl.folder_num ) as folder_title,(select
+		mem_nickname
+		from
+		a_folder where folder_num=fl.folder_num )
+		as
+		folder_creater from (
+		select follow_num,mem_num,folder_num,(select folder_title
+		from a_folder
+		where folder_num=fl.folder_num ) as folder_title,(select
+		mem_nickname
+		from a_folder where folder_num=fl.folder_num )
+		as
+		folder_creater from
+		a_follow FL
+		where mem_num=#{host} and follow_you_num is null
+		order by folder_num DESC) FL
+
+	</select>
+
+
+	<select id="getFolder" resultType="bean.FolderBean" parameterType="bean.FolderBean">
+		select folder_num,folder_title from a_folder where mem_num=#{mem_Num}
+	</select>
+	
+	<insert id="write" parameterType="spring.Board" >
+		insert into a_board (board_num,mem_num,board_content,board_date,board_secret,board_read_count,board_file,board_type,folder_num)
+		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode},#{folderMode})
+	</insert>
+	
+	<insert id ="writeNull" parameterType="spring.Board" >
+		insert into a_board (board_num,mem_num,board_content,board_date,board_secret,board_read_count,board_file,board_type)
+		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode})
+	</insert>
+	
+	<select id="getBoard" resultType="bean.BoardMemberBean" parameterType="String">
+		select * from a_board b, a_member m 
+  			where b.mem_num = m.mem_num and b.board_num=#{num}
+	</select>
+	
+	<update id="editBoard" parameterType="bean.BoardMemberBean">
+		update a_board set board_secret=#{board_Secret}, board_content=#{board_Content} where board_num=#{board_Num}
+	</update>
+	
+</mapper>
+
