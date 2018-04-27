@@ -1,4 +1,4 @@
-
+ 
   CREATE TABLE "DB7"."A_BOARD" 
    (	"BOARD_NUM" NUMBER, 
 	"MEM_NUM" NUMBER, 
