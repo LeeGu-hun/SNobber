@@ -1,3 +1,7 @@
+순서대로 실행하세요
+
+
+
 CREATE TABLE "DB7"."A_MEMBER" 
    (	"MEM_NUM" NUMBER, 
 	"MEM_ID" VARCHAR2(20 BYTE) NOT NULL ENABLE, 
