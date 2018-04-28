@@ -247,6 +247,9 @@ public class MainController {
 			int like_on = bb.getLike_on();
 			String mem_nickname = bb.getMem_Nickname();
 			int mem_num = bb.getMem_Num();
+			String mem_ph=bb.getMem_Photo();
+		
+			map.put("scrollAddPhoto", mem_ph);
 			map.put("scrollAddCon", content);
 			map.put("scrollAddLi", like_on);
 			map.put("scrollAddMeN", mem_nickname);
