@@ -36,12 +36,39 @@ body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Raleway", sans-serif
 }
 </style>
+
+<style>
+  #columns{
+    column-width:360px;
+    column-gap: 15px;
+  }
+  #columns figure{
+    display: inline-block;
+    border:1px solid rgba(0,0,0,0.2);
+    margin:0;
+    margin-bottom: 15px;
+    padding:10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
+  }
+  #columns figure img{
+    width:100%;
+  }
+  #columns figure figcaption{
+    border-top:1px solid rgba(0,0,0,0.2);
+    padding:10px;
+    margin-top:11px;
+  }
+</style>
 <script>
 	function mypagePro(num) {
 		$(location).attr('href', './mypagePro?num=' + num + '');
 	}
 	function mypageSNS(num) {
 		$(location).attr('href', './mypageSNS?num=' + num + '');
+	}
+	function stBoard(num) {
+		$(location).data("num", num);
+		$(location).attr('href', './mypageWritingView?num=' + num + '');
 	}
 </script>
 <script type="text/javascript">
@@ -52,6 +79,26 @@ body, h1, h2, h3, h4, h5, h6 {
 		$("#content").html("정말 삭제하시겠습니까?");
 		document.getElementById('myModal').style.display = 'block';
 		//modal을 띄워준다.  	    
+	}
+	function boardDelete() {
+		var num = $('#boNum').attr("value");
+		var id = "Like";
+
+		$.ajax({
+			type : "POST",
+			url : "./mypageBoardDelete",
+			data : {
+				id : id,
+				num : num
+			},
+			success : boardDelete2
+		});
+	}
+	function boardDelete2(num) {
+		alert('삭제 완료');
+		var next = $('.next').val();
+
+		$(location).attr('href', './mypageSNS?num=' + next + '');
 	}
 </script>
 
@@ -66,37 +113,55 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<!-- Header -->
 		<header id="portfolio">
-
-
 			<div class="w3-container">
 				<h1>
 					<b>My SNS</b>
 				</h1>
-
 				<div class="w3-section w3-bottombar w3-padding-16">
 					<span class="w3-margin-right">Filter:</span>
 					<button class="w3-button w3-white w3-hide-small"
 						onclick="mypagePro('${member.mem_num}')">
-						<i class="fa fa-photo w3-margin-right"></i> Pro
+						<i class="fa fa-photo w3-margin-right"></i> 
+							Pro
 					</button>
-					
 					<button class="w3-button w3-white w3-hide-small"
 						onclick="mypageSNS('${member.mem_num}')">
-						<i class="fa fa-map-pin w3-margin-right"></i> SNS
+						<i class="fa fa-map-pin w3-margin-right"></i> 
+							SNS
 					</button>
-					
 				</div>
-
 			</div>
 		</header>
 
 		<!-- First Photo Grid-->
-		<div class="w3-row-padding">
+		<div id="columns">
 			<c:if test="${empty boardSNS }">
 				<p>등록된 글이 없습니다.</p>
 			</c:if>
 			<c:forEach var="bo" items="${boardSNS }">
-				<div class="w3-third w3-container w3-margin-bottom"
+				<figure>
+					<img src="${pageContext.request.contextPath}/${bo.board_File }" 
+							onclick="stBoard('${bo.board_Num}')"/>
+					<figcaption>
+						<p onclick="stBoard('${bo.board_Num}')">
+							${bo.board_Content }
+						</p>
+						<span>
+							조회수 : ${bo.board_Read_Count}
+						</span>
+						<span>
+							${bo.board_Date }
+						</span>
+						<c:if test="${host eq bo.mem_Num }">
+							<td onclick="boardNum(${bo.board_Num})" style="text-align: right;">Edit</td>
+							<td class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">Delete</td>									
+						</c:if>
+					</figcaption>							
+				</figure>
+			</c:forEach>
+		</div>
+		<div class="w3-row-padding">
+<%-- 				<div class="w3-third w3-container w3-margin-bottom"
 					value="${bo.board_Num}">
 					<div onclick="stBoard('${bo.board_Num}')" alt="Norway"
 						style="width: 100%" class="w3-hover-opacity">
@@ -118,16 +183,15 @@ body, h1, h2, h3, h4, h5, h6 {
 									<td></td>
 									<td></td>
 									<td></td>
-									<td onclick="boardNum(${bo.board_Num})"
-										style="text-align: right;">Edit</td>
-									<td class="boardD" onclick="ingShow('${bo.board_Num}')"
-										style="text-align: right;">Delete</td>
+									<td onclick="boardNum(${bo.board_Num})" style="text-align: right;">Edit</td>
+									<td class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">Delete</td>
 								</tr>
 							</c:if>
 						</table>
 					</div>
 				</div>
-			</c:forEach>
+ --%>			<%-- </c:forEach> --%>
+ 			</div>
 			<!-- Modal -->
 			<div id="myModal" class="w3-modal">
 				<div class="w3-modal-content">
@@ -148,61 +212,27 @@ body, h1, h2, h3, h4, h5, h6 {
 					</div>
 				</div>
 			</div>
-
-			<%-- 			<c:forEach var="bo" items="${boardSNS }">
-				<div class="w3-third w3-container w3-margin-bottom" id="mypage">
-					${bo.board_File }
-					<div class="w3-container w3-white">
-						<p>
-							<b><div>${bo.board_Content }</div></b>
-						</p>
-						<div>
-							<span> 좋아요 : ${bo.like_Num } </span> <span> 조회수 :
-								${bo.board_Read_Count } </span>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
- --%>
-		</div>
-
-
-
+		
 	</div>
 
 	<!-- Pagination -->
 	<div class="w3-center w3-padding-32">
 		<div class="w3-bar">
-			<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a> <a
-				href="#" class="w3-bar-item w3-black w3-button">1</a> <a href="#"
-				class="w3-bar-item w3-button w3-hover-black">2</a> <a href="#"
-				class="w3-bar-item w3-button w3-hover-black">3</a> <a href="#"
-				class="w3-bar-item w3-button w3-hover-black">4</a> <a href="#"
-				class="w3-bar-item w3-button w3-hover-black">»</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a> 
+			<a href="#" class="w3-bar-item w3-black w3-button">1</a> 
+			<a href="#"class="w3-bar-item w3-button w3-hover-black">2</a> 
+			<a href="#"class="w3-bar-item w3-button w3-hover-black">3</a> 
+			<a href="#"class="w3-bar-item w3-button w3-hover-black">4</a> 
+			<a href="#"class="w3-bar-item w3-button w3-hover-black">»</a>
 		</div>
 	</div>
 
 	<!-- Images of Me -->
 	<div class="w3-row-padding w3-padding-16" id="about">
-		<div class="w3-col m6">
-			
-
-
-
-
-
-
-
-
-
-
-
-		</div>
-
+		<div class="w3-col m6"></div>
 	</div>
 
 	<div class="w3-container w3-padding-large" style="margin-bottom: 32px">
-
 		<%@ include file="../include/footer2.jsp"%>
 </body>
 </html>

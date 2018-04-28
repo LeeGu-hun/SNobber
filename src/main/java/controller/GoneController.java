@@ -22,18 +22,18 @@ public class GoneController {
 		this.goneService = goneService;
 	}
 	
-	//메인 컨트롤러에서 해당부분 수정
-	//@RequestMapping(value = "mypageEdit", method = RequestMethod.POST)
-	public String mypageEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request, Errors errors) {
-		new EditValidator().validate(command, errors);
-		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
-		Member mem = new Member();
-		mem.setMem_num(host);
-		mem.setMem_Password(command.getMem_password());
-		mem.setMem_Introduce(command.getMem_introduce());
-		boardService.mypageUpdate(mem);
-		return "redirect:/main";
-	}
+//	//메인 컨트롤러에서 해당부분 수정
+//	//@RequestMapping(value = "mypageEdit", method = RequestMethod.POST)
+//	public String mypageEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request, Errors errors) {
+//		new EditValidator().validate(command, errors);
+//		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+//		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
+//		Member mem = new Member();
+//		mem.setMem_num(host);
+//		mem.setMem_Password(command.getMem_password());
+//		mem.setMem_Introduce(command.getMem_introduce());
+//		boardService.mypageUpdate(mem);
+//		return "redirect:/main";
+//	}
 
 }
