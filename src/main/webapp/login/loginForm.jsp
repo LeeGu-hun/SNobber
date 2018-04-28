@@ -22,7 +22,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
-<script src="${pageContext.request.contextPath}/js/scriptSc.js?ver=2"></script>
+<script src="${pageContext.request.contextPath}/js/scriptSc.js?ver=1"></script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript"
@@ -30,6 +30,8 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
 	type="text/javascript"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Raleway">
 
 <style>
 body, h1 {
@@ -43,18 +45,13 @@ img {
 .w3-row-padding img {
 	margin-bottom: 12px
 }
+
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Raleway", sans-serif
+}
 </style>
 
 
-<script>
-function ch(){
-	data-toggle="modal"; 
-}
-
-
-
-
-</script>
 
 
 
@@ -80,24 +77,28 @@ function ch(){
 		</div>
 	</nav>
 	<div class="wrap">
-			<%@ include file="/include/header.jsp"%>
-		</div>
+		<%@ include file="/include/header.jsp"%>
+	</div>
 	<!-- !PAGE CONTENT! -->
 	<div class="w3-content" style="max-width: 1500px">
 		<!-- Header -->
-		
+
 		<div class="w3-opacity">
 
-				
+
 
 			<div class="w3-clear"></div>
-			<header class="w3-center w3-margin-bottom" style="margin-top:150px">
-				
-					<img src="./image/snn.png" style="width:auto; height:auto;">
+			<header class="w3-center w3-margin-bottom" style="margin-top: 150px">
+
+				<img src="./image/snn.png" style="width: auto; height: auto;">
 
 				<br>
 				<p>
-					<h3><b>Show your talents here!</b></h3>
+				<h3>
+					<b>SNol: 네덜란드 어로 '놀다'를 뜻하며 <br>SNobber의 SNol에는 모두가 즐길 수 있는
+						것들이 담겨있다.
+					</b>
+				</h3>
 				</p>
 			</header>
 		</div>
@@ -128,149 +129,194 @@ function ch(){
 						<input type="submit" value="<spring:message code="login.btn" />">
 					</form:form>
 				</div>
-				<div style="margin-top:20px; margin-bottom:20px">
-				<footer class="w3-container w3-black"  >
-				<br>
-				</footer>
+				<div style="margin-top: 20px; margin-bottom: 20px">
+					<footer class="w3-container w3-black">
+						<br>
+					</footer>
 				</div>
 			</div>
 		</div>
 
 
 		<!-- Photo Grid -->
-		<br><br><br>
-		<div class="w3-row" id="myGrid" style="margin-bottom: 128px">
-		<div style="margin-left:150px;"><h1><b>TODAY'S BEST SNol</b></h1></div>
 		<br>
+		<br>
+		<br>
+		<div class="w3-row" id="myGrid" style="margin-bottom: 128px">
+			<div style="margin-left: 150px;">
+				<h1>
+					<b>TODAY'S BEST SNol</b>
+				</h1>
+			</div>
+			<br>
 			<div class="w3-third"
 				style="width: 80%; margin-right: 150px; float: right;">
 				<div id="issue_folder">
+
 					<c:forEach items="${fList}" var="fl" varStatus="sts">
-						<div>
-							<div class="w3-container w3-flat-clouds">
-							<p>	<h2>RANK   ${fl.rownum }</h2></p>
-								<p>
-									<img src="${pageContext.request.contextPath}/${fl.mem_photo}" style="width:300px; height:200px; boarder-radius:50%;"> <a href="#" onclick="yourPage('${fl.mem_num}')">
-										${fl.mem_nickname } </a>
-								</p>
-								<p class="hot_scroll" data-issueIndex="${sts.index }">
-									<a href="#" onclick="folder('${fl.folder_num}')">
-										${fl.folder_title } </a>
-								</p>
+						<div class="w3-third w3-container w3-margin-bottom">
+							<h1>RANK ${fl.rownum }</h1>
+							<img src="${pageContext.request.contextPath}/${fl.mem_photo}"
+								alt="Norway" style="width: 300px" class="w3-hover-opacity" height="200px">
+							<div class="w3-container w3-white" style="margin-top: 20px">
+
+								<table>
+									<tr>
+										<td><b>
+												<h3>
+													<a href="#" onclick="yourPage('${fl.mem_num}')">${fl.mem_nickname }</a>
+												</h3>
+										</b></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td style="width:260px;"class="hot_scroll"
+												data-issueIndex="${sts.index }">
+												<a href="#" onclick="folder('${fl.folder_num}')">
+													${fl.folder_title }</a>
+											</td>
+										<td>♥${fl.count}</td>
+									</tr>
+								</table>
+
+
+
+
+
 							</div>
-							<br>
 						</div>
 					</c:forEach>
 				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			</div>
-			<!-- End Page Content -->
 		</div>
+		<!-- End Page Content -->
+	</div>
 
-		<!-- Footer -->
-		<footer
-			class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge"
-			style="margin-top: 128px">
-			<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
-				class="fa fa-instagram w3-hover-opacity"></i> <i
-				class="fa fa-snapchat w3-hover-opacity"></i> <i
-				class="fa fa-pinterest-p w3-hover-opacity"></i> <i
-				class="fa fa-twitter w3-hover-opacity"></i> <i
-				class="fa fa-linkedin w3-hover-opacity"></i>
-			<p class="w3-medium">
-				Powered by <a href="https://www.w3schools.com/w3css/default.asp"
-					target="_blank" class="w3-hover-text-green">w3.css</a>
-			</p>
-		</footer>
-		<script>
-			function folder(num) {
-				var session = document.getElementById('session').value;
-				if (session == "") {
-					alert('로그인 하세요');
-				} else {
-					$(location).attr('href', 'mypageFolder?num=' + num + '');
-				}
-
-			}
-			function yourPage(num) {
-				var session = document.getElementById('session').value;
-				if (session == "") {
-					alert('로그인 하세요 ');
-				} else {
-					$(location).attr('href', 'mypagePro?num=' + num + '');
-				}
-
-			}
-			$(document).ready(
-					function() {
-						var issue_rowsCount = $(".hot_scroll:last").attr(
-								"data-issueIndex");
-						$(window).scroll(
-								function() {
-
-									if ($(window).scrollTop() == $(document)
-											.height()
-											- $(window).height()) {
-										issue_rowsCount++;
-
-										$.ajax({
-											type : "POST",
-											dataType : "json",
-											url : "./issue_folderScroll",
-											data : "issue_rowsCount="
-													+ issue_rowsCount,
-											success : issueF
-										});
-									}
-								});
-					});
-
-			function issueF(data) {
-
-				var issue_title = data.issue_scrollAddTitle;
-				var issue_rownum = data.issue_scrollAddRownum;
-				var issue_mem_nickname = data.issue_scrollAddnickname;
-				var issue_allList = data.issue_allListsize;
-				var issue_fList = data.issue_fListsize;
-				var issue_rowsCount = data.issue_rowsCount;
-				var issue_mem_num = data.issue_mem_num;
-				var issue_foldernum = data.issue_scrollAddfoldernum;
-				var issue_mem_photo=data.issue_mem_photo;
-				console.log("issue_title :" + issue_title);
-				/* "<div class='w3-container w3-flat-emerald'><h2>"+issue_rownum+"</h2><p>"+nickname_tag+"</p>"			
-				+"<p class='hot_scroll' data-issueIndex="+issue_rowsCount +"><a href='#' onclick="+"folder(\""+issue_foldernum+"\")'>"+issue_title+"</a>"
-				+"</p></div>"
-				 */
-
-				nickname_tag = "<a href='#' onclick=" + "'yourPage(\""
-						+ issue_mem_num + "\")'>" + issue_mem_nickname + "</a>";
-				if (issue_fList < issue_allList) {
-
-					$('#issue_folder')
-							.append(
-									"<div class='w3-container w3-flat-clouds'><h2>RANK "
-											+ " "+issue_rownum
-											+ "</h2><p><img src=${pageContext.request.contextPath}/"+issue_mem_photo+"style='width:auto; height:auto; boarder-radius:50%;'>" 
-											+ nickname_tag
-											+ "</p>"
-											+ "<p class='hot_scroll' data-issueIndex="+issue_rowsCount +"><a href='#' onclick="
-											+ "folder(\"" + issue_foldernum
-											+ "\")'>" + issue_title + "</a>"
-											+ "</p></div><br>");
-				}
-			}
-			function logout() {
-				$(location).attr('href', "./logout");
+	<!-- Footer -->
+	<footer
+		class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge"
+		style="margin-top: 128px">
+		<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
+			class="fa fa-instagram w3-hover-opacity"></i> <i
+			class="fa fa-snapchat w3-hover-opacity"></i> <i
+			class="fa fa-pinterest-p w3-hover-opacity"></i> <i
+			class="fa fa-twitter w3-hover-opacity"></i> <i
+			class="fa fa-linkedin w3-hover-opacity"></i>
+		<p class="w3-medium">
+			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+				target="_blank" class="w3-hover-text-green">w3.css</a>
+		</p>
+	</footer>
+	<script>
+		function folder(num) {
+			var session = document.getElementById('session').value;
+			if (session == "") {
+				alert('로그인 하세요');
+			} else {
+				$(location).attr('href', 'mypageFolder?num=' + num + '');
 			}
 
-			function w3_open() {
-				document.getElementById("mySidebar").style.width = "100%";
-				document.getElementById("mySidebar").style.display = "block";
+		}
+		function yourPage(num) {
+			var session = document.getElementById('session').value;
+			if (session == "") {
+				alert('로그인 하세요 ');
+			} else {
+				$(location).attr('href', 'mypagePro?num=' + num + '');
 			}
 
-			function w3_close() {
-				document.getElementById("mySidebar").style.display = "none";
+		}
+		$(document).ready(
+				function() {
+					var issue_rowsCount = $(".hot_scroll:last").attr(
+							"data-issueIndex");
+					$(window).scroll(
+							function() {
+
+								if ($(window).scrollTop() == $(document)
+										.height()
+										- $(window).height()) {
+									issue_rowsCount++;
+
+									$.ajax({
+										type : "POST",
+										dataType : "json",
+										url : "./issue_folderScroll",
+										data : "issue_rowsCount="
+												+ issue_rowsCount,
+										success : issueF
+									});
+								}
+							});
+				});
+
+		function issueF(data) {
+
+			var issue_title = data.issue_scrollAddTitle;
+			var issue_rownum = data.issue_scrollAddRownum;
+			var issue_mem_nickname = data.issue_scrollAddnickname;
+			var issue_allList = data.issue_allListsize;
+			var issue_fList = data.issue_fListsize;
+			var issue_rowsCount = data.issue_rowsCount;
+			var issue_mem_num = data.issue_mem_num;
+			var issue_foldernum = data.issue_scrollAddfoldernum;
+			var issue_mem_photo = data.issue_mem_photo;
+			console.log("issue_title :" + issue_title);
+			/* "<div class='w3-container w3-flat-emerald'><h2>"+issue_rownum+"</h2><p>"+nickname_tag+"</p>"			
+			+"<p class='hot_scroll' data-issueIndex="+issue_rowsCount +"><a href='#' onclick="+"folder(\""+issue_foldernum+"\")'>"+issue_title+"</a>"
+			+"</p></div>"
+			 */
+
+			nickname_tag = "<a href='#' onclick=" + "'yourPage(\""
+					+ issue_mem_num + "\")'>" + issue_mem_nickname + "</a>";
+			if (issue_fList < issue_allList) {
+
+				$('#issue_folder')
+						.append(
+								"<div class='w3-container w3-flat-clouds'><h2>RANK "
+										+ " "
+										+ issue_rownum
+										+ "</h2><p><img src=${pageContext.request.contextPath}/"
+										+ issue_mem_photo
+										+ "style='width:auto; height:auto; boarder-radius:50%;'>"
+										+ nickname_tag
+										+ "</p>"
+										+ "<p class='hot_scroll' data-issueIndex="+issue_rowsCount +"><a href='#' onclick="
+										+ "folder(\"" + issue_foldernum
+										+ "\")'>" + issue_title + "</a>"
+										+ "</p></div><br>");
 			}
-		</script>
+		}
+		function logout() {
+			$(location).attr('href', "./logout");
+		}
+
+		function w3_open() {
+			document.getElementById("mySidebar").style.width = "100%";
+			document.getElementById("mySidebar").style.display = "block";
+		}
+
+		function w3_close() {
+			document.getElementById("mySidebar").style.display = "none";
+		}
+	</script>
 </body>
 
 </html>

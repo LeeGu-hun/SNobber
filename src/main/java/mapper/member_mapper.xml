@@ -122,14 +122,15 @@
 		mem_num=#{mem_num}
 	</update>
 
+<!--  mem_Email 추가-->
 	<select id="findId" parameterType="String" resultType="spring.Member">
 		SELECT
-		mem_id FROM A_MEMBER WHERE mem_email=#{mem_Email}
+		mem_id,mem_Email,mem_nickname FROM A_MEMBER WHERE mem_email=#{mem_Email}
 	</select>
 
 	<select id="findPass" parameterType="String" resultType="spring.Member">
 		SELECT
-		mem_password FROM A_MEMBER WHERE mem_id=#{mem_Id} and
+		mem_password,mem_Email,mem_nickname FROM A_MEMBER WHERE mem_id=#{mem_Id} and
 		mem_email=#{mem_Email}
 	</select>
 
