@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public class KuService {
 	@Autowired
 	private SqlSession sqlSession;
+	//확인확인
 }
