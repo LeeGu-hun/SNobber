@@ -11,7 +11,7 @@
 <title>글 쓰기</title>
 <script language="javascript">
 	function change(){
-		var type = $("input[name=writeType]:checked").val();
+		var type = $("input[name=writeMode]:checked").val();
 		if(type=="1"){
 			document.getElementById("folder").style.display='none';
 		}
@@ -21,13 +21,13 @@
 		}
 	}
 	function addboard() {
-		var type=$("input[name=writeType]:checked").val();
+		var type=$("input[name=writeMode]:checked").val();
 		var files = document.getElementById("files").value;
 		if(type=="1"){
 			boardform.submit();
 		}else if(type=="2"){
 			if(files==""){
-				alert("pro글을 쓸 때는 파일을 선택 해주세요 ");
+				alert("SNol글을 쓸 때는 파일을 선택 해주세요 ");
 			}else{
 				boardform.submit();
 			}
@@ -45,8 +45,9 @@
 					글 분류
 				</td>
 				<td>
-					<input type="radio" name="writeType" value="1" onclick="change()" />기본
-					<input type="radio" name="writeType" value="2" onclick="change()"/>SNol
+					
+					<input type="radio" name="writeMode" value="1" onclick="change()" checked="checked" />기본
+					<input type="radio" name="writeMode" value="2" onclick="change()"/>SNol
 					
 					<div id ="folder" style="display:none">
 						폴더 선택
@@ -70,24 +71,6 @@
 					</select>
 				</td>
 			</tr>
-				<tr>
-					
-					<td>
-						<div id ="folder1" style="display:none">
-							폴더 선택
-						</div>
-					</td>
-					<td>
-						<div id ="folder2" style="display:none">
-						<select name="folderMode">
-							<c:forEach var="f" items="${title}">
-	    						<option value="${f.folder_Num}">${f.folder_Title}</option>
-	    					</c:forEach>
-						</select>
-						</div>
-					</td>
-					</div>
-				</tr>
 			<tr>
 				<td style="font-family: 돋음; font-size: 12">
 					<div align="center">내 용</div>
