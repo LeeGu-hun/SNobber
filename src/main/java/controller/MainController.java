@@ -136,26 +136,27 @@ public class MainController {
 			Errors errors) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		MultipartFile multi = command.getMem_photo();
-		String originalFilename = "", newFilename = "";
-		if (multi != null) {
-			originalFilename = multi.getOriginalFilename();
+		String originalFilename = multi.getOriginalFilename();
+		String newFilename = "";
+		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
+		Member mem = new Member();
+		if (!originalFilename.equals("")) {
 			newFilename = System.currentTimeMillis() + "_" + originalFilename;
 
 			String root_path = request.getSession().getServletContext().getRealPath("/");
 			String path = root_path + newFilename;
-
+			mem.setMem_Photo(newFilename);
 			try {
 				File file = new File(path);
 				multi.transferTo(file);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
-			Member mem = new Member();
-			mem.setMem_num(host);
-			mem.setMem_Photo(newFilename);
-			boardService.photoUpdate(mem);
+		} else {
+			mem.setMem_Photo("");
 		}
+		mem.setMem_num(host);
+		boardService.photoUpdate(mem);
 		return "redirect:/main";
 	}
 
@@ -187,30 +188,33 @@ public class MainController {
 	public String homePost(HttpSession session, BoardCommand board, HttpServletRequest request) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		MultipartFile multi = board.getBOARD_FILE();
-		String originalFilename = "", newFilename = "";
-		if (multi != null) {
-			originalFilename = multi.getOriginalFilename();
+		String originalFilename = multi.getOriginalFilename();
+		String newFilename = "";
+		Board bb = new Board();
+		if (!originalFilename.equals("")) {
 			newFilename = System.currentTimeMillis() + "_" + originalFilename;
 			String root_path = request.getSession().getServletContext().getRealPath("/");
 			String path = root_path + newFilename;
+			bb.setBOARD_FILE(newFilename);
 			try {
 				File file = new File(path);
 				multi.transferTo(file);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Board bb = new Board();
-			bb.setMem_Num(host);
-			bb.setBOARD_CONTENT(board.getBOARD_CONTENT());
-			bb.setFolderMode(board.getFolderMode());
-			bb.setWriteMode(board.getWriteMode());
-			bb.setSecretMode(board.getSecretMode());
-			bb.setBOARD_FILE(newFilename);
-			if (board.getFolderMode().equals("0")) {
-				boardService.writeNull(bb);
-			} else {
-				boardService.write(bb);
-			}
+		} else {
+			bb.setBOARD_FILE("");
+		}
+		bb.setMem_Num(host);
+		bb.setBOARD_CONTENT(board.getBOARD_CONTENT());
+		bb.setFolderMode(board.getFolderMode());
+		bb.setWriteMode(board.getWriteMode());
+		bb.setSecretMode(board.getSecretMode());
+		
+		if (board.getFolderMode().equals("0")) {
+			boardService.writeNull(bb);
+		} else {
+			boardService.write(bb);
 		}
 		return "redirect:/main";
 	}

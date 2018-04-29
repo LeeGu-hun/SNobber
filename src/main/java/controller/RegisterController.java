@@ -27,35 +27,23 @@ public class RegisterController {
 	public void setMemberRegisterService(MemberRegisterService memberRegisterService) {
 		this.memberRegisterService = memberRegisterService;
 	}
-
-	@RequestMapping("/register/step1")
-	public String handleStep1() {
-		return "register/step1";
-	}
-
-	@RequestMapping(value = "/register/step2", method = RequestMethod.GET)
-	public String step2Get() {
-		return "redirect:/register/step1";
+	
+	@RequestMapping(value = "/register/step1", method = RequestMethod.GET)
+	public String step2Get(RegisterRequest rr) {
+		return "/register/step1";
 	}
 
 	@RequestMapping(value = "/register/step2", method = RequestMethod.POST)
-	public String step2Post(@RequestParam(value = "agree", defaultValue = "false") Boolean agreeVal,
-			RegisterRequest rr) {
+	public String step3Post(@RequestParam(value = "agree", defaultValue = "false") Boolean agreeVal,RegisterRequest rr, Errors errors, Model model, HttpServletRequest request) {
 		if (!agreeVal) {
 			return "redirect:step1";
 		}
-		// model.addAttribute("registerRequest",new RegisterRequest());
-		return "register/step2";
-	}
-
-	@RequestMapping(value = "/register/step3", method = RequestMethod.POST)
-	public String step3Post(RegisterRequest rr, Errors errors, Model model, HttpServletRequest request) {
 		new RegisterRequestValidator().validate(rr, errors);
 		MultipartFile multi = rr.getMem_Photo();
-		String originalFilename = "", newFilename = "";
-		if (multi != null) {
-			originalFilename = multi.getOriginalFilename();
-			// 파일명이 중복되지 않게 파일명에 시간 추가
+		String originalFilename = multi.getOriginalFilename(); 
+		String newFilename = "";
+		MemberBean  mem = new MemberBean();
+		if (!originalFilename.equals("")) {
 			newFilename = System.currentTimeMillis() + "_" 
 					+ originalFilename;
 
@@ -64,22 +52,12 @@ public class RegisterController {
 					.getServletContext().getRealPath("/");
 		
 			String path = root_path + newFilename;
+			mem.setMem_Photo(newFilename);
 			if (errors.hasErrors())
-				return "register/step2";
+				return "register/step1";
 			try {
 				File file = new File(path);
 				multi.transferTo(file);
-				MemberBean  mem = new MemberBean();
-				mem.setMem_Id(rr.getMem_Id());
-				mem.setMem_Password(rr.getMem_Password());
-				mem.setMem_Nickname(rr.getMem_Name());
-				mem.setMem_Email(rr.getMem_Email());
-				mem.setMem_Photo(newFilename);
-				mem.setMem_Introduce(rr.getMem_Introduce());
-				memberRegisterService.regist(mem);
-				LoginCommand loginCommand = new LoginCommand();
-				loginCommand.setId(mem.getMem_Id());
-				model.addAttribute("loginCommand", loginCommand);
 			}catch (AlreadyExistingMemberException e) {
 				if(e.getMessage().indexOf("dup mem_Id") == 0) {
 					errors.rejectValue("mem_Id", "duplicate");
@@ -88,11 +66,22 @@ public class RegisterController {
 				} else if(e.getMessage().indexOf("dup mem_Email ") == 0) {
 					errors.rejectValue("mem_Email", "duplicate");
 				}
-				return "register/step2";
+				return "register/step1";
 			}catch (IOException e) {
-					e.printStackTrace();
+				e.printStackTrace();
 			}
+		} else {
+			mem.setMem_Photo("");
 		}
+		mem.setMem_Id(rr.getMem_Id());
+		mem.setMem_Password(rr.getMem_Password());
+		mem.setMem_Nickname(rr.getMem_Name());
+		mem.setMem_Email(rr.getMem_Email());
+		mem.setMem_Introduce(rr.getMem_Introduce());
+		memberRegisterService.regist(mem);
+		LoginCommand loginCommand = new LoginCommand();
+		loginCommand.setId(mem.getMem_Id());
+		model.addAttribute("loginCommand", loginCommand);
 		return "register/step3";
 	}
 }
