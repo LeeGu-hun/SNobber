@@ -75,7 +75,6 @@ body, h1, h2, h3, h4, h5, h6 {
 		});
 	}
 	function boardDelete2(num) {
-		alert('삭제 완료');
 		var next = $('.next').val();
 
 		$(location).attr('href', './mypageSNS?num=' + next + '');
@@ -84,6 +83,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 
 <body class="w3-light-grey w3-content" style="max-width: 1600px">
+	<input class="next" value="${member.mem_num}" style="display: none;">	
 
 	<%@ include file="/include/header.jsp"%>
 	<!-- Overlay effect when opening sidebar on small screens -->
@@ -133,8 +133,12 @@ body, h1, h2, h3, h4, h5, h6 {
 							${bo.board_Date }
 						</span>
 						<c:if test="${host eq bo.mem_Num }">
-							<td onclick="boardNum(${bo.board_Num})" style="text-align: right;">Edit</td>
-							<td class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">Delete</td>									
+							<span onclick="boardNum(${bo.board_Num})" style="text-align: right;">
+								Edit
+							</span>
+							<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">
+								Delete
+							</span>									
 						</c:if>
 					</figcaption>							
 				</figure>
@@ -151,10 +155,8 @@ body, h1, h2, h3, h4, h5, h6 {
 					<p id="content"></p>
 					<input type="hidden" id="boNum" name="boNum" />
 					<div id="lightBoxOK">
-						<input type="button" value="확인" onclick="boardDelete()"
-							style="text-align: right;"> <input type="button"
-							onclick="document.getElementById('myModal').style.display='none'"
-							value="취소">
+						<input type="button" value="확인" onclick="boardDelete()" style="text-align: right;"> 
+						<input type="button" onclick="document.getElementById('myModal').style.display='none'" value="취소">
 					</div>
 					<p>&nbsp;</p>
 				</div>

@@ -65,16 +65,17 @@ body, h1, h2, h3, h4, h5, h6 {
 		});
 	}
 	function boardDelete2(num) {
-		alert('삭제 완료');
 		var next = $('.next').val();
 
-		$(location).attr('href', './mypageSNS?num=' + next + '');
+		$(location).attr('href', './mypageFolder?num=' + next + '');
 	}
 </script>
 
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 1600px">
 <%@ include file="/include/header.jsp"%>
+	<input class="next" value="${folderName.folder_Num}" style="display: none;">	
+
 	<div class="w3-main" style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
 		
 		<!-- Header -->
@@ -101,9 +102,10 @@ body, h1, h2, h3, h4, h5, h6 {
 		
 		<br>
 		<div style="margin: 0.5em;">			
-			<div>
+			<b>
 				${folderName.folder_Title }
-			</div>
+			</b>
+			<hr>
 			<div id="columns">			
 				<c:if test="${empty board }">
 					등록된 게시물이 없습니다.
@@ -123,8 +125,12 @@ body, h1, h2, h3, h4, h5, h6 {
 								${bo.board_Date }
 							</span>
 							<c:if test="${host eq bo.mem_Num }">
-								<td onclick="boardNum(${bo.board_Num})" style="text-align: right;">Edit</td>
-								<td class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">Delete</td>									
+								<span onclick="boardNum(${bo.board_Num})" style="text-align: right;">
+									Edit
+								</span>
+								<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">
+									Delete
+								</span>									
 							</c:if>
 						</figcaption>							
 					</figure>

@@ -9,14 +9,10 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/w3.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/w3.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css">
+<link rel="stylesheet"	href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Raleway", sans-serif
@@ -37,19 +33,13 @@ body, h1, h2, h3, h4, h5, h6 {
 	type="text/javascript"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"
 	type="text/javascript"></script>
-<link href="${pageContext.request.contextPath}/css/style.css"
-	rel="stylesheet" ver="1.2">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/min.css" />
+<link href="${pageContext.request.contextPath}/css/style.css"	rel="stylesheet" ver="1.2">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/min.css" />
 <script src="${pageContext.request.contextPath}/js/common1.js?ver=2.6"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 	$(document).ready(function() {
 		$('#folder_add_window').hide();
@@ -110,7 +100,6 @@ body, h1, h2, h3, h4, h5, h6 {
 		});
 	}
 	function folderDelete2() {
-		alert('삭제 완료');
 		var next = $('.next').val();
 
 		$(location).attr('href', './mypagePro?num=' + next + '');
@@ -130,7 +119,6 @@ body, h1, h2, h3, h4, h5, h6 {
 		});
 	}
 	function folderFollow2() {
-		alert('팔로우 완료');
 		var next = $('.next').val();
 
 		$(location).attr('href', './mypagePro?num=' + next + '');
@@ -150,7 +138,6 @@ body, h1, h2, h3, h4, h5, h6 {
 		});
 	}
 	function folderLike2(num) {
-		alert('좋아요 완료');
 		var next = $('.next').val();
 
 		$(location).attr('href', './mypagePro?num=' + next + '');
@@ -170,7 +157,6 @@ body, h1, h2, h3, h4, h5, h6 {
 		});
 	}
 	function boardDelete2(num) {
-		alert('삭제 완료');
 		var next = $('.next').val();
 
 		$(location).attr('href', './mypagePro?num=' + next + '');
@@ -192,6 +178,7 @@ body, h1, h2, h3, h4, h5, h6 {
 </script>
 <script type="text/javascript">
 	function ingShow(num) {
+		alert('d');
 		$('#boNum').attr("value", num);
 		$('#lightBoxOK').attr("value", num);
 
@@ -200,6 +187,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		//modal을 띄워준다.  	    
 	}
 	function ingShoww(num) {
+		/* 폴더 삭제 */
 		$('#boNumm').attr("value", num);
 		$('#lightBoxOKk').attr("value", num);
 
@@ -210,6 +198,8 @@ body, h1, h2, h3, h4, h5, h6 {
 </script>
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 1600px">
+	<input class="next" value="${member.mem_num}" style="display: none;">	
+
 	<%@ include file="/include/header.jsp"%>
 	<div>
 		<div>
@@ -330,7 +320,7 @@ body, h1, h2, h3, h4, h5, h6 {
 				<c:forEach var="fol" items="${folder }" varStatus="stFolder">
 					<div class="w3-row-padding">
 						<p>
-							<b onclick="stFolder('${fol.folder_Num}', '${fol.mem_Num }')">
+							<b onclick="stFolder('${fol.folder_Num}')">
 								${fol.folder_Title } </b>
 							<c:if test="${fol.mem_Num eq host }">
 								<c:if test="${fol.folder_Title != '기본'}">
@@ -367,8 +357,12 @@ body, h1, h2, h3, h4, h5, h6 {
 												${bo.board_Date }
 											</span>
 											<c:if test="${host eq bo.mem_Num }">
-												<td onclick="boardNum(${bo.board_Num})" style="text-align: right;">Edit</td>
-												<td class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">Delete</td>									
+												<span onclick="boardNum(${bo.board_Num})" style="text-align: right;">
+													Edit
+												</span>
+												<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">
+													Delete
+												</span>									
 											</c:if>
 										</figcaption>							
 									</figure>
@@ -376,86 +370,7 @@ body, h1, h2, h3, h4, h5, h6 {
 						</c:forEach>
 					</div>
 								</div>
-				</c:forEach>
-														
-							
-							
-<%-- 							<c:if test="${fol.folder_Num eq bo.folder_Num }">
-								<div class="w3-third w3-container w3-margin-bottom"
-									value="${fol.folder_Num }">
-									<div onclick="stBoard('${bo.board_Num}')" alt="Norway"
-										style="width: 100%" class="w3-hover-opacity">
-										<img
-											src="${pageContext.request.contextPath}/${bo.board_File }"
-											style="background-size: 100% auto; background-position: center top; background-attachment: fixed; width: 100%;">
-									</div>
-									<div class="w3-container w3-white">
-										<table>
-											<tr>
-												<td colspan="2" onclick="stBoard('${bo.board_Num}')">
-													<b class="content">
-														${bo.board_Content }
-													</b>
-												</td>
-											</tr>
-											<tr style="font-size: 9pt;">
-												<td>조회수 : ${bo.board_Read_Count}</td>
-												<td>${bo.board_Date }</td>
-											</tr>
-											<c:if test="${host eq bo.mem_Num }">
-												<tr colspan="2">
-													<td></td>
-													<td class="boardD" onclick="ingShow('${bo.board_Num}')"
-														style="text-align: right;">Delete</td>
-												</tr>
-											</c:if>
-										</table>
-									</div>
-								</div>
-							</c:if>
-						</c:forEach>
-					</div>
-				</c:forEach>
- --%>
-				<!-- Modal -->
-				<div id="myModal" class="w3-modal">
-					<div class="w3-modal-content">
-						<div class="w3-container">
-							<span
-								onclick="document.getElementById('myModal').style.display='none'"
-								class="w3-button w3-display-topright">&times;</span> <input
-								type="hidden" id="title" name="title" />
-							<p id="content"></p>
-							<input type="hidden" id="boNum" name="boNum" />
-							<div id="lightBoxOK">
-								<input type="button" value="확인" onclick="boardDelete()"
-									style="text-align: right;"> <input type="button"
-									onclick="document.getElementById('myModal').style.display='none'"
-									value="취소">
-							</div>
-							<p>&nbsp;</p>
-						</div>
-					</div>
-				</div>
-				<div id="myModall" class="w3-modal">
-					<div class="w3-modal-content">
-						<div class="w3-container">
-							<span
-								onclick="document.getElementById('myModal').style.display='none'"
-								class="w3-button w3-display-topright">&times;</span> <input
-								type="hidden" id="titlee" name="titlee" />
-							<p id="contentt"></p>
-							<input type="hidden" id="boNumm" name="boNumm" />
-							<div id="lightBoxOKk">
-								<input type="button" value="확인" onclick="folderDelete()"
-									style="text-align: right;"> <input type="button"
-									onclick="document.getElementById('myModall').style.display='none'"
-									value="취소">
-							</div>
-							<p>&nbsp;</p>
-						</div>
-					</div>
-				</div>
+				</c:forEach>	
 
 				<!-- Pagination -->
 				<div class="w3-center w3-padding-32">
@@ -490,5 +405,44 @@ body, h1, h2, h3, h4, h5, h6 {
 			document.getElementById("myOverlay").style.display = "none";
 		}
 	</script>
+	
+		<!-- Modal -->
+		<div id="myModal" class="w3-modal">
+			<div class="w3-modal-content">
+				<div class="w3-container">
+					<span
+						onclick="document.getElementById('myModal').style.display='none'"
+						class="w3-button w3-display-topright">&times;</span> <input
+						type="hidden" id="title" name="title" />
+					<p id="content"></p>
+					<input type="hidden" id="boNum" name="boNum" />
+					<div id="lightBoxOK">
+						<input type="button" value="확인" onclick="boardDelete()"style="text-align: right;">
+						<input type="button" onclick="document.getElementById('myModal').style.display='none'"
+							value="취소">
+					</div>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+		<div id="myModall" class="w3-modal">
+			<div class="w3-modal-content">
+				<div class="w3-container">
+					<span
+						onclick="document.getElementById('myModal').style.display='none'"
+						class="w3-button w3-display-topright">&times;</span> <input
+						type="hidden" id="titlee" name="titlee" />
+					<p id="contentt"></p>
+					<input type="hidden" id="boNumm" name="boNumm" />
+					<div id="lightBoxOKk">
+						<input type="button" value="확인" onclick="folderDelete()"style="text-align: right;"> 
+						<input type="button" onclick="document.getElementById('myModall').style.display='none'"
+							value="취소">
+					</div>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+	
 </body>
 </html>
