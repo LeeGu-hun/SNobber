@@ -84,7 +84,7 @@ html, body, h1, h2, h3, h4, h5 {
 						class="fa fa-home w3-margin-right"></i>TODAY's Hot</a> <a href="#"
 						onclick="document.getElementById('id01').style.display='block'"
 						class="w3-button w3-black">Login
-						</button> <a href="./register/step1"
+						</button> <a href="./step1"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages"
 						onclick="mypagePro('${sessionScope.authInfo.mem_num}')"><i

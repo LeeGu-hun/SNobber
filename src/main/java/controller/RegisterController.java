@@ -28,12 +28,12 @@ public class RegisterController {
 		this.memberRegisterService = memberRegisterService;
 	}
 	
-	@RequestMapping(value = "/register/step1", method = RequestMethod.GET)
+	@RequestMapping(value = "/step1", method = RequestMethod.GET)
 	public String step2Get(RegisterRequest rr) {
 		return "/register/step1";
 	}
 
-	@RequestMapping(value = "/register/step2", method = RequestMethod.POST)
+	@RequestMapping(value = "/step2", method = RequestMethod.POST)
 	public String step3Post(@RequestParam(value = "agree", defaultValue = "false") Boolean agreeVal,RegisterRequest rr, Errors errors, Model model, HttpServletRequest request) {
 		if (!agreeVal) {
 			return "redirect:step1";
