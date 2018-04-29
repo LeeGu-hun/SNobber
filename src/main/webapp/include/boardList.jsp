@@ -89,13 +89,16 @@ html, body, h1, h2, h3, h4, h5 {
 
 			<!-- Middle Column -->
 			<div class="w3-col m7" id="table_id"
-				style="width: 70%; margin-left: 94px; float:left">
+				style="width: 70%; margin-left: 94px; float: left">
 
 				<c:forEach var="bo" items="${list}" varStatus="status">
 					<div class="w3-container w3-card w3-white w3-round w3-margin">
-						<br><p> <img src="${pageContext.request.contextPath}/${bo.mem_Photo}" style="width:50px; height:50px; boarder-radius:50%;">
+				
+						<p>
 
-							<a href="#" onclick="memNum('${bo.mem_Num}')">
+							<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
+								style="width: 50px; height: 50px; boarder-radius: 50%;"> <a
+								href="#" onclick="memNum('${bo.mem_Num}')">
 								${bo.mem_Nickname} </a>
 						</p>
 						<br>
@@ -104,10 +107,12 @@ html, body, h1, h2, h3, h4, h5 {
 							onclick="boardNum(${bo.board_Num})"
 							style="text-decoration: none;"><자세히보기></a>
 						</span> <br> <br> <br>
-						<div class="w3-row-padding" style="margin: 0 -16px">
-							<img src="${pageContext.request.contextPath}/${bo.board_File}" style="width:400px; height:300px; boarder-radius:50%;">
-						</div>
-
+						<c:if test="${bo.board_File ne null}">
+							<div class="w3-row-padding" style="margin: 0 -16px">
+								<img src="${pageContext.request.contextPath}/${bo.board_File}"
+									style="width: 400px; height: 300px; boarder-radius: 50%;">
+							</div>
+						</c:if>
 						<button type="button"
 							style="background-color: #000; margin-bottom: 16px; border: none; display: inline-block; padding: 8px 16px; vertical-align: middle; overflow: hidden; text-decoration: none; color: inherit; background-color: inherit; text-align: center; cursor: pointer; white-space: nowrap;"
 							class="likeScroll" data-ch="${status.index}">

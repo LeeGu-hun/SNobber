@@ -117,7 +117,7 @@
 
 	<select id="searchMember" resultType="bean.MemberBean"
 		parameterType="bean.SearchKeyBean">
-		select mem_nickname,mem_introduce,mem_num
+		select mem_nickname,mem_introduce,mem_num, mem_Photo
 		from a_member where
 		<choose>
 			<when test="searchOption0=='all'">

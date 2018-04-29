@@ -34,39 +34,32 @@
 </script>
 <style>
 select {
-    width: 200px;
-    height: 30px;
-    padding-left: 20px;
-    font-size: 18px;
-    color: #000;
-    border: 1px solid #000;
-    border-radius: 3px;
-    
+	width: 200px;
+	height: 30px;
+	padding-left: 20px;
+	font-size: 18px;
+	color: #000;
+	border: 1px solid #000;
+	border-radius: 3px;
 }
 
-
-#searchbox{
-
-size: 30px;
-border: 1px solid #000;
-    border-radius: 3px;
-     font-size: 18px;
-       width: 200px;
-    height: 30px;
-
+#searchbox {
+	size: 30px;
+	border: 1px solid #000;
+	border-radius: 3px;
+	font-size: 18px;
+	width: 200px;
+	height: 30px;
 }
 
-
-#searchsu{
-size: 30px;
-border: 1px solid #000;
-    border-radius: 3px;
-     font-size: 18px;
-       width: 100px;
-    height: 30px;
-
+#searchsu {
+	size: 30px;
+	border: 1px solid #000;
+	border-radius: 3px;
+	font-size: 18px;
+	width: 100px;
+	height: 30px;
 }
-
 </style>
 </head>
 <body>
@@ -74,84 +67,106 @@ border: 1px solid #000;
 		<div>
 			<%@ include file="/include/header.jsp"%>
 		</div>
+
+
+
 		<br>
 		<form action="searching" name="searchFriend" method="post">
-			<div style="margin-left:19px">
+			<div style="margin-left: 19px">
 				<select name="searchOption">
 					<option value="all,all">Member Search</option>
 					<option value="mem_nickname,mem_nickname">Nickname</option>
-					<option value="mem_introduce,mem_introduce">Member Introduce</option>
+					<option value="mem_introduce,mem_introduce">Member
+						Introduce</option>
 					<option value="board_content,mem_nickname">SNobber</option>
-				</select> <input type="text" placeholder="Search.."
-					name="keyword" value="${keyword }" id="searchbox"> <input type="submit" id="searchsu"
-					value="조회">
+				</select> <input type="text" placeholder="Search.." name="keyword"
+					value="${keyword }" id="searchbox"> <input type="submit"
+					id="searchsu" value="조회">
 			</div>
 
+			<c:if test="${map.cntboard  > 0 }">
+				<c:forEach var="bo" items="${map.boardList}">
+				
+					<div class="w3-third w3-container w3-margin-bottom"
+						style="margin-top:80px; margin-left:200px; ">
+						<img src="${pageContext.request.contextPath}/${bo.board_File}"
+							style="width: 300px" class="w3-hover-opacity" height="200px">
 
-			<table border=1>
+						<div class="w3-container w3-white">
+							<table>
+								<tr>
+									<td><b><a href="#" onclick="boardNum('${bo.mem_Num}')">
+												${bo.mem_Nickname} 닉네임 </a></b></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>${bo.board_Content}</td>
+								</tr>
+								<tr>
+									<td>검색 키워드:${map.keyword}</td>
+								</tr>
+							</table>
 
-				<c:if test="${map.cntboard  > 0 }">
-					<c:forEach var="bo" items="${map.boardList}">
-						<div class="w3-container w3-card w3-white w3-round w3-margin">
-							<br>
-							
-					<img src="${pageContext.request.contextPath}/${bo.board_File}"
-									style="max-width: 150%; height: auto;">
-								 <a href="#" onclick="boardNum('${bo.mem_Num}')">
-										${bo.mem_Nickname} </a>
-
-							<h4>
-								${bo.board_Content}
-							</h4>
-							<br>
-							<hr class="w3-clear">
-					
-							<div class="w3-row-padding" style="margin: 0 -16px">
-								<!-- 사진 넣을 공간 -->
-							</div>
-							검색 키워드:${map.keyword}
 						</div>
+					</div>
 
 
 
 
-					</c:forEach>
-				</c:if>
 
-				<c:if test="${map.cntboard  <= 0 }">
+
+
+
+				</c:forEach>
+			</c:if>
+
+			<c:if test="${map.cntboard  <= 0 }">
 				검색 결과가 없습니다
 			</c:if>
 
-				<c:if test="${map.cntMember > 0 }">
-					<c:forEach var="bo" items="${map.memberList}">
+			<c:if test="${map.cntMember > 0 }">
+				<c:forEach var="bo" items="${map.memberList}">
+					<div class="w3-third w3-container w3-margin-bottom"
+						style="margin-top: 80px; margin-left:200px;" style="margin-top:10px">
+						<c:if test="${bo.mem_Photo ne null}">
+					<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
+						style="width: 300px" class="w3-hover-opacity" height="200px">
+</c:if>
+						<!-- 그사람 사진 -->
 
-<div class="w3-container w3-card w3-white w3-round w3-margin">
-							<br>
-							
-				<%-- 	<img src="${pageContext.request.contextPath}/${bo.board_File}"
-									style="max-width: 150%; height: auto;"> 그 사람 사진 가져오기--%>
-								<a
-								href="#" onclick="memNum('${bo.mem_num}')">
-									${bo.mem_Nickname} </a>
+						<div class="w3-container w3-white">
 
-							<h4>
-								<p>소개</p>
-								${bo.mem_Introduce}
-							</h4>
-							<br>
-							<hr class="w3-clear">
-					
-							<div class="w3-row-padding" style="margin: 0 -16px">
-								<!-- 사진 넣을 공간 -->
-							</div>
-							검색 키워드:${map.keyword}
+							<table>
+								<tr>
+									<td><b><a href="#" onclick="memNum('${bo.mem_num}')">
+												${bo.mem_Nickname} </a></b></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>${bo.mem_Introduce}</td>
+								</tr>
+								<tr>
+									<td>검색 키워드:${map.keyword}</td>
+								</tr>
+							</table>
+
+
+
+
+
+
+
+
+
 						</div>
+					</div>
 
 
-					</c:forEach>
-				</c:if>
 
-				<c:if test="${map.map.cntMember  <= 0 }">
+				</c:forEach>
+			</c:if>
+
+			<c:if test="${map.map.cntMember  <= 0 }">
 				검색 결과가 없습니다
 			</c:if>
 
