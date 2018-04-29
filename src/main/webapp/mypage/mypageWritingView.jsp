@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -72,78 +72,77 @@
 </script>
 </head>
 <body>
-	<%@ include file="/include/header.jsp"%>
-	<div style="width: 1100px; margin-top: 200px;">
-
-		<div style="width: 600px; margin: auto;">
-			<c:forEach var="bm" items="${bm }">
-				<input class="next" type="text" value="${bm.board_Num }"
-					style="display: none;">
-
-				<table>
-					<tr>
-						<td rowspan="2">사진</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td colspan="2">${bm.mem_Nickname }</td>
-
-					</tr>
-					<tr>
-					<c:if test="${bm.board_File ne null}">
-						<td colspan="3" style="width: 200px; height: 200px"><img
-							src="${pageContext.request.contextPath}/${bm.board_File }"
-							style="width: 100%;"></c:if>${bm.board_Content }</td>
-					</tr>
-
-					<tr>
-						<td style="font-size:small;">${bm.board_Date }</td>
-						<td></td>
-						<td><a href="#" onclick="boardNum(${bm.board_Num})">수정</a> <img
-							src="../image/heart2.png"> ${likeNum }</td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="text" id="reContent"></td>
-						<td><input type="button" value="추가"
-							onclick="reAdd(${bm.board_Num})"></td>
-					</tr>
-
-				</table>
-
- 	댓글  
+	<div style="width: 1100px; margin: auto auto;">	
+		<%@ include file="/include/header.jsp"%>
+			<div style="width: 600px; margin: auto;">
+			<c:forEach var="bm" items="${bm }">	
+				<input class="next" type="text" value="${bm.board_Num }" style="display: none;">						
+				<br>
+				<div>
+					${bm.mem_Nickname }
+				</div>
+				<div>
+					${bm.board_Date }
+				</div>
+				<br>
+				<div>
+					<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>
+				</div>
+				<br>
+				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 100%;"> 
+				<br>
+				<div>
+					<%-- ${bm.board_read_count } --%>
+				</div>
+				<div>
+					좋아요 ${likeNum }
+				</div>
+				<div>	
+					댓글
+					<input type="text" id="reContent" >
+					<input type="button" value="추가" onclick="reAdd(${bm.board_Num})">					
 					<c:forEach var="re" items="${re }">
-					<table>
-
-						<tr>
-							<td rowspan="2"><img src="${pageContext.request.contextPath}/${re.mem_Photo }"
-						style="width: 60px" height="50px"></td>
-							<td colspan="2">닉네임 <small>${re.re_Date }</small> </td>
-						</tr>
-						<tr>
-
-							<td colspan="3">${re.re_Content }<c:if
-									test="${host eq bm.mem_Num}">
-									<c:if test="${host eq re.mem_Num }">
-										<span onclick="modifyRe('${re.re_Num}')"> Edit </span>
+						<table>
+							<tr style="font-size: 8pt;">
+								<td>
+									${re.mem_Photo }
+								</td>
+								<td>
+									${re.re_Content }
+								</td>
+								<td>
+									${re.re_Date }
+								</td>
+								<td>
+									<c:if test="${host eq bm.mem_Num}">
+										<c:if test="${host eq re.mem_Num }">
+											<span onclick="modifyRe('${re.re_Num}')">
+												Edit
+											</span>																		
+										</c:if>
+										<span onclick="deleteRe('${re.re_Num}')">
+											Delete
+										</span>
 									</c:if>
-									<span onclick="deleteRe('${re.re_Num}')"> Delete </span>
-								</c:if> <c:if test="${host ne bm.mem_Num }">
-									<c:if test="${host eq re.mem_Num }">
-										<span onclick="modifyRe('${re.re_Num}')"> Edit </span>
-
-										<span onclick="deleteRe('${re.re_Num}')"> Delete </span>
-									</c:if>
-								</c:if>
-							</td>
-						</tr>
-
-					</table>
-				</c:forEach>
+									<c:if test="${host ne bm.mem_Num }">
+										<c:if test="${host eq re.mem_Num }">
+											<span onclick="modifyRe('${re.re_Num}')">
+												Edit												
+											</span>
+											
+											<span onclick="deleteRe('${re.re_Num}')">
+												Delete
+											</span>
+										</c:if>								
+									</c:if>									
+								</td>
+							</tr>
+						</table>				
+					</c:forEach>
+				</div>
+			</c:forEach>
+			
 		</div>
-		</c:forEach>
-
-	</div>
 	</div>
 </body>
 </html>

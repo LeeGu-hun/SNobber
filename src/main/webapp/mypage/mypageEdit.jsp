@@ -16,7 +16,7 @@
 </head>
 <body>
 	<form:form  method="post" name="mypageEdit" commandName="mypageEditCommand" enctype="multipart/form-data">
-	<table style="height: 200px; margin-top:150px">
+	<table style="height: 200px;">
 		<tr>
 			<td rowspan="10" style="width: 220px;">
 				<div style="width:150px; height:150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">

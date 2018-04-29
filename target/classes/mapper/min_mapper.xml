@@ -52,7 +52,7 @@
 		insert into a_like values(a_like_seq.nextval, null, 
 			#{mem_Num}, null, #{like_Target_Num}, 3, 1)		
 	</insert>
-	<!-- 해당 폴더의 Pro 보더 들고오기 -->
+	<!-- folder Page 갔을때 -->
 	<select id="folderPage" parameterType="bean.BoardBean" resultType="bean.BoardBean">
 		select * from a_board where folder_num = #{folder_Num} and board_type = 2
 	</select>
@@ -61,8 +61,8 @@
 		select * from a_folder where folder_title = #{folder_Title}
 	</select>
 	<!-- folder 이름을 가져오는거? -->
-	<select id="folderName" parameterType="String" resultType="String">
-		select folder_title from a_folder where folder_num = #{num1}
+	<select id="folderName" parameterType="String" resultType="bean.FolderBean">
+		select * from a_folder where folder_num = #{num1}
 	</select>
 	<!-- 글 보기 -->
 	<select id="mypageWritingView" parameterType="String" resultType="bean.BoardBean">

@@ -35,7 +35,6 @@ public class MinService {
 	
 	public Member selectById(int memId) {
 		String str = Integer.toString(memId);
-
 		Member member = sqlSession.selectOne("memberSQL.getById", str);
 		return member;
 	}
@@ -121,9 +120,9 @@ public class MinService {
 		return list;
 	}
 
-	public String folderName(String num) {
-		String str = sqlSession.selectOne("minSQL.folderName", num);
-		return str;
+	public FolderBean folderName(String num) {
+		FolderBean bean = sqlSession.selectOne("minSQL.folderName", num);
+		return bean;
 	}
 
 	public List<BoardBean> mypageWritingView(String num) {

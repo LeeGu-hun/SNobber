@@ -96,7 +96,7 @@ public class MinController {
 		List<BoardBean> board = minService.FolderPage(bean);
 		model.addAttribute("board", board);
 
-		String folderName = minService.folderName(num1);
+		FolderBean folderName = minService.folderName(num1);
 		model.addAttribute("folderName", folderName);
 
 		return "mypage/mypageFolder";

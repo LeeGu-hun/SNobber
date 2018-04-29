@@ -30,6 +30,8 @@
 <link href="${pageContext.request.contextPath}/css/style.css"
 	rel="stylesheet" ver="1.2">
 <script src="${pageContext.request.contextPath}/js/common.js?ver=2.2"></script>
+<link rel="stylesheet"href="${pageContext.request.contextPath}/resources/css/min.css" ver="1.2" />
+
 
 <style>
 body, h1, h2, h3, h4, h5, h6 {
@@ -37,28 +39,6 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 </style>
 
-<style>
-  #columns{
-    column-width:360px;
-    column-gap: 15px;
-  }
-  #columns figure{
-    display: inline-block;
-    border:1px solid rgba(0,0,0,0.2);
-    margin:0;
-    margin-bottom: 15px;
-    padding:10px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
-  }
-  #columns figure img{
-    width:100%;
-  }
-  #columns figure figcaption{
-    border-top:1px solid rgba(0,0,0,0.2);
-    padding:10px;
-    margin-top:11px;
-  }
-</style>
 <script>
 	function mypagePro(num) {
 		$(location).attr('href', './mypagePro?num=' + num + '');
@@ -102,27 +82,27 @@ body, h1, h2, h3, h4, h5, h6 {
 	}
 </script>
 
+
 <body class="w3-light-grey w3-content" style="max-width: 1600px">
 
 	<%@ include file="/include/header.jsp"%>
 	<!-- Overlay effect when opening sidebar on small screens -->
 
 	<!-- !PAGE CONTENT! -->
-	<div class="w3-main"
-		style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
+	<div class="w3-main" style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
 
 		<!-- Header -->
 		<header id="portfolio">
 			<div class="w3-container">
 				<h1>
-					<b>My SNS</b>
+					<b>SNS</b>
 				</h1>
 				<div class="w3-section w3-bottombar w3-padding-16">
 					<span class="w3-margin-right">Filter:</span>
 					<button class="w3-button w3-white w3-hide-small"
 						onclick="mypagePro('${member.mem_num}')">
 						<i class="fa fa-photo w3-margin-right"></i> 
-							Pro
+							SNol
 					</button>
 					<button class="w3-button w3-white w3-hide-small"
 						onclick="mypageSNS('${member.mem_num}')">
@@ -143,7 +123,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<img src="${pageContext.request.contextPath}/${bo.board_File }" 
 							onclick="stBoard('${bo.board_Num}')"/>
 					<figcaption>
-						<p onclick="stBoard('${bo.board_Num}')">
+						<p class="content" onclick="stBoard('${bo.board_Num}')">
 							${bo.board_Content }
 						</p>
 						<span>
@@ -160,58 +140,26 @@ body, h1, h2, h3, h4, h5, h6 {
 				</figure>
 			</c:forEach>
 		</div>
-		<div class="w3-row-padding">
-<%-- 				<div class="w3-third w3-container w3-margin-bottom"
-					value="${bo.board_Num}">
-					<div onclick="stBoard('${bo.board_Num}')" alt="Norway"
-						style="width: 100%" class="w3-hover-opacity">
-						<img src="${pageContext.request.contextPath}/${bo.board_File }"
-							style="background-size: 100% auto; background-position: center top; background-attachment: fixed; width: 100%;">
-					</div>
-					<div class="w3-container w3-white">
-						<table>
-							<tr>
-								<td colspan="5" onclick="stBoard('${bo.board_Num}')"><b>${bo.board_Content }</b>
-								</td>
-							</tr>
-							<tr style="font-size: 9pt;">
-								<td colspan="2">조회수 : ${bo.board_Read_Count}</td>
-								<td colspan="2">${bo.board_Date }</td>
-							</tr>
-							<c:if test="${host eq bo.mem_Num }">
-								<tr colspan="2">
-									<td></td>
-									<td></td>
-									<td></td>
-									<td onclick="boardNum(${bo.board_Num})" style="text-align: right;">Edit</td>
-									<td class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">Delete</td>
-								</tr>
-							</c:if>
-						</table>
-					</div>
-				</div>
- --%>			<%-- </c:forEach> --%>
- 			</div>
-			<!-- Modal -->
-			<div id="myModal" class="w3-modal">
-				<div class="w3-modal-content">
-					<div class="w3-container">
-						<span
+		<!-- Modal -->
+		<div id="myModal" class="w3-modal">
+			<div class="w3-modal-content">
+				<div class="w3-container">
+					<span
+						onclick="document.getElementById('myModal').style.display='none'"
+						class="w3-button w3-display-topright">&times;</span> <input
+						type="hidden" id="title" name="title" />
+					<p id="content"></p>
+					<input type="hidden" id="boNum" name="boNum" />
+					<div id="lightBoxOK">
+						<input type="button" value="확인" onclick="boardDelete()"
+							style="text-align: right;"> <input type="button"
 							onclick="document.getElementById('myModal').style.display='none'"
-							class="w3-button w3-display-topright">&times;</span> <input
-							type="hidden" id="title" name="title" />
-						<p id="content"></p>
-						<input type="hidden" id="boNum" name="boNum" />
-						<div id="lightBoxOK">
-							<input type="button" value="확인" onclick="boardDelete()"
-								style="text-align: right;"> <input type="button"
-								onclick="document.getElementById('myModal').style.display='none'"
-								value="취소">
-						</div>
-						<p>&nbsp;</p>
+							value="취소">
 					</div>
+					<p>&nbsp;</p>
 				</div>
 			</div>
+		</div>
 		
 	</div>
 
@@ -233,6 +181,6 @@ body, h1, h2, h3, h4, h5, h6 {
 	</div>
 
 	<div class="w3-container w3-padding-large" style="margin-bottom: 32px">
-		<%@ include file="../include/footer2.jsp"%>
+		<%@ include file="../include/footer.jsp"%>
 </body>
 </html>
