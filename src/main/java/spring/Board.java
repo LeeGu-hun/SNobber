@@ -12,7 +12,8 @@ public class Board {
 	private String folderMode;
 	private String BOARD_FILE;
 	private int secretMode;
-	
+	private String mem_NickName;
+
 	public Board(int mem_Num, String bOARD_CONTENT, String writeMode, String folderMode, String bOARD_FILE,
 			int secretMode) {
 		super();
@@ -25,9 +26,17 @@ public class Board {
 	}
 
 	public Board() {
-	
+
 	}
-	
+
+	public String getMem_NickName() {
+		return mem_NickName;
+	}
+
+	public void setMem_NickName(String mem_NickName) {
+		this.mem_NickName = mem_NickName;
+	}
+
 	public int getSecretMode() {
 		return secretMode;
 	}
@@ -35,7 +44,6 @@ public class Board {
 	public void setSecretMode(int secretMode) {
 		this.secretMode = secretMode;
 	}
-
 
 	public int getMem_Num() {
 		return mem_Num;
