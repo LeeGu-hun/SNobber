@@ -33,7 +33,7 @@ public class MinController {
 		this.minService = minService;
 	}
 	
-	@RequestMapping(value = "mypagePro") // 마이페이지 첫 창
+	@RequestMapping(value = "mypagePro") // 留덉씠�럹�씠吏� 泥� 李�
 	public String mypagePro(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		if (request.getParameter("num") != null) {
@@ -42,12 +42,12 @@ public class MinController {
 			model.addAttribute("host", host);
 			Member member = minService.selectById(pageNum);
 			model.addAttribute("member", member);
-			if (host == pageNum) { // 내 페이지로 가는거
+			if (host == pageNum) { // �궡 �럹�씠吏�濡� 媛��뒗嫄�
 				List<BoardBean> folder = minService.mypagePro(pageNum);
 				model.addAttribute("folder", folder);
 				List<BoardBean> boardProBoard = minService.mypageProBoard(pageNum);
 				model.addAttribute("boardProBoard", boardProBoard);
-			} else if (host != pageNum) { // 남 페이지에 갔을 때
+			} else if (host != pageNum) { // �궓 �럹�씠吏��뿉 媛붿쓣 �븣
 				List<BoardBean> folder = minService.mypageProNam(pageNum);
 				model.addAttribute("folder", folder);
 				
@@ -61,7 +61,7 @@ public class MinController {
 	}
 
 	
-	@RequestMapping(value = "mypageSNS") // sns클릭 시
+	@RequestMapping(value = "mypageSNS") // sns�겢由� �떆
 	public String mypageSns(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int pageNum = Integer.parseInt(request.getParameter("num"));
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
@@ -74,7 +74,7 @@ public class MinController {
 		return "mypage/mypageSNS";
 	}
 	
-	@RequestMapping(value = "mypageFolder", method = RequestMethod.GET) // 폴더 창으로 이동
+	@RequestMapping(value = "mypageFolder", method = RequestMethod.GET) // �뤃�뜑 李쎌쑝濡� �씠�룞
 	public String mypageFolder(HttpSession session, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
@@ -83,11 +83,13 @@ public class MinController {
 
 			PrintWriter out = response.getWriter();
 
-			out.println("<script>alert('로그인이 필요합니다'); " + "location.href='/';</script>");
+			out.println("<script>alert('濡쒓렇�씤�씠 �븘�슂�빀�땲�떎'); " + "location.href='/';</script>");
 
 			out.flush();
 		}
-		// int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		model.addAttribute("host", host);
+
 
 		String num1 = request.getParameter("num");
 		int num = Integer.parseInt(num1);
@@ -102,15 +104,15 @@ public class MinController {
 		return "mypage/mypageFolder";
 	}
 
-	@RequestMapping(value = "mypageWritingView") // �� ����
+	@RequestMapping(value = "mypageWritingView") // 占쏙옙 占쏙옙占쏙옙
 	public String mypageWritionView(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		String num = request.getParameter("num");
-		// num 은 보드의 넘버임
+		// num �� 蹂대뱶�쓽 �꽆踰꾩엫
 
 		// List<BoardBean> board = minService.mypageWritingView(num1);
 		// model.addAttribute("board", board);
-		//조회수 증가 쿼리
+		//議고쉶�닔 利앷� 荑쇰━
 		minService.boardReadCount(num);
 		model.addAttribute("host", host);
 		List<BoardMemberBean> boardMember = minService.BoardMemberBean(num);
@@ -120,7 +122,7 @@ public class MinController {
 		List<ReBean> re = minService.reBean(num);
 		model.addAttribute("re", re);
 		List<likeChangeBean> like = minService.boardLike(num);
-		// 좋아요 회원의 정보 가지고 오는거
+		// 醫뗭븘�슂 �쉶�썝�쓽 �젙蹂� 媛�吏�怨� �삤�뒗嫄�
 
 		return "mypage/mypageWritingView";
 	}
@@ -166,7 +168,7 @@ public class MinController {
 		return "./main";
 	}
 
-	@RequestMapping(value = "mypageFolderCreate", method = { RequestMethod.GET, RequestMethod.POST }) // ���� �����
+	@RequestMapping(value = "mypageFolderCreate", method = { RequestMethod.GET, RequestMethod.POST }) // 占쏙옙占쏙옙 占쏙옙占쏙옙占�
 	public String mypageFolderCreate(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		String id = request.getParameter("id");
@@ -176,10 +178,10 @@ public class MinController {
 			String title = request.getParameter("title");
 			String secret = request.getParameter("secret");
 
-			if (secret.equals("����")) {
+			if (secret.equals("占쏙옙占쏙옙")) {
 				secret = "1";
 				num = Integer.parseInt(secret);
-			} else if (secret.equals("�����")) {
+			} else if (secret.equals("占쏙옙占쏙옙占�")) {
 				secret = "2";
 				num = Integer.parseInt(secret);
 			}
