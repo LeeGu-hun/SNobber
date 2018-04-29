@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -71,10 +72,11 @@
 	}
 </script>
 </head>
-<body>
-	<div style="width: 1100px; margin: auto auto;">	
+<body style="background-color: silver;">
+	<div style="width: 100%; text-align: center;">	
 		<%@ include file="/include/header.jsp"%>
-			<div style="width: 600px; margin: auto;">
+			<br>
+			<div style="width: 600px; margin: 0 auto; margin-top: 50px;">
 			<c:forEach var="bm" items="${bm }">	
 				<input class="next" type="text" value="${bm.board_Num }" style="display: none;">						
 				<br>
@@ -89,7 +91,7 @@
 					<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>
 				</div>
 				<br>
-				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 100%;"> 
+				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 100%; height: auto;"> 
 				<br>
 				<div>
 					<%-- ${bm.board_read_count } --%>
@@ -99,7 +101,7 @@
 				</div>
 				<div>	
 					댓글
-					<input type="text" id="reContent" >
+					<input type="text" id="reContent" style="width: 80%;">
 					<input type="button" value="추가" onclick="reAdd(${bm.board_Num})">					
 					<c:forEach var="re" items="${re }">
 						<table>
@@ -143,6 +145,8 @@
 			</c:forEach>
 			
 		</div>
+		<br>
+		<%@ include file="/include/footer.jsp" %>
 	</div>
 </body>
 </html>

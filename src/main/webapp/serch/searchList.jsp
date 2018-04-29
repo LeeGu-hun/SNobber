@@ -62,7 +62,7 @@ select {
 }
 </style>
 </head>
-<body>
+<body style="background-color: silver;">
 	<div style="margin-top: 100px;">
 		<div>
 			<%@ include file="/include/header.jsp"%>
@@ -72,7 +72,7 @@ select {
 
 		<br>
 		<form action="searching" name="searchFriend" method="post">
-			<div style="margin-left: 19px">
+			<div style="margin-left: 19px; text-align: center; margin: 0 auto;">
 				<select name="searchOption">
 					<option value="all,all">Member Search</option>
 					<option value="mem_nickname,mem_nickname">Nickname</option>
@@ -130,11 +130,11 @@ select {
 						style="margin-top: 80px; margin-left:200px;" style="margin-top:10px">
 						<c:if test="${bo.mem_Photo ne null}">
 					<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
-						style="width: 300px" class="w3-hover-opacity" height="200px">
+						style="width: 70%" class="w3-hover-opacity" height="300px;">
 </c:if>
 						<!-- 그사람 사진 -->
 
-						<div class="w3-container w3-white">
+						<div class="w3-container" style="background-color: white; width: 70%;">
 
 							<table>
 								<tr>
