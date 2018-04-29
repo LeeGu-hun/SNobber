@@ -47,43 +47,6 @@
 </style>
 <body>
 
-	<%@ include file="/include/header.jsp"%>
-<div>
-	<div style="margin-top: 150px; folat:right; width:100px; ">
-
-		<table class="w3-table w3-bordered" style="width: 400px">
-			<tr>
-				<th colspan="2">팔로잉</th>
-			</tr>
-
-			<c:forEach var="fol" items="${following}">
-				<div>
-
-
-
-					<tr>
-						<td rowspan="2"><img
-							src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-							style="max-width: 150%; height: auto;"></td>
-						<td><a href="#" onclick="memNum('${fol.follow_You_Num}')">${fol.mem_Nickname}</a></td>
-
-					</tr>
-					<tr>
-						<td>${fol.mem_Introduce}</td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="button"
-							class="w3-button w3-black"
-							onclick="ingShow('1','${fol.follow_You_Num}','${fol.mem_Nickname}')"
-							value="취소" /></td>
-					</tr>
-		</table>
-
-	</div>
-	</c:forEach>
-	
-	
-	
 	
 	<!-- 팔로워 리스트 -->
 	<div style="margin-top:150px; width:100px; folat:left;">

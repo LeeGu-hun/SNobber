@@ -13,5 +13,45 @@
 		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{mem_NickName},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode})
 	</insert>
 	
+	<select id="following" resultType="bean.FollowBean"
+		parameterType="bean.FollowBean">
+		select
+		f.mem_num,f.follow_you_num,m.MEM_NICKNAME,m.MEM_INTRODUCE,m.MEM_PHOTO,follow
+		from a_follow f,a_member m where
+		f.follow_you_num=m.mem_num and
+		f.mem_num = ${mem_Num}
+	</select>
+
+	<select id="follower" resultType="bean.FollowBean"
+		parameterType="bean.FollowBean">
+		select
+		f.mem_num,f.follow_you_num,m.MEM_NICKNAME,m.MEM_INTRODUCE,m.MEM_PHOTO,follow
+		from a_follow f,a_member m where
+		f.mem_num=m.mem_num and
+		f.follow_you_num = ${mem_Num}
+	</select>
+
+	<delete id="followCancle" parameterType="bean.FollowSubmitBean">
+		delete from a_follow
+		where mem_num=#{mem_Num} and follow_you_num=${follow_You_Num}
+	</delete>
+
+	<update id="cancleUpdate" parameterType="bean.FollowBean">
+		update a_follow set
+		follow='0' where mem_num=${follow_You_Num} and
+		follow_you_num=#{mem_Num}
+	</update>
+
+	<update id="applyUpdate" parameterType="bean.FollowBean">
+		update a_follow set
+		follow='1' where mem_num=${follow_You_Num} and
+		follow_you_num=#{mem_Num}
+	</update>
+
+	<insert id="followApply" parameterType="bean.FollowSubmitBean">
+		insert into a_follow
+		values(a_follow_seq.nextval,#{mem_Num},${follow_You_Num},null,1)
+	</insert>
+	
 </mapper>
 

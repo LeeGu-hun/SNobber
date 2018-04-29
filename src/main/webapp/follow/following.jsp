@@ -47,7 +47,7 @@
 </style>
 <body>
 
-	<%@ include file="/include/header.jsp"%>
+
 <div>
 	<div style="margin-top: 150px; folat:right; width:100px; ">
 
@@ -58,8 +58,6 @@
 
 			<c:forEach var="fol" items="${following}">
 				<div>
-
-
 
 					<tr>
 						<td rowspan="2"><img
@@ -83,53 +81,6 @@
 	</c:forEach>
 	
 	
-	
-	
-	<!-- 팔로워 리스트 -->
-	<div style="margin-top:150px; width:100px; folat:left;">
-<table class="w3-table w3-bordered" style="width: 400px">
-			<tr>
-				<th colspan="2">팔로워</th>
-			</tr>
-	
-	<c:forEach var="fol" items="${follower}">
-		<div>
-			<tr>
-						
-	<td rowspan="2"><div
-							style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
-							<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-								style="max-width: 150%; height: auto;">
-						</div></td>
-						<td><a href="#" onclick="memNum('${fol.mem_Num}')">${fol.mem_Nickname}</a></td>
-
-					</tr>
-					<tr>
-						<td>${fol.mem_Introduce}</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<c:choose>
-								<c:when test="${fol.follow == 1}">
-										팔로우중
-									</c:when>
-								<c:otherwise>
-									<input type="button" class="w3-button w3-black"
-										onclick="ingShow('2','${fol.mem_Num}','${fol.mem_Nickname}')"
-										value="신청">
-								</c:otherwise>
-							</c:choose>
-							
-						</div>
-					</td>
-				</tr>
-				<tr>
-					
-				</tr>
-
-			</table>
-		</div>
-	</c:forEach>
 	<!-- Modal -->
 	<div id="myModal" class="w3-modal">
 		<div class="w3-modal-content">

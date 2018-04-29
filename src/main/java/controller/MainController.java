@@ -75,21 +75,20 @@ public class MainController {
 		return "login/loginForm";
 	}
 
-	
 	@RequestMapping(value = "memberlist")
 	public String memberGet(HttpSession session, Model model) {
 		List<Member> member = boardService.memberList();
 		model.addAttribute("members", member);
 		return "member/memberList";
 	}
-	
+
 	//////////////////////////// 추가 ///////////////////////////////////
 	// 인덱스 파일 리스트 스크롤
 	@ResponseBody
 	@RequestMapping(value = "/issue_folderScroll", method = RequestMethod.POST)
 	public HashMap<String, Object> rootScroll(
 			@RequestParam(value = "issue_rowsCount", required = false) int issue_rowsCount, HttpSession session) {
-	//	int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		// int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		// 폴더 인덱스 리스트
 		// int is_rowCount=issue_rowsCount-1;
 		List<FolderListBean> fList = boardService.folderListInDexScroll(issue_rowsCount + 1);
@@ -105,8 +104,8 @@ public class MainController {
 			int issue_mem_num = flb.getMem_num();
 			int issue_fol_num = flb.getFolder_num();
 			String issue_mem_nickname = flb.getMem_nickname();
-			String issue_mem_photo=flb.getMem_photo();
-			
+			String issue_mem_photo = flb.getMem_photo();
+
 			issuemap.put("issue_mem_photo", issue_mem_photo);
 			issuemap.put("issue_mem_num", issue_mem_num);
 			issuemap.put("issue_scrollAddTitle", issue_title);
@@ -115,7 +114,7 @@ public class MainController {
 			issuemap.put("issue_scrollAddfoldernum", issue_fol_num);
 
 		}
-		
+
 		issuemap.put("issue_allListsize", issue_allList.size());
 		issuemap.put("issue_fListsize", fList.size());
 		issuemap.put("issue_rowsCount", issue_rowsCount);
@@ -210,7 +209,7 @@ public class MainController {
 		bb.setFolderMode(board.getFolderMode());
 		bb.setWriteMode(board.getWriteMode());
 		bb.setSecretMode(board.getSecretMode());
-		
+
 		if (board.getFolderMode().equals("0")) {
 			boardService.writeNull(bb);
 		} else {
@@ -251,8 +250,8 @@ public class MainController {
 			int like_on = bb.getLike_on();
 			String mem_nickname = bb.getMem_Nickname();
 			int mem_num = bb.getMem_Num();
-			String mem_ph=bb.getMem_Photo();
-		
+			String mem_ph = bb.getMem_Photo();
+
 			map.put("scrollAddPhoto", mem_ph);
 			map.put("scrollAddCon", content);
 			map.put("scrollAddLi", like_on);
@@ -301,7 +300,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
-	public String follow(Model model, HttpSession session) {
+	public String following(Model model, HttpSession session) {
 		int mem_Num = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		FollowBean bean = new FollowBean(mem_Num);
 		List<FollowBean> followerBean = boardService.getFollower(bean);
