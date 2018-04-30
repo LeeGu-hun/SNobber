@@ -23,6 +23,7 @@
 	type="text/javascript"></script>
 <link href="${pageContext.request.contextPath}/css/style.css"
 	rel="stylesheet" ver="1.2">
+<link rel="stylesheet"href="${pageContext.request.contextPath}/resources/css/min.css" ver="1.2" />
 <script src="${pageContext.request.contextPath}/js/common.js?ver=2"></script>
 <script>
 	function reAdd(num) {
@@ -63,7 +64,6 @@
 		});		
 	}
 	function deleteRe2() {		
-		alert('댓글 삭제 완료');
 		var next = $('.next').val();
 		$(location).attr('href', './mypageWritingView?num=' + next + '');
 	}
@@ -73,51 +73,51 @@
 </script>
 </head>
 <body style="background-color: silver;">
+
 	<div style="width: 100%; text-align: center;">	
 		<%@ include file="/include/header.jsp"%>
 			<br>
-			<div style="width: 600px; margin: 0 auto; margin-top: 50px;">
-			<c:forEach var="bm" items="${bm }">	
-				<input class="next" type="text" value="${bm.board_Num }" style="display: none;">						
-				<br>
-				<div>
-					${bm.mem_Nickname }
-				</div>
-				<div>
-					${bm.board_Date }
-				</div>
-				<br>
-				<div>
-					<c:if test="${bm.mem_Num==sessionScope.authInfo.mem_num}">
-						<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>
-					</c:if>
-				</div>
-				<br>
-				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 100%; height: auto;"> 
-				<br>
-				<div>
-					<%-- ${bm.board_read_count } --%>
-				</div>
-				<div>
+			<c:forEach var="bm" items="${bm }">
+			<input class="next" type="text" value="${bm.board_Num }" style="display: none;">	
+			<div id="column">
+			<figure>
+				<img src="${pageContext.request.contextPath}/${bm.board_File }"/>
+				<figcaption>
+				<p class="contents">
+				${bm.board_Content }
+				</p>
+				<span>
 					좋아요 ${likeNum }
-				</div>
+				</span>
+				<span>
+				${bm.board_Date }
+				</span>
+				<c:if test="${host eq bo.mem_Num }">
+				<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>							
+				</c:if>
+			</figcaption>							
+			</figure>
+			</div>
 				<div>	
+					<div style="margin-top: 5px; width: 90%; margin: 0 auto;">
 					댓글
-					<input type="text" id="reContent" style="width: 80%;">
+					<textarea id="reContent" style="width: 30%;"></textarea>
 					<input type="button" value="추가" onclick="reAdd(${bm.board_Num})">					
+					</div>
+					<br>
 					<c:forEach var="re" items="${re }">
-						<table>
-							<tr style="font-size: 8pt;">
-								<td>
-									${re.mem_Photo }
+						<table style="width: 30%; margin-top: 5px; margin: 0 auto;">
+							<tr style="font-size: 8pt; background-color: white;  text-align: left;">
+								<td style="width: 50px;">
+									<img src="${pageContext.request.contextPath}/${re.mem_Photo }" style="width: 50px; height: 50px;"> 
 								</td>
-								<td>
+								<td style="width: 60%; font-size: large;">
 									${re.re_Content }
 								</td>
-								<td>
+								<td style="width: 20%;">
 									${re.re_Date }
 								</td>
-								<td>
+								<td style="font-size: x-small; width: 10%;">
 									<c:if test="${host eq bm.mem_Num}">
 										<c:if test="${host eq re.mem_Num }">
 											<span onclick="modifyRe('${re.re_Num}')">
@@ -144,8 +144,7 @@
 						</table>				
 					</c:forEach>
 				</div>
-			</c:forEach>
-			
+			</c:forEach>			
 		</div>
 		<br>
 		<%@ include file="/include/footer.jsp" %>

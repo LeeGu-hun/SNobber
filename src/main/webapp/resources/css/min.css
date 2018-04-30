@@ -35,3 +35,41 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+#column{
+  margin-top: 50px;
+  column-width:1000px;
+  column-gap: 15px;
+}
+#column figure{
+  display: inline-block;
+  border:1px solid rgba(0,0,0,0.2);
+  margin:0;
+  margin-bottom: 15px;
+  padding:10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  background-color: white;
+}
+#column figure img{
+  width:100%;
+}
+#column figure figcaption{
+  border-top:1px solid rgba(0,0,0,0.2);
+  padding:10px;
+  margin-top:11px;
+}
+.contents{ 
+	display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  font-size: large;
+  
+  white-space: normal;
+  line-height: 1.2;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
