@@ -177,12 +177,11 @@ body, h1, h2, h3, h4, h5, h6 {
 </script>
 <script type="text/javascript">
 	function ingShow(num) {
-		alert('d');
 		$('#boNum').attr("value", num);
 		$('#lightBoxOK').attr("value", num);
 
 		$("#content").html("정말 삭제하시겠습니까?");
-		document.getElementById('myModal').style.display = 'block';
+		document.getElementById('myModalll').style.display = 'block';
 		//modal을 띄워준다.  	    
 	}
 	function ingShoww(num) {
@@ -333,15 +332,17 @@ body, h1, h2, h3, h4, h5, h6 {
 								</c:if>
 							</c:if>
 							<c:if test="${fol.mem_Num ne host }">
-								<span onclick="folderFollow('${fol.folder_Num}')"
-									style="float: right;"> Follow &nbsp;&nbsp;&nbsp; </span>
+								<span onclick="folderFollow('${fol.folder_Num}')" style="float: right;"> 
+									Follow &nbsp;&nbsp;&nbsp; 
+								</span>
 							</c:if>
 							<c:if test="${fol.mem_Num ne host }">
-								<span onclick="folderLike('${fol.folder_Num}')"
-									style="float: right;"> Like &nbsp;&nbsp;&nbsp; </span>
+								<span onclick="folderLike('${fol.folder_Num}')" style="float: right;"> 
+									Like &nbsp;&nbsp;&nbsp; 
+								</span>
 							</c:if>
 						</p>
-								<div id="columns">								
+						<div id="columns">
 						<c:forEach var="bo" items="${boardProBoard }" varStatus="stPro">
 							
 							<c:if test="${fol.folder_Num eq bo.folder_Num }">
@@ -411,7 +412,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	</script>
 	
 		<!-- Modal -->
-		<div id="myModal" class="w3-modal">
+		<div id="myModalll" class="w3-modal"> 
 			<div class="w3-modal-content">
 				<div class="w3-container">
 					<span
@@ -422,11 +423,11 @@ body, h1, h2, h3, h4, h5, h6 {
 					<input type="hidden" id="boNum" name="boNum" />
 					<div id="lightBoxOK">
 						<input type="button" value="확인" onclick="boardDelete()"style="text-align: right;">
-						<input type="button" onclick="document.getElementById('myModal').style.display='none'"
+						<input type="button" onclick="document.getElementById('myModalll').style.display='none'"
 							value="취소">
 					</div>
 					<p>&nbsp;</p>
-				</div>
+				</div> 
 			</div>
 		</div>
 		<div id="myModall" class="w3-modal">
