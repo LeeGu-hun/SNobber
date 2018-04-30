@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import bean.ListCommand;
+import bean.MemberBean;
 import exception.MemberNotFoundException;
 import service.MemberService;
 import spring.Member;
@@ -32,7 +33,7 @@ public class MemberController {
 		return "member/memberList";
 	}
 
-	@RequestMapping("member/detail/{id}")
+	@RequestMapping("memberdetail/{id}")
 	public String memberDetail(@PathVariable("id") String memId, Model model) {
 		Member member = memberService.selectById(memId);
 		model.addAttribute("member", member);
@@ -40,27 +41,31 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/deletemember/{id}", method = RequestMethod.GET)
-	public String deleteConGet() {
+	public String deleteConGet(@PathVariable("id") String memId, Model model) {
+		Member member = memberService.selectById(memId);
+		model.addAttribute("member", member);
 		return "member/deleteMember";
 	}
 	
-	@RequestMapping(value="deletemember/{id}", method=RequestMethod.POST)
-	public String deleteConPost(@PathVariable("id") int memId, Member mem) {
-		int host = memId;
-			memberService.delete(host);
-		return "redirect:/main";
+	@RequestMapping(value="memberdetail/deletemem")
+	public String deleteConPost(MemberBean mem) {
+		int host = mem.getMem_num();
+		memberService.delete(host);
+		return "redirect:/memberlist";
 	}
 	
 	@RequestMapping(value = "/repairmember/{id}", method = RequestMethod.GET)
-	public String repairConGet() {
+	public String repairConGet(@PathVariable("id") String memId, Model model) {
+		Member member = memberService.selectById(memId);
+		model.addAttribute("member", member);
 		return "member/repairMember";
 	}
 	
-	@RequestMapping(value="repairmember/{id}", method=RequestMethod.POST)
-	public String repairConPost(@PathVariable("id") int memId, Member mem) {
-		int host = memId;
-			memberService.repair(host);
-		return "redirect:/main";
+	@RequestMapping(value="memberdetail/repairmem")
+	public String repairConPost(MemberBean mem) {
+		int host = mem.getMem_num();
+		memberService.repair(host);
+		return "redirect:/memberlist";
 	}
 
 	@ExceptionHandler(TypeMismatchException.class)

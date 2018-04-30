@@ -10,13 +10,18 @@
 <title>타이틀이다.</title>
 </head>
 <body>
-<form:form commandName="member" name="modifyForm" method="post">
+<form:form commandName="memberBean" action="repairmem">
 <table style="margin: 0 auto;">
-	<p style="background-color: lime; text-align: center; width: 500px; margin: 0 auto; font-size: 35px;">해당 회원을 복구하시겠습니까?</p>
+	<tr>
+		<td>		
+		<input type="hidden" name="mem_num" value="${member.mem_num}">
+		</td>
+	</tr>
+	<p style="background-color: lime; text-align: center; width: 500px; margin: 0 auto; font-size: 35px;">${member.mem_Nickname} 회원을 복구하시겠습니까?</p>
 	<td colspan=2 style="text-align: center; background-color: yellow; width: 500px; font-size: 35px;">
-		<a href="javascript:modifyForm.submit()">복구</a>
+		<input type="submit" value="복구">
 		&nbsp;&nbsp;
-		<a href="javascript:history.go(-1)">돌아가기</a>
+		<a href="javascript:history.go(-1)">[돌아가기]</a>
 	</td>
 </table>
 </form:form>

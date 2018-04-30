@@ -35,7 +35,7 @@
 			<c:forEach var="mem" items="${members}">
 				<tr>
 					<th><a
-						href="<c:url value="/member/detail/${mem.mem_Id}"/>">${mem.mem_Id}</a></th>
+						href="<c:url value="/memberdetail/${mem.mem_Id}"/>">${mem.mem_Id}</a></th>
 					<th>${mem.mem_Email}</th>
 					<th>${mem.mem_Nickname}</th>
 					<th>${mem.mem_Introduce}</th>

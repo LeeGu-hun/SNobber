@@ -8,13 +8,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>타이틀이다.</title>
+<script type="text/javascript">
+</script>
 </head>
 <body>
-<form:form commandName="member" name="modifyForm" method="post">
+<form:form commandName="memberBean" action="deletemem">
 <table style="margin: 0 auto;">
-	<p style="background-color: red; text-align: center; width: 500px; margin: 0 auto; font-size: 35px;">해당 회원을 정지하시겠습니까?</p>
+	<tr>
+		<td>		
+		<input type="hidden" name="mem_num" value="${member.mem_num}">
+		</td>
+	</tr>
+	<p style="background-color: red; text-align: center; width: 500px; margin: 0 auto; font-size: 35px;">${member.mem_Nickname} 회원을 정지하시겠습니까?</p>
 	<td colspan=2 style="text-align: center; background-color: yellow; width: 500px; font-size: 35px;">
-		<a href="javascript:modifyForm.submit()">정지</a>
+		<input type="submit" value="정지">
 		&nbsp;&nbsp;
 		<a href="javascript:history.go(-1)">돌아가기</a>
 	</td>
