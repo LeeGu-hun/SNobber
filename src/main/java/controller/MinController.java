@@ -32,13 +32,13 @@ public class MinController {
 	public void setMinService(MinService minService) {
 		this.minService = minService;
 	}
-	
+
 	@RequestMapping(value = "mypagePro") // 留덉씠�럹�씠吏� 泥� 李�
 	public String mypagePro(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		if (request.getParameter("num") != null) {
 			int pageNum = Integer.parseInt(request.getParameter("num"));
-			
+
 			model.addAttribute("host", host);
 			Member member = minService.selectById(pageNum);
 			model.addAttribute("member", member);
@@ -48,48 +48,51 @@ public class MinController {
 				List<BoardBean> boardProBoard = minService.mypageProBoard(pageNum);
 				model.addAttribute("boardProBoard", boardProBoard);
 			} else if (host != pageNum) { // 남의 페이지에 갔을때
-				
+
 				List<FolderBean> folder = minService.mypageProNam(pageNum);
-				for(int i=0;i<folder.size();i++) {
+				for (int i = 0; i < folder.size(); i++) {
 					FolderBean bean = new FolderBean();
 					bean.setMem_Num(host);
 					bean.setFolder_Num(folder.get(i).getFolder_Num());
-					
-//					라이크 테이블로 접근해서 해당 행이 있는지 검열
+
+					// 라이크 테이블로 접근해서 해당 행이 있는지 검열
 					List<FolderBean> listLastBean = minService.mypageFolderNum(bean);
-					if(listLastBean.size()==1) {
+					if (listLastBean.size() == 1) {
 						folder.get(i).setLike_on(1);
 					} else {
 						folder.get(i).setLike_on(0);
 					}
-					
+
 					List<FolderBean> followChck = minService.followChck(bean);
-					if(followChck.size()==1) {
+					if (followChck.size() == 1) {
 						folder.get(i).setFollow_on(1);
 					} else {
 						folder.get(i).setFollow_on(0);
-					}					
-					
+					}
+
 				}
-				
-				
+
 				model.addAttribute("folder", folder);
-				
+
 				FollowBean bean = new FollowBean();
 				bean.setMem_Num(host);
 				bean.setFollow_You_Num(pageNum);
 				String follow = minService.getFollow(bean);
 				List<BoardBean> boardProBoard = minService.mypageProBoardNam(pageNum);
-				model.addAttribute("follow",follow);
+				model.addAttribute("follow", follow);
 				model.addAttribute("boardProBoard", boardProBoard);
 			}
-
+			FollowBean bean = new FollowBean(host);
+			List<FollowBean> followerBean = minService.getFollower(bean);
+			model.addAttribute("follower", followerBean);
+			FollowBean bean1 = new FollowBean(host);
+			List<FollowBean> followingBean = minService.getFollowing(bean1);
+			model.addAttribute("following", followingBean);
 			return "mypage/mypagePro";
 		}
 		return "./main";
 	}
 
-	
 	@RequestMapping(value = "mypageSNS") // sns�겢由� �떆
 	public String mypageSns(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int pageNum = Integer.parseInt(request.getParameter("num"));
@@ -102,7 +105,7 @@ public class MinController {
 
 		return "mypage/mypageSNS";
 	}
-	
+
 	@RequestMapping(value = "mypageFolder", method = RequestMethod.GET) // �뤃�뜑 李쎌쑝濡� �씠�룞
 	public String mypageFolder(HttpSession session, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -118,7 +121,6 @@ public class MinController {
 		}
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		model.addAttribute("host", host);
-
 
 		String num1 = request.getParameter("num");
 		int num = Integer.parseInt(num1);
@@ -141,7 +143,7 @@ public class MinController {
 
 		// List<BoardBean> board = minService.mypageWritingView(num1);
 		// model.addAttribute("board", board);
-		//議고쉶�닔 利앷� 荑쇰━
+		// 議고쉶�닔 利앷� 荑쇰━
 		minService.boardReadCount(num);
 		model.addAttribute("host", host);
 		List<BoardMemberBean> boardMember = minService.BoardMemberBean(num);
@@ -169,31 +171,34 @@ public class MinController {
 		minService.mypageRe(bean);
 		return "./main";
 	}
-	@RequestMapping(value="modifyRe")
+
+	@RequestMapping(value = "modifyRe")
 	public String modifyRe(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		String num = request.getParameter("num");
-		
+
 		minService.modifyRe(num);
-		
+
 		return "./main";
 	}
-	@RequestMapping(value="deleteRe")
+
+	@RequestMapping(value = "deleteRe")
 	public String deleteRe(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		String num = request.getParameter("num");
-		
+
 		minService.deleteRe(num);
-		
+
 		return "./main";
 	}
-	@RequestMapping(value="mypageBoardDelete")
+
+	@RequestMapping(value = "mypageBoardDelete")
 	public String mypageBoardDelete(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		String num = request.getParameter("num");
-		
+
 		minService.mypageBoardDelete(num);
-		
+
 		return "./main";
 	}
 
@@ -242,25 +247,25 @@ public class MinController {
 
 		String id = request.getParameter("id");
 		int folderNum = Integer.parseInt(request.getParameter("num"));
-		
+
 		FolderBean Fbean = new FolderBean();
 		Fbean.setMem_Num(host);
-		Fbean.setFolder_Num(folderNum);		
-		List<FolderBean> listLastBean = minService.followChck(Fbean);		
+		Fbean.setFolder_Num(folderNum);
+		List<FolderBean> listLastBean = minService.followChck(Fbean);
 
 		bean.setMem_Num(host);
 		bean.setFolder_Num(folderNum);
 
-		if(listLastBean.size()==0) {
-			if (id != null) {				
+		if (listLastBean.size() == 0) {
+			if (id != null) {
 				minService.folderFollow(bean);
-//				없다면 추가
-			}			
+				// 없다면 추가
+			}
 		} else {
 			minService.folderFollowDelete(bean);
-//			있다면 삭제
+			// 있다면 삭제
 		}
-		
+
 		return "./main";
 	}
 
@@ -272,27 +277,26 @@ public class MinController {
 
 		String id = request.getParameter("id");
 		int folderNum = Integer.parseInt(request.getParameter("num"));
-		
+
 		FolderBean Fbean = new FolderBean();
 		Fbean.setMem_Num(host);
-		Fbean.setFolder_Num(folderNum);		
+		Fbean.setFolder_Num(folderNum);
 		List<FolderBean> listLastBean = minService.mypageFolderNum(Fbean);
-		
+
 		bean.setMem_Num(host);
 		bean.setLike_Target_Num(folderNum);
-		
-		if(listLastBean.size()==0) {
-			if (id != null) {				
+
+		if (listLastBean.size() == 0) {
+			if (id != null) {
 				minService.folderLikeke(bean);
-//				없다면 추가
-			}			
+				// 없다면 추가
+			}
 		} else {
 			minService.folderlikekeDelete(bean);
-//			있다면 삭제
+			// 있다면 삭제
 		}
-
 
 		return "./main";
 	}
-		
+
 }

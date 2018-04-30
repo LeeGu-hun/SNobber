@@ -80,15 +80,10 @@ public class MainController {
 		return "member/memberList";
 	}
 
-	//////////////////////////// 추가 ///////////////////////////////////
-	// 인덱스 파일 리스트 스크롤
 	@ResponseBody
 	@RequestMapping(value = "/issue_folderScroll", method = RequestMethod.POST)
 	public HashMap<String, Object> rootScroll(
 			@RequestParam(value = "issue_rowsCount", required = false) int issue_rowsCount, HttpSession session) {
-		// int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		// 폴더 인덱스 리스트
-		// int is_rowCount=issue_rowsCount-1;
 		List<FolderListBean> fList = boardService.folderListInDexScroll(issue_rowsCount + 1);
 
 		HashMap<String, Object> issuemap = new HashMap<String, Object>();
@@ -219,76 +214,63 @@ public class MainController {
 	}
 
 	// 무한 스크롤~~~~~~~~~~~~~~~~~~
-			@ResponseBody
-			@RequestMapping(value = "/boardScroll", method = RequestMethod.POST)
-			public HashMap<String, Object> boardScroll(HttpSession session,
-					@RequestParam(value = "lastbno", required = false) int lastbno,@RequestParam(value = "lastbnoTest", required = false) int lastbnoTest) {
-				int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-				ListBeanScroll lbs = new ListBeanScroll();
-				/* int row = rowsCount - 1; */
-				int lastbnoPlus = lastbnoTest + 1;
-				lbs.setB_mem_num(host);
-				lbs.setF_mem_num(host);
-				lbs.setRowsCount(lastbnoPlus);
-				System.out.println("lastbno :"+lastbno);
-				ListBean lb = new ListBean();
+	@ResponseBody
+	@RequestMapping(value = "/boardScroll", method = RequestMethod.POST)
+	public HashMap<String, Object> boardScroll(HttpSession session,
+			@RequestParam(value = "lastbno", required = false) int lastbno,
+			@RequestParam(value = "lastbnoTest", required = false) int lastbnoTest) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		ListBeanScroll lbs = new ListBeanScroll();
+		int lastbnoPlus = lastbnoTest + 1;
+		lbs.setB_mem_num(host);
+		lbs.setF_mem_num(host);
+		lbs.setRowsCount(lastbnoPlus);
+		ListBean lb = new ListBean();
 
-				lb.setB_mem_num(host);
-				lb.setF_mem_num(host);
+		lb.setB_mem_num(host);
+		lb.setF_mem_num(host);
 
-				List<BoardBean> allList = boardService.showListSize(lb);
+		List<BoardBean> allList = boardService.showListSize(lb);
 
-				List<BoardBean> list = boardService.boardListScroll(lbs);
+		List<BoardBean> list = boardService.boardListScroll(lbs);
 
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("realscrolllastbno",lastbno+1);
-				for (int b = lastbno+1 ; b < list.size(); b++) {
-					BoardBean bb = (BoardBean) list.get(b);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("realscrolllastbno", lastbno + 1);
+		for (int b = lastbno + 1; b < list.size(); b++) {
+			BoardBean bb = (BoardBean) list.get(b);
 
-					String content = bb.getBoard_Content();
-					int count=bb.getCount();
-					int board_num = bb.getBoard_Num();
-					int like_on = bb.getLike_on();
-					String mem_nickname = bb.getMem_Nickname();
-					int mem_num = bb.getMem_Num();
-					String mem_ph=bb.getMem_Photo();
-					int a=lastbno++;
-					SimpleDateFormat sd;
-					sd=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String s=sd.format(bb.getBoard_Date());
-					map.put("boarddate"+b,s);	
+			String content = bb.getBoard_Content();
+			int count = bb.getCount();
+			int board_num = bb.getBoard_Num();
+			int like_on = bb.getLike_on();
+			String mem_nickname = bb.getMem_Nickname();
+			int mem_num = bb.getMem_Num();
+			String mem_ph = bb.getMem_Photo();
+			int a = lastbno++;
+			SimpleDateFormat sd;
+			sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String s = sd.format(bb.getBoard_Date());
+			map.put("boarddate" + b, s);
 
+			map.put("boarddate" + b, bb.getBoard_Date());
 
+			map.put("count" + b, count);
+			map.put("scrollAddFile" + b, bb.getBoard_File());
+			map.put("scrollAddPhoto" + b, mem_ph);
+			map.put("scrolllastbno" + b, a);
+			map.put("scrollAddCon" + b, content);
+			map.put("scrollAddLi" + b, like_on);
+			map.put("scrollAddMeN" + b, mem_nickname);
+			map.put("scrollAddBoardBum" + b, board_num);
+			map.put("scrollAddMeNu" + b, mem_num);
 
-					System.out.println("파일"+bb.getBoard_File());
-					map.put("boarddate"+b, bb.getBoard_Date());	
-					
-					System.out.println("bb.getBoard_Date():"+bb.getBoard_Date());
-					map.put("count"+b, count);	
-					map.put("scrollAddFile"+b, bb.getBoard_File());	
-					map.put("scrollAddPhoto"+b, mem_ph);
-					map.put("scrolllastbno"+b,a);
-					map.put("scrollAddCon"+b, content);
-					map.put("scrollAddLi"+b, like_on);
-					map.put("scrollAddMeN"+b, mem_nickname);
-					map.put("scrollAddBoardBum"+b, board_num);
-					map.put("scrollAddMeNu"+b, mem_num);
-					/*for (String mapkey : map.keySet()){
-				        System.out.println("key:"+mapkey+",value:"+map.get(mapkey));
-				    }*/
+		}
 
-
-			
-
-				}
-				System.out.println("lastbno2 :"+lastbno);
-				
-				map.put("allList", allList.size());
-				map.put("listSize", list.size());
-				// map.put("rowsCount", rowsCount);
-				map.put("scrollIndex", lastbnoTest);
-				return map;
-			}
+		map.put("allList", allList.size());
+		map.put("listSize", list.size());
+		map.put("scrollIndex", lastbnoTest);
+		return map;
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/folderScrollFollow", method = RequestMethod.POST)
@@ -322,17 +304,6 @@ public class MainController {
 		return follow_map;
 	}
 
-	@RequestMapping(value = "/follow", method = RequestMethod.GET)
-	public String following(Model model, HttpSession session) {
-		int mem_Num = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		FollowBean bean = new FollowBean(mem_Num);
-		List<FollowBean> followerBean = boardService.getFollower(bean);
-		List<FollowBean> followingBean = boardService.getFollowing(bean);
-		model.addAttribute("follower", followerBean);
-		model.addAttribute("following", followingBean);
-		return "follow/follow";
-	}
-
 	@RequestMapping("/followsubmit")
 	public String follower(@RequestParam(value = "type", defaultValue = "false") String type,
 			@RequestParam(value = "title", defaultValue = "false") String num, HttpSession session) {
@@ -341,7 +312,6 @@ public class MainController {
 		FollowSubmitBean bean = new FollowSubmitBean();
 		bean.setMem_Num(mem_Num);
 		bean.setFollow_You_Num(follow_You_Num);
-		List<FollowSubmitBean> list = null;
 		if (type.equals("1")) { // 팔로잉 취소
 			boardService.cancle(bean);
 			boardService.cancleUpdate(bean);
@@ -349,7 +319,7 @@ public class MainController {
 			boardService.apply(bean);
 			boardService.applyUpdate(bean);
 		}
-		return "redirect:/mypagePro?num="+follow_You_Num;
+		return "redirect:/mypagePro?num=" + follow_You_Num;
 	}
 
 	@RequestMapping(value = "/searching", method = RequestMethod.GET)
@@ -393,14 +363,6 @@ public class MainController {
 		return "serch/searchList";
 	}
 
-	@RequestMapping(value = "mypage", method = RequestMethod.GET)
-	public String mypage(HttpSession session, Model model) {
-		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		Member member = boardService.selectById(host);
-		model.addAttribute("member", member);
-		return "mypage/mypage";
-	}
-
 	@RequestMapping(value = "mypage/photo")
 	public String photoGet(HttpSession session, Model model) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
@@ -417,9 +379,9 @@ public class MainController {
 		return "mypage/mypageEdit";
 	}
 
-
 	@RequestMapping(value = "mypageEditt")
-	public String mypageEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request, Errors errors) {
+	public String mypageEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request,
+			Errors errors) {
 		new EditValidator().validate(command, errors);
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
@@ -427,9 +389,8 @@ public class MainController {
 		mem.setMem_num(host);
 		mem.setMem_Password(command.getMem_Password());
 		mem.setMem_Introduce(command.getMem_Introduce());
-		System.out.println(mem.getMem_Introduce());
 		boardService.mypageUpdate(mem);
-		return "redirect:/mypagePro?num="+host;
+		return "redirect:/mypagePro?num=" + host;
 	}
 
 	@ResponseBody
@@ -479,7 +440,6 @@ public class MainController {
 
 		} else if (like_on == 1) {
 			boardService.likeChange1(lcb);
-			// map.put("1","1");
 			map.put("test", 1);
 			List<UpdateStateBean> updateList = boardService.updateLikeState(lcb);
 			map.put("updateList", updateList);
@@ -497,7 +457,6 @@ public class MainController {
 		return map;
 	}
 
-	// 330~ 폴더 라이크로 추가된 부분
 	@ResponseBody
 	@RequestMapping(value = "/folderLike", method = RequestMethod.POST)
 	public HashMap<String, Object> folderLikeIn(@RequestParam(value = "folder_num", required = false) int folder_num,

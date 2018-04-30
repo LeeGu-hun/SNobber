@@ -92,7 +92,7 @@
 				<span>
 				${bm.board_Date }
 				</span>
-				<c:if test="${host eq bo.mem_Num }">
+				<c:if test="${host eq bm.mem_Num }">
 				<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>							
 				</c:if>
 			</figcaption>							

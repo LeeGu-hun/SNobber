@@ -32,7 +32,7 @@ import spring.Member;
 public class MinService {
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	public Member selectById(int memId) {
 		String str = Integer.toString(memId);
 		Member member = sqlSession.selectOne("memberSQL.getById", str);
@@ -115,17 +115,20 @@ public class MinService {
 	public void folderFollow(FollowBean bean) {
 		sqlSession.insert("minSQL.folderFollow", bean);
 	}
+
 	public List<FolderBean> followChck(FolderBean bean) {
 		List<FolderBean> list = sqlSession.selectList("minSQL.followChck", bean);
 		return list;
 	}
+
 	public void folderFollowDelete(FollowBean bean) {
-		sqlSession.delete("minSQL.folderFollowDelete",bean);
+		sqlSession.delete("minSQL.folderFollowDelete", bean);
 	}
 
 	public void folderLikeke(LikeKeyBean bean) {
 		sqlSession.insert("minSQL.folderLikeke", bean);
 	}
+
 	public void folderlikekeDelete(LikeKeyBean bean) {
 		sqlSession.delete("minSQL.folderlikekeDelete", bean);
 	}
@@ -170,8 +173,17 @@ public class MinService {
 	}
 
 	public String getFollow(FollowBean bean) {
-		String result =sqlSession.selectOne("minSQL.getFollow",bean);
+		String result = sqlSession.selectOne("minSQL.getFollow", bean);
 		return result;
 	}
-	
+
+	public List<FollowBean> getFollower(FollowBean mem_Num) {
+		List<FollowBean> list = sqlSession.selectList("kuSQL.follower", mem_Num);
+		return list;
+	}
+
+	public List<FollowBean> getFollowing(FollowBean mem_Num) {
+		List<FollowBean> list = sqlSession.selectList("kuSQL.following", mem_Num);
+		return list;
+	}
 }

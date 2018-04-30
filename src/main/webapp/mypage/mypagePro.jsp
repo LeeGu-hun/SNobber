@@ -193,7 +193,12 @@ body, h1, h2, h3, h4, h5, h6 {
 		document.getElementById('myModall').style.display = 'block';
 		//modal을 띄워준다.  	    
 	}
-	
+	function memNum(num) {
+		$(location).attr('href', './mypagePro?num=' + num + '');
+	}
+	function boardNum(num) {
+		$(location).attr('href', './boardEdit?num='+num+'');
+	}
 </script>
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 100%">
@@ -245,17 +250,17 @@ body, h1, h2, h3, h4, h5, h6 {
 										<td width="80%" style="text-align: left;"><div style="margin-left: 100px"><p>닉네ㅁ ${member.mem_Nickname }</p>
 										<p>이메일 ${member.mem_Email }</p> <p>소개 ${member.mem_Introduce }</p></div></td>
 										<td width="10%" style="text-align: right;">
-	                                  							<c:choose>
-	                                  							
+	                                  		<c:choose>
 												<c:when test="${member.mem_num==host }">
-													<div>
-													<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">수정</button>
-													<br><br>
-													<button type="button" class="btn btn-default btn-xs" onclick="follower()">팔로워 보기</button>
-													<br><br>
-													<button type="button" class="btn btn-default btn-xs" onclick="following()">팔로잉 보기</button>
-													<br><br>
-													</div>
+													<button type="button" class="btn btn-default btn-xs" 
+														data-toggle="modal" data-target="#updateModal">수정</button>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" 
+														data-toggle="modal" data-target="#a">팔로워 보기</button>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+														data-toggle="modal" data-target="#b">팔로잉 보기</button>
+													<br>
 												</c:when>
 												<c:otherwise>
 													<c:if test="${follow == '1' }">
@@ -271,6 +276,87 @@ body, h1, h2, h3, h4, h5, h6 {
 												</c:otherwise>
 											</c:choose>
 											
+											<!-- 팔로워 보기 모달 -->
+											<div class="modal fade" id="a" role="dialog">
+												<div class="modal-dialog">
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="btn btn-default btn-xs"
+															data-toggle="modal" data-target="#cancleModal">팔로워 보기</button>
+														</div>
+														<div class="modal-body">
+															<div style="margin-top:150px; width:100px; folat:left;">
+																<table class="w3-table w3-bordered" style="width: 400px">
+																	<tr>
+																		<th colspan="2">팔로워</th>
+																	</tr>
+																	<c:forEach var="fol" items="${follower}">
+																			<tr>
+																				<td rowspan="2">
+																				<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+																					<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
+																						style="max-width: 150%; height: auto;">
+																				</div>
+																				</td>
+																					<td>
+																						<a href="#" onclick="memNum('${fol.mem_Num}')">${fol.mem_Nickname}</a>
+																					</td>
+																			</tr>
+																					<tr>
+																						<td>${fol.mem_Introduce}</td>
+																					</tr>
+																			<tr>
+																				<td colspan="2">
+																					<c:choose>
+																						<c:when test="${fol.follow == 1}">
+																							팔로우중
+																						</c:when>
+																					</c:choose>
+																				</td>
+																			</tr>
+																		</c:forEach>
+																	</table>
+																</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<!-- 팔로잉 보기 모달 -->
+											<div class="modal fade" id="b" role="dialog">
+												<div class="modal-dialog">
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="btn btn-default btn-xs"
+															data-toggle="modal" data-target="#cancleModal">팔로잉 보기</button>
+														</div>
+														<div class="modal-body">
+															<div style="margin-top: 150px; folat:right; width:100px; ">
+																<table class="w3-table w3-bordered" style="width: 400px">
+																	<tr>
+																		<th colspan="2">팔로잉</th>
+																	</tr>
+																	<c:forEach var="fol" items="${following}">
+																			<tr>
+																				<td rowspan="2"><img
+																					src="${pageContext.request.contextPath}/${fol.mem_Photo}"
+																					style="max-width: 150%; height: auto;"></td>
+																				<td><a href="#" onclick="memNum('${fol.follow_You_Num}')">${fol.mem_Nickname}</a></td>
+														
+																			</tr>
+																			<tr>
+																				<td>${fol.mem_Introduce}</td>
+																			</tr>
+																	</c:forEach>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											
 											<!-- 팔로우 취소 모달 -->
 											<div class="modal fade" id="cancleModal" role="dialog">
 												<div class="modal-dialog">
@@ -280,7 +366,7 @@ body, h1, h2, h3, h4, h5, h6 {
 															팔로우 취소
 														</div>
 														<div class="modal-body">
-															<form action="followsubmit" method="POST">>
+															<form action="followsubmit" method="POST">
 																<h4>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h4>
 																<input type="submit" value="취소">
 																<button type="button" data-dismiss="modal">취소</button>
@@ -312,15 +398,14 @@ body, h1, h2, h3, h4, h5, h6 {
 													</div>
 												</div>
 											</div>
-											
 											<!-- 수정 모달 -->
-											<div class="modal fade" id="myModal" role="dialog">
+											<div class="modal fade" id="updateModal" role="dialog">
 												<div class="modal-dialog">
 													<!-- Modal content-->
 													<div class="modal-content">
 														<div class="modal-header">
-															<h4 class="modal-title">회원 정보 변경</h4>
-																<button type="button" class="close" data-dismiss="modal">&times;</button>
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+															<h4 id="updateTitle" class="modal-title"></h4>
 														</div>
 														<div class="modal-body">
 															<p><%@ include file="mypageEdit.jsp"%></p>
@@ -328,16 +413,9 @@ body, h1, h2, h3, h4, h5, h6 {
 													</div>
 												</div>
 											</div>
-											
-										
-										</td>
+										</td> 
 									</tr>
-									<tr>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-									</tr>
+									
 								</table>
 							</div>
 
