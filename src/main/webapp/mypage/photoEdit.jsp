@@ -20,7 +20,7 @@
 				<div style="width:150px; height:150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 					<img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 150%; height: auto;">
 				</div>
-					<input name="mem_photo" type="file" value="${member.mem_Photo }" >
+					<input name="mem_Photo" type="file" value="${member.mem_Photo }" >
 			</td>
 		</tr>
 	
