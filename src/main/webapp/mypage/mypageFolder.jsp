@@ -72,7 +72,7 @@ body, h1, h2, h3, h4, h5, h6 {
 </script>
 
 </head>
-<body class="w3-light-grey w3-content">
+<body class="w3-light-grey w3-content"  style="max-width: 100%">
 <%@ include file="/include/header.jsp"%>
 	<input class="next" value="${folderName.folder_Num}" style="display: none;">	
 

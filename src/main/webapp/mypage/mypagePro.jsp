@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html>
 <html lang="ko">
 <head>
 
@@ -197,7 +196,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	}
 </script>
 </head>
-<body class="w3-light-grey w3-content">
+<body class="w3-light-grey w3-content" style="max-width: 100%">
 	<input class="next" value="${member.mem_num}" style="display: none;">	
 
 	<%@ include file="/include/header.jsp"%>

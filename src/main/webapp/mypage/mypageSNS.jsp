@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -82,14 +82,14 @@ body, h1, h2, h3, h4, h5, h6 {
 </script>
 
 
-<body class="w3-light-grey w3-content">
-	<input class="next" value="${member.mem_num}" style="display: none;">	
+<body class="w3-light-grey w3-content"  style="max-width: 100%">
 
 	<%@ include file="/include/header.jsp"%>
+	<input class="next" value="${member.mem_num}" style="display: none;">	
 	<!-- Overlay effect when opening sidebar on small screens -->
 
 	<!-- !PAGE CONTENT! -->
-	<div class="w3-main" style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
+	<div class="w3-main" style="margin-right: 100px; margin-left: 100px; margin-top: 100px;">
 
 		<!-- Header -->
 		<header id="portfolio">
