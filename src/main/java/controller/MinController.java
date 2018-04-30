@@ -205,6 +205,7 @@ public class MinController {
 	@RequestMapping(value = "mypageFolderCreate", method = { RequestMethod.GET, RequestMethod.POST }) // 占쏙옙占쏙옙 占쏙옙占쏙옙占�
 	public String mypageFolderCreate(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String name= ((AuthInfo) session.getAttribute("authInfo")).getName();
 		String id = request.getParameter("id");
 
 		if (id.equals("folder_create_btn")) {
@@ -219,8 +220,7 @@ public class MinController {
 				secret = "2";
 				num = Integer.parseInt(secret);
 			}
-			List<FolderBean> list = minService.mypageFolder(host, title, num);
-			int folderNum = list.get(0).getFolder_Num();
+			minService.mypageFolder(host, title, num,name);
 
 		}
 		return "main";

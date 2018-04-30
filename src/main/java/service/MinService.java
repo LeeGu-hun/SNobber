@@ -94,14 +94,13 @@ public class MinService {
 		return list;
 	}
 
-	public List<FolderBean> mypageFolder(int num, String title, int secret) {
+	public void mypageFolder(int num, String title, int secret,String name) {
 		FolderBean bean = new FolderBean();
 		bean.setMem_Num(num);
 		bean.setFolder_Title(title);
 		bean.setFolder_secret(secret);
+		bean.setMem_Nickname(name);
 		sqlSession.insert("minSQL.mypageFolder", bean);
-		List<FolderBean> list = sqlSession.selectList("minSQL.mypageFolderView", title);
-		return list;
 	}
 
 	public void folderDelete(String num) {

@@ -247,7 +247,7 @@ body, h1, h2, h3, h4, h5, h6 {
 												<div style="margin-top:15px; margin-left: 35px">	<c:if test="${member.mem_num==host }">
 												<a href="mypage/photoEdit">사진 수정</a></c:if></div>
 										</td>
-										<td width="80%" style="text-align: left;"><div style="margin-left: 100px"><p>닉네ㅁ ${member.mem_Nickname }</p>
+										<td width="80%" style="text-align: left;"><div style="margin-left: 100px"><p>닉네임 ${member.mem_Nickname }</p>
 										<p>이메일 ${member.mem_Email }</p> <p>소개 ${member.mem_Introduce }</p></div></td>
 										<td width="10%" style="text-align: right;">
 	                                  		<c:choose>

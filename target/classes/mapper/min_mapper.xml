@@ -36,9 +36,10 @@
 	
 	<!-- Folder 추가하기 -->
 	<insert id="mypageFolder" parameterType="bean.FolderBean">
-		insert into a_folder (folder_num, mem_num, folder_title, folder_secret) values 
-		(a_folder_seq.nextval, #{mem_Num}, #{folder_Title}, #{folder_secret})
+		insert into a_folder (folder_num, mem_num,mem_nickname, folder_title, folder_secret) values 
+		(a_folder_seq.nextval, #{mem_Num},#{mem_Nickname}, #{folder_Title}, #{folder_secret})
 	</insert>
+	
 	<!-- Folder 삭제하기 -->
 	<delete id="folderDelete" parameterType="String">
 		delete from a_folder where folder_num = #{num}
