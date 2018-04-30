@@ -116,9 +116,7 @@
 
 	<update id="memberUpdate" parameterType="spring.Member">
 		update a_member set
-		mem_nickname=#{mem_Nickname}, mem_password=#{mem_Password}
-		,
-		mem_email=#{mem_Email}, mem_introduce=#{mem_Introduce} where
+		mem_password=#{mem_Password}, mem_introduce=#{mem_Introduce} where
 		mem_num=#{mem_num}
 	</update>
 

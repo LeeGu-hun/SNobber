@@ -15,7 +15,7 @@
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" ver="1.2">
 </head>
 <body>
-	<form:form  method="post" name="mypageEdit" commandName="mypageEditCommand" enctype="multipart/form-data">
+	<form:form  action="mypageEditt" commandName="mypageEditCommand" enctype="multipart/form-data">
 	<table style="height: 200px;">
 		<tr>
 			<td rowspan="10" style="width: 220px;">
@@ -27,7 +27,7 @@
 				이름
 			</td>
 			<td>
-				<input name="mem_nickname" type="text" value="${member.mem_Nickname }" >
+				<input name="mem_Nickname" type="text" value="${member.mem_Nickname }" readonly="readonly">
 			</td>	
 		</tr>
 		<tr>
@@ -35,7 +35,7 @@
 				이메일
 			</td>
 			<td>				
-				<input name="mem_email" type="text" value="${member.mem_Email }">
+				<input name="mem_Email" type="text" value="${member.mem_Email }" readonly="readonly">
 			</td>
 		</tr>
 		<tr>
@@ -43,7 +43,7 @@
 				비밀번호
 			</td>
 			<td>
-				<input name="mem_password" type="password" value="${member.mem_Password }">
+				<input name="mem_Password" type="password" value="${member.mem_Password }">
 			</td>
 		</tr>
 		<tr>
@@ -51,14 +51,14 @@
 				소개
 			</td>
 			<td>
-				<textarea name="mem_introduce">
+				<textarea name="mem_Introduce">
 					${member.mem_Introduce }
 				</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a href="javascript:mypageModify()" class="btn btn-default" data-dismiss="modal">변경</a>
+				<input type="submit" class="btn btn-default" value="변경">
 			</td>
 			<td>
 				<a href="javascript:history.back();" class="btn btn-default" data-dismiss="modal">뒤로</a>

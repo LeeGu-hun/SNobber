@@ -3,17 +3,15 @@ package bean;
 import org.springframework.web.multipart.MultipartFile;
 
 public class mypageEditCommand {
-	String mem_nickname, mem_password, mem_email, mem_introduce;
-	MultipartFile mem_photo;
+	String mem_Nickname, mem_Password, mem_Email, mem_Introduce;
+	MultipartFile mem_Photo;
 
-	
-	
-	public mypageEditCommand(String mem_nickname, String mem_password, String mem_email, String mem_introduce) {
+	public mypageEditCommand(String mem_Nickname, String mem_Password, String mem_Email, String mem_Introduce) {
 		super();
-		this.mem_nickname = mem_nickname;
-		this.mem_password = mem_password;
-		this.mem_email = mem_email;
-		this.mem_introduce = mem_introduce;
+		this.mem_Nickname = mem_Nickname;
+		this.mem_Password = mem_Password;
+		this.mem_Email = mem_Email;
+		this.mem_Introduce = mem_Introduce;
 	}
 
 	public mypageEditCommand() {
@@ -21,45 +19,44 @@ public class mypageEditCommand {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getMem_nickname() {
-		return mem_nickname;
+	public String getMem_Nickname() {
+		return mem_Nickname;
 	}
 
-	public void setMem_nickname(String mem_nickname) {
-		this.mem_nickname = mem_nickname;
+	public void setMem_Nickname(String mem_Nickname) {
+		this.mem_Nickname = mem_Nickname;
 	}
 
-	public String getMem_password() {
-		return mem_password;
+	public String getMem_Password() {
+		return mem_Password;
 	}
 
-	public void setMem_password(String mem_password) {
-		this.mem_password = mem_password;
+	public void setMem_Password(String mem_Password) {
+		this.mem_Password = mem_Password;
 	}
 
-	public String getMem_email() {
-		return mem_email;
+	public String getMem_Email() {
+		return mem_Email;
 	}
 
-	public void setMem_email(String mem_email) {
-		this.mem_email = mem_email;
+	public void setMem_Email(String mem_Email) {
+		this.mem_Email = mem_Email;
 	}
 
-	public MultipartFile getMem_photo() {
-		return mem_photo;
+	public String getMem_Introduce() {
+		return mem_Introduce;
 	}
 
-	public void setMem_photo(MultipartFile mem_photo) {
-		this.mem_photo = mem_photo;
+	public void setMem_Introduce(String mem_Introduce) {
+		this.mem_Introduce = mem_Introduce;
 	}
 
-	public String getMem_introduce() {
-		return mem_introduce;
+	public MultipartFile getMem_Photo() {
+		return mem_Photo;
 	}
 
-	public void setMem_introduce(String mem_introduce) {
-		this.mem_introduce = mem_introduce;
+	public void setMem_Photo(MultipartFile mem_Photo) {
+		this.mem_Photo = mem_Photo;
 	}
-	
 	
 }

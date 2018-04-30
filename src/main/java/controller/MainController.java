@@ -2,14 +2,12 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import bean.BoardBean;
 import bean.BoardCommand;
-import bean.BoardMemberBean;
+import bean.EditValidator;
 import bean.FolderBean;
 import bean.FolderLikekey;
 import bean.FolderListBean;
@@ -40,7 +38,6 @@ import bean.ListBean;
 import bean.ListBeanScroll;
 import bean.LoginCommand;
 import bean.MemberBean;
-import bean.ReBean;
 import bean.SearchKeyBean;
 import bean.UpdateStateBean;
 import bean.likeChangeBean;
@@ -134,7 +131,7 @@ public class MainController {
 	public String photoEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request,
 			Errors errors) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		MultipartFile multi = command.getMem_photo();
+		MultipartFile multi = command.getMem_Photo();
 		String originalFilename = multi.getOriginalFilename();
 		String newFilename = "";
 		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
@@ -413,24 +410,19 @@ public class MainController {
 		return "mypage/mypageEdit";
 	}
 
-	@RequestMapping(value = "mypageEdit", method = RequestMethod.POST)
-	public String mypageEditPost(mypageEditCommand command, HttpSession session, Model model,
-			HttpServletRequest request) {
-		Member mem = new Member();
 
+	@RequestMapping(value = "mypageEditt")
+	public String mypageEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request, Errors errors) {
+		new EditValidator().validate(command, errors);
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		mem.setMem_num(host);
-		mem.setMem_Nickname(command.getMem_nickname());
-		mem.setMem_Email(command.getMem_email());
-		mem.setMem_Password(command.getMem_password());
-		mem.setMem_Introduce(command.getMem_introduce());
 		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
-		auth.setName(command.getMem_nickname());
-		auth.setEmail(command.getMem_email());
-		auth.setIntroduce(command.getMem_introduce());
-
+		Member mem = new Member();
+		mem.setMem_num(host);
+		mem.setMem_Password(command.getMem_Password());
+		mem.setMem_Introduce(command.getMem_Introduce());
+		System.out.println(mem.getMem_Introduce());
 		boardService.mypageUpdate(mem);
-		return "mypage/success";
+		return "redirect:/mypagePro?num="+host;
 	}
 
 	@ResponseBody
