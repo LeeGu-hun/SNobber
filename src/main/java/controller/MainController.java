@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -252,7 +253,13 @@ public class MainController {
 					int mem_num = bb.getMem_Num();
 					String mem_ph=bb.getMem_Photo();
 					int a=lastbno++;
-					
+					SimpleDateFormat sd;
+					sd=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String s=sd.format(bb.getBoard_Date());
+					map.put("boarddate"+b,s);	
+
+
+
 					System.out.println("파일"+bb.getBoard_File());
 					map.put("boarddate"+b, bb.getBoard_Date());	
 					
