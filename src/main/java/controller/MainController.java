@@ -221,64 +221,70 @@ public class MainController {
 	}
 
 	// 무한 스크롤~~~~~~~~~~~~~~~~~~
-		@ResponseBody
-		@RequestMapping(value = "/boardScroll", method = RequestMethod.POST)
-		public HashMap<String, Object> boardScroll(HttpSession session,
-				@RequestParam(value = "lastbno", required = false) int lastbno,@RequestParam(value = "lastbnoTest", required = false) int lastbnoTest) {
-			int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-			ListBeanScroll lbs = new ListBeanScroll();
-			/* int row = rowsCount - 1; */
-			int lastbnoPlus = lastbnoTest + 1;
-			lbs.setB_mem_num(host);
-			lbs.setF_mem_num(host);
-			lbs.setRowsCount(lastbnoPlus);
-			System.out.println("lastbno :"+lastbno);
-			ListBean lb = new ListBean();
+			@ResponseBody
+			@RequestMapping(value = "/boardScroll", method = RequestMethod.POST)
+			public HashMap<String, Object> boardScroll(HttpSession session,
+					@RequestParam(value = "lastbno", required = false) int lastbno,@RequestParam(value = "lastbnoTest", required = false) int lastbnoTest) {
+				int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+				ListBeanScroll lbs = new ListBeanScroll();
+				/* int row = rowsCount - 1; */
+				int lastbnoPlus = lastbnoTest + 1;
+				lbs.setB_mem_num(host);
+				lbs.setF_mem_num(host);
+				lbs.setRowsCount(lastbnoPlus);
+				System.out.println("lastbno :"+lastbno);
+				ListBean lb = new ListBean();
 
-			lb.setB_mem_num(host);
-			lb.setF_mem_num(host);
+				lb.setB_mem_num(host);
+				lb.setF_mem_num(host);
 
-			List<BoardBean> allList = boardService.showListSize(lb);
+				List<BoardBean> allList = boardService.showListSize(lb);
 
-			List<BoardBean> list = boardService.boardListScroll(lbs);
+				List<BoardBean> list = boardService.boardListScroll(lbs);
 
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("realscrolllastbno",lastbno+1);
-			for (int b = lastbno+1 ; b < list.size(); b++) {
-				BoardBean bb = (BoardBean) list.get(b);
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("realscrolllastbno",lastbno+1);
+				for (int b = lastbno+1 ; b < list.size(); b++) {
+					BoardBean bb = (BoardBean) list.get(b);
 
-				String content = bb.getBoard_Content();
-				int board_num = bb.getBoard_Num();
-				int like_on = bb.getLike_on();
-				String mem_nickname = bb.getMem_Nickname();
-				int mem_num = bb.getMem_Num();
-				String mem_ph=bb.getMem_Photo();
-				int a=lastbno++;
-				System.out.println("파일"+bb.getBoard_File());
-				map.put("scrollAddFile"+b, bb.getBoard_File());	
-				map.put("scrollAddPhoto"+b, mem_ph);
-				map.put("scrolllastbno"+b,a);
-				map.put("scrollAddCon"+b, content);
-				map.put("scrollAddLi"+b, like_on);
-				map.put("scrollAddMeN"+b, mem_nickname);
-				map.put("scrollAddBoardBum"+b, board_num);
-				map.put("scrollAddMeNu"+b, mem_num);
-				/*for (String mapkey : map.keySet()){
-			        System.out.println("key:"+mapkey+",value:"+map.get(mapkey));
-			    }*/
+					String content = bb.getBoard_Content();
+					int count=bb.getCount();
+					int board_num = bb.getBoard_Num();
+					int like_on = bb.getLike_on();
+					String mem_nickname = bb.getMem_Nickname();
+					int mem_num = bb.getMem_Num();
+					String mem_ph=bb.getMem_Photo();
+					int a=lastbno++;
+					
+					System.out.println("파일"+bb.getBoard_File());
+					map.put("boarddate"+b, bb.getBoard_Date());	
+					
+					System.out.println("bb.getBoard_Date():"+bb.getBoard_Date());
+					map.put("count"+b, count);	
+					map.put("scrollAddFile"+b, bb.getBoard_File());	
+					map.put("scrollAddPhoto"+b, mem_ph);
+					map.put("scrolllastbno"+b,a);
+					map.put("scrollAddCon"+b, content);
+					map.put("scrollAddLi"+b, like_on);
+					map.put("scrollAddMeN"+b, mem_nickname);
+					map.put("scrollAddBoardBum"+b, board_num);
+					map.put("scrollAddMeNu"+b, mem_num);
+					/*for (String mapkey : map.keySet()){
+				        System.out.println("key:"+mapkey+",value:"+map.get(mapkey));
+				    }*/
 
 
-		
-
-			}
-			System.out.println("lastbno2 :"+lastbno);
 			
-			map.put("allList", allList.size());
-			map.put("listSize", list.size());
-			// map.put("rowsCount", rowsCount);
-			map.put("scrollIndex", lastbnoTest);
-			return map;
-		}
+
+				}
+				System.out.println("lastbno2 :"+lastbno);
+				
+				map.put("allList", allList.size());
+				map.put("listSize", list.size());
+				// map.put("rowsCount", rowsCount);
+				map.put("scrollIndex", lastbnoTest);
+				return map;
+			}
 
 	@ResponseBody
 	@RequestMapping(value = "/folderScrollFollow", method = RequestMethod.POST)

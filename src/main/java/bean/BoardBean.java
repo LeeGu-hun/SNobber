@@ -17,9 +17,18 @@ public class BoardBean {
 	private String board_File;
 	private int board_Type;
 	private int folder_Num;
+	private Date sysdate;
 	
 	
-	//매퍼의 리스트 수정하면서 이부분 추가했습니다   setter,getter포함
+	public Date getSysdate() {
+		return sysdate;
+	}
+
+	public void setSysdate(Date sysdate) {
+		this.sysdate = sysdate;
+	}
+
+		//매퍼의 리스트 수정하면서 이부분 추가했습니다   setter,getter포함
 		private int like_on;
 		private int count;
 

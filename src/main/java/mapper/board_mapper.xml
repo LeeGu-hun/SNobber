@@ -8,7 +8,7 @@
 	<select id="boardList" resultType="bean.BoardBean"
 		parameterType="bean.ListBean">
 		select
-		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		b.board_num,sysdate,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
 		board_file from a_board where board_num=b.board_num) as board_file,(select mem_photo from a_member where mem_num=b.mem_num) as mem_photo,
 		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
 		and
@@ -39,7 +39,7 @@
 	<select id="boardListScroll" resultType="bean.BoardBean" parameterType="bean.ListBeanScroll">
 	
 		select
-		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		b.board_num,sysdate,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
 		board_file from a_board where board_num=b.board_num) as board_file,(select mem_photo from a_member where mem_num=b.mem_num) as mem_photo,
 		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
 		and
@@ -70,7 +70,7 @@
 	<select id="showListSize" resultType="bean.BoardBean" parameterType="bean.ListBean">
 	
 		select
-		b.board_num,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
+		b.board_num,sysdate,b.mem_num,(select mem_nickname from a_member where mem_num=b.mem_num) as mem_nickname,b.board_content,(select
 		board_file from a_board where board_num=b.board_num) as board_file,(select mem_photo from a_member where mem_num=b.mem_num) as mem_photo,
 		b.board_date,(select like_on from a_like where mem_num=#{b_mem_num}
 		and

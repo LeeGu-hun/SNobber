@@ -39,9 +39,9 @@ function test(data) {
 	var index = data.index;
 
 	var atag1 = "<a href='#' onclick=" + "'check(\"" + num + "\",\"" + like
-			+ "\",\"" + index + "\")'> ★</a>";
+			+ "\",\"" + index + "\")'> <img src='./image/like.png'></a>";
 	var atag2 = "<a href='#' onclick=" + "'check(\"" + num + "\",\"" + like
-			+ "\",\"" + index + "\")'> ☆</a>";
+			+ "\",\"" + index + "\")'> <img src='./image/unlike.png'></a>";
 
 	btnLikes = document.querySelectorAll('#btnLike');
 
