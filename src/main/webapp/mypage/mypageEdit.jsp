@@ -12,6 +12,14 @@
 			mypageEdit.submit();
 		}
 	</script>
+	
+	<style>
+	
+	td{
+	
+	}
+	
+	</style>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" ver="1.2">
 </head>
 <body>
@@ -23,7 +31,7 @@
 					<img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 150%; height: auto;">
 				</div>
 			</td>
-			<td>
+			<td style="text-align: center; margin-bottom: 10px;">
 				이름
 			</td>
 			<td>
@@ -31,7 +39,7 @@
 			</td>	
 		</tr>
 		<tr>
-			<td>
+			<td style="text-align: center; margin-bottom: 10px;">
 				이메일
 			</td>
 			<td>				
@@ -39,7 +47,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td style="text-align: center">
 				비밀번호
 			</td>
 			<td>
@@ -47,7 +55,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td style="text-align: center">
 				소개
 			</td>
 			<td>
@@ -57,11 +65,8 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="2">
 				<input type="submit" class="btn btn-default" value="변경">
-			</td>
-			<td>
-				<a href="javascript:history.back();" class="btn btn-default" data-dismiss="modal">뒤로</a>
 			</td>			
 		</tr>		
 	</table>	

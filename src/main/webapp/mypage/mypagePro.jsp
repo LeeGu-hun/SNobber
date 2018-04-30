@@ -214,7 +214,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 			<!-- !PAGE CONTENT! -->
 			<div class="w3-main"
-				style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
+				style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
 
 				<!-- Header -->
 				<header id="portfolio">
@@ -223,33 +223,39 @@ body, h1, h2, h3, h4, h5, h6 {
 						class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
 					<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey"
 						onclick="w3_open()"><i class="fa fa-bars"></i></span>
-					<div class="w3-container">
+					<div class="w3-container" style="margin-left: 200px;margin-right: 200px;">
 						<div class="w3-container w3-padding-large"
 							style="margin-bottom: 32px">
 							<div class="w3-col m6">
 
-								<table style="height: 200px;">
+								<table style="height: 200px; width:1100px">
 									<tr>
-										<td rowspan="10" style="width: 220px;">
+										<td rowspan="10" style="width: 10%;">
 											<div
 												style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 												<img src="${pageContext.request.contextPath}/${member.mem_Photo}"
-													style="max-width: 150%; height: auto;"
+													style="max-width: 150%; height: auto; margin-bottom: 100px"
 													onclick="javascript:pop()">
-											</div> <c:if test="${member.mem_num==host }">
-												<a href="mypage/photoEdit">사진 수정</a>
-											</c:if>
+												
+											</div> 
+												
+												<div style="margin-top:15px; margin-left: 35px">	<c:if test="${member.mem_num==host }">
+												<a href="mypage/photoEdit">사진 수정</a></c:if></div>
 										</td>
-										<td>이름 ${member.mem_Nickname }</td>
-										<td>
-											<c:choose>
+										<td width="80%" style="text-align: left;"><div style="margin-left: 100px"><p>닉네ㅁ ${member.mem_Nickname }</p>
+										<p>이메일 ${member.mem_Email }</p> <p>소개 ${member.mem_Introduce }</p></div></td>
+										<td width="10%" style="text-align: right;">
+	                                  							<c:choose>
+	                                  							
 												<c:when test="${member.mem_num==host }">
+													<div>
 													<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">수정</button>
-													<br>
+													<br><br>
 													<button type="button" class="btn btn-default btn-xs" onclick="follower()">팔로워 보기</button>
-													<br>
+													<br><br>
 													<button type="button" class="btn btn-default btn-xs" onclick="following()">팔로잉 보기</button>
-													<br>
+													<br><br>
+													</div>
 												</c:when>
 												<c:otherwise>
 													<c:if test="${follow == '1' }">
@@ -313,8 +319,8 @@ body, h1, h2, h3, h4, h5, h6 {
 													<!-- Modal content-->
 													<div class="modal-content">
 														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal">&times;</button>
 															<h4 class="modal-title">회원 정보 변경</h4>
+																<button type="button" class="close" data-dismiss="modal">&times;</button>
 														</div>
 														<div class="modal-body">
 															<p><%@ include file="mypageEdit.jsp"%></p>
@@ -323,14 +329,14 @@ body, h1, h2, h3, h4, h5, h6 {
 												</div>
 											</div>
 											
-											
+										
 										</td>
 									</tr>
 									<tr>
-										<td>이메일 ${member.mem_Email }</td>
+										<td></td>
 									</tr>
 									<tr>
-										<td>소개 ${member.mem_Introduce }</td>
+										<td></td>
 									</tr>
 								</table>
 							</div>
@@ -380,7 +386,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<p>등록된 글이 없습니다.</p>
 				</c:if>
 				<c:forEach var="fol" items="${folder }" varStatus="stFolder">
-					<div class="w3-row-padding">
+					<div class="w3-row-padding" style="margin-left: 230px; margin-right: 150px;">
 						<p>
 							<b onclick="stFolder('${fol.folder_Num}')">
 								${fol.folder_Title } </b>
@@ -425,7 +431,7 @@ body, h1, h2, h3, h4, h5, h6 {
 													<span onclick="boardNum(${bo.board_Num})" style="text-align: right; font-size: 0.8em;">
 														Edit
 													</span>
-													<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right; font-size: 0.8em;">
+													<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: left; font-size: 0.8em;">
 														Delete
 													</span>									
 												</c:if>
