@@ -40,11 +40,4 @@ public class KuController {
 		 model.addAttribute("following", followingBean);
 		return "follow/following";
 	}
-	
-	@RequestMapping("followSuply")
-	public String suply() {
-		
-		return "";
-	}
-
 }

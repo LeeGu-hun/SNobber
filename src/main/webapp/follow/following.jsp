@@ -73,7 +73,8 @@
 						<td colspan="2"><input type="button"
 							class="w3-button w3-black"
 							onclick="ingShow('1','${fol.follow_You_Num}','${fol.mem_Nickname}')"
-							value="취소" /></td>
+							value="취소" />
+						</td>
 					</tr>
 		</table>
 

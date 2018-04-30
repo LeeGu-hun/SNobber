@@ -193,36 +193,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		document.getElementById('myModall').style.display = 'block';
 		//modal을 띄워준다.  	    
 	}
-	function follow(host,nam){
-		//팔로우 신청
-		$.ajax({
-			type : "POST",
-			url : "./followSubmit",
-			data : {
-				id : id,
-				num : num
-			},
-			success : follow2
-		});
-	}
-	function follow2(){
-		$(location).attr('href', './mypagePro?num=' + nam+ '');
-	}
-	function cancleFollow(host,num){
-		//팔로우 취소 
-		$.ajax({
-			type : "POST",
-			url : "./followCancle",
-			data : {
-				id : id,
-				num : num
-			},
-			success : follow2
-		});
-	}
-	function cancleFollow2(){
-		$(location).attr('href', './mypagePro?num=' + nam+ '');
-	}
+	
 </script>
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 100%">
@@ -303,9 +274,13 @@ body, h1, h2, h3, h4, h5, h6 {
 															팔로우 취소
 														</div>
 														<div class="modal-body">
-															<h4>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h4>
-															<button type="button" onclick="cancleFollow('${member.mem_num}','${host}' )">신청</button>
-															<button type="button" data-dismiss="modal">취소</button>
+															<form action="followsubmit" method="POST">>
+																<h4>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h4>
+																<input type="submit" value="취소">
+																<button type="button" data-dismiss="modal">취소</button>
+																<input type="hidden" id="type" name="type" value="1"/>
+																<input type="hidden" id="title" name="title" value="${member.mem_num }"/>
+															</form>
 														</div>
 													</div>
 												</div>
@@ -320,9 +295,13 @@ body, h1, h2, h3, h4, h5, h6 {
 															팔로우 신청
 														</div>
 														<div class="modal-body">
-															<h4>${member.mem_Nickname }님에게 팔로우 신청 하겠습니까?</h4>
-															<button type="button" onclick="follow('${member.mem_num}','${host}' )">신청</button>
-															<button type="button" data-dismiss="modal">취소</button>
+															<form action="followsubmit" method="POST">
+																<h4>${member.mem_Nickname }님에게 팔로우 신청 하겠습니까?</h4>
+																<input type="submit" value="신청">
+																<button type="button" data-dismiss="modal">취소</button>
+																<input type="hidden" id="type" name="type" value="2"/>
+																<input type="hidden" id="title" name="title"  value="${member.mem_num }"/>
+															</form>
 														</div>
 													</div>
 												</div>

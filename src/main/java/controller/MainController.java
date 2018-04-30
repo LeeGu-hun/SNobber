@@ -338,14 +338,14 @@ public class MainController {
 		bean.setMem_Num(mem_Num);
 		bean.setFollow_You_Num(follow_You_Num);
 		List<FollowSubmitBean> list = null;
-		if (type.equals("1")) { // 팔로잉 신청
+		if (type.equals("1")) { // 팔로잉 취소
 			boardService.cancle(bean);
 			boardService.cancleUpdate(bean);
-		} else if (type.equals("2")) { // 팔로워 취소
+		} else if (type.equals("2")) { // 팔로워 신청
 			boardService.apply(bean);
 			boardService.applyUpdate(bean);
 		}
-		return "redirect:/follow";
+		return "redirect:/mypagePro?num="+follow_You_Num;
 	}
 
 	@RequestMapping(value = "/searching", method = RequestMethod.GET)
