@@ -98,7 +98,7 @@ select {
 						<div class="w3-container w3-white">
 							<table>
 								<tr>
-									<td><b><a href="#" onclick="boardNum('${bo.mem_Num}')">
+									<td><b><a href="#" onclick="memNum('${bo.mem_Num}')">
 												글쓴 사람: ${bo.mem_Nickname} </a></b></td>
 									<td></td>
 								</tr>
