@@ -193,6 +193,36 @@ body, h1, h2, h3, h4, h5, h6 {
 		document.getElementById('myModall').style.display = 'block';
 		//modal을 띄워준다.  	    
 	}
+	function follow(host,nam){
+		//팔로우 신청
+		$.ajax({
+			type : "POST",
+			url : "./followSubmit",
+			data : {
+				id : id,
+				num : num
+			},
+			success : follow2
+		});
+	}
+	function follow2(){
+		$(location).attr('href', './mypagePro?num=' + nam+ '');
+	}
+	function cancleFollow(host,num){
+		//팔로우 취소 
+		$.ajax({
+			type : "POST",
+			url : "./followCancle",
+			data : {
+				id : id,
+				num : num
+			},
+			success : follow2
+		});
+	}
+	function cancleFollow2(){
+		$(location).attr('href', './mypagePro?num=' + nam+ '');
+	}
 </script>
 </head>
 <body class="w3-light-grey w3-content" style="max-width: 100%">
@@ -241,12 +271,64 @@ body, h1, h2, h3, h4, h5, h6 {
 										</td>
 										<td>이름 ${member.mem_Nickname }</td>
 										<td>
-											<c:if test="${member.mem_num==host }">
-												<button type="button" class="btn btn-default btn-xs"
-													data-toggle="modal" data-target="#myModal">수정</button>
-											</c:if>
+											<c:choose>
+												<c:when test="${member.mem_num==host }">
+													<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">수정</button>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" onclick="follower()">팔로워 보기</button>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" onclick="following()">팔로잉 보기</button>
+													<br>
+												</c:when>
+												<c:otherwise>
+													<c:if test="${follow == '1' }">
+														&nbsp 팔로우 중 <br>
+														<button type="button" class="btn btn-default btn-xs"
+															data-toggle="modal" data-target="#cancleModal">팔로우 취소</button>
+														
+													</c:if>
+													<c:if test="${follow != '1' }">
+														<button type="button" class="btn btn-default btn-xs"
+															data-toggle="modal" data-target="#followModal">팔로우 하기</button>
+													</c:if>
+												</c:otherwise>
+											</c:choose>
 											
+											<!-- 팔로우 취소 모달 -->
+											<div class="modal fade" id="cancleModal" role="dialog">
+												<div class="modal-dialog">
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header">
+															팔로우 취소
+														</div>
+														<div class="modal-body">
+															<h4>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h4>
+															<button type="button" onclick="cancleFollow('${member.mem_num}','${host}' )">신청</button>
+															<button type="button" data-dismiss="modal">취소</button>
+														</div>
+													</div>
+												</div>
+											</div>
 											
+											<!-- 팔로우 신청 모달 -->
+											<div class="modal fade" id="followModal" role="dialog">
+												<div class="modal-dialog">
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header">
+															팔로우 신청
+														</div>
+														<div class="modal-body">
+															<h4>${member.mem_Nickname }님에게 팔로우 신청 하겠습니까?</h4>
+															<button type="button" onclick="follow('${member.mem_num}','${host}' )">신청</button>
+															<button type="button" data-dismiss="modal">취소</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<!-- 수정 모달 -->
 											<div class="modal fade" id="myModal" role="dialog">
 												<div class="modal-dialog">
 													<!-- Modal content-->

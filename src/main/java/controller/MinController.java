@@ -38,7 +38,7 @@ public class MinController {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		if (request.getParameter("num") != null) {
 			int pageNum = Integer.parseInt(request.getParameter("num"));
-
+			
 			model.addAttribute("host", host);
 			Member member = minService.selectById(pageNum);
 			model.addAttribute("member", member);
@@ -51,7 +51,12 @@ public class MinController {
 				List<BoardBean> folder = minService.mypageProNam(pageNum);
 				model.addAttribute("folder", folder);
 				
+				FollowBean bean = new FollowBean();
+				bean.setMem_Num(host);
+				bean.setFollow_You_Num(pageNum);
+				String follow = minService.getFollow(bean);
 				List<BoardBean> boardProBoard = minService.mypageProBoardNam(pageNum);
+				model.addAttribute("follow",follow);
 				model.addAttribute("boardProBoard", boardProBoard);
 			}
 

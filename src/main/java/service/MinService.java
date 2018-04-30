@@ -153,4 +153,10 @@ public class MinService {
 	public void photoUpdate(Member mem) {
 		sqlSession.update("memberSQL.photoUpdate", mem);
 	}
+
+	public String getFollow(FollowBean bean) {
+		String result =sqlSession.selectOne("minSQL.getFollow",bean);
+		return result;
+	}
+	
 }

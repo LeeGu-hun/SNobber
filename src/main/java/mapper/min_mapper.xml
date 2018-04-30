@@ -102,5 +102,10 @@
 		select m.MEM_NICKNAME, m.mem_photo, r.RE_CONTENT, r.RE_DATE, r.mem_num, r.re_num
     		from a_member m, a_re r where m.MEM_NUM = r.MEM_NUM and r.target_num = #{num}
 	</select>	
+	
+	<select id="getFollow" parameterType="bean.FollowBean" resultType="String">
+		select follow from a_follow where MEM_NUM=#{mem_Num} and follow_you_num=#{follow_You_Num}
+	</select>
+	
 </mapper>
 
