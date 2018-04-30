@@ -64,7 +64,6 @@ public class MinController {
 					}
 					
 					List<FolderBean> followChck = minService.followChck(bean);
-					System.out.println("listLastBean   "+ followChck.size() );
 					if(followChck.size()==1) {
 						folder.get(i).setFollow_on(1);
 					} else {
