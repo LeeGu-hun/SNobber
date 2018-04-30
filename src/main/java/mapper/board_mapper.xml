@@ -103,7 +103,7 @@
 		parameterType="bean.SearchKeyBean">
 		<choose>
 			<when test="searchOption0=='board_content'">
-				select board_content,mem_nickname,board_file,mem_num
+				select board_num,board_content,mem_nickname,board_file,mem_num
 				from
 				a_board
 				where
@@ -536,13 +536,13 @@
 	</select>
 	
 	<insert id="write" parameterType="spring.Board" >
-		insert into a_board (board_num,mem_num,board_content,board_date,board_secret,board_read_count,board_file,board_type,folder_num)
-		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode},#{folderMode})
+		insert into a_board (board_num,mem_num,mem_nickname,board_content,board_date,board_secret,board_read_count,board_file,board_type,folder_num)
+		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{mem_NickName},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode},#{folderMode})
 	</insert>
 	
 	<insert id ="writeNull" parameterType="spring.Board" >
-		insert into a_board (board_num,mem_num,board_content,board_date,board_secret,board_read_count,board_file,board_type)
-		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode})
+		insert into a_board (board_num,mem_num,mem_nickname,board_content,board_date,board_secret,board_read_count,board_file,board_type)
+		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{mem_NickName},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode})
 	</insert>
 	
 	<select id="getBoard" resultType="bean.BoardMemberBean" parameterType="String">

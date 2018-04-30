@@ -31,6 +31,9 @@
 	function memNum(num) {
 		$(location).attr('href', './mypagePro?num=' + num + '');
 	}
+	function move(num){
+		$(location).attr('href', './mypageWritingView?num=' + num + '');
+	}
 </script>
 <style>
 select {
@@ -89,14 +92,14 @@ select {
 				
 					<div class="w3-third w3-container w3-margin-bottom"
 						style="margin-top:80px; margin-left:200px; ">
-						<img src="${pageContext.request.contextPath}/${bo.board_File}"
+						<img src="${pageContext.request.contextPath}/${bo.board_File}" onclick="move(${bo.board_Num})"
 							style="width: 300px" class="w3-hover-opacity" height="200px">
 
 						<div class="w3-container w3-white">
 							<table>
 								<tr>
 									<td><b><a href="#" onclick="boardNum('${bo.mem_Num}')">
-												${bo.mem_Nickname} 닉네임 </a></b></td>
+												글쓴 사람: ${bo.mem_Nickname} </a></b></td>
 									<td></td>
 								</tr>
 								<tr>
@@ -129,7 +132,7 @@ select {
 					<div class="w3-third w3-container w3-margin-bottom"
 						style="margin-top: 80px; margin-left:200px;" style="margin-top:10px">
 						<c:if test="${bo.mem_Photo ne null}">
-					<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
+					<img src="${pageContext.request.contextPath}/${bo.mem_Photo}" onclick="memNum('${bo.mem_num}')" 
 						style="width: 70%" class="w3-hover-opacity" height="300px;">
 </c:if>
 						<!-- 그사람 사진 -->

@@ -88,7 +88,9 @@
 				</div>
 				<br>
 				<div>
-					<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>
+					<c:if test="${bm.mem_Num==sessionScope.authInfo.mem_num}">
+						<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>
+					</c:if>
 				</div>
 				<br>
 				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 100%; height: auto;"> 

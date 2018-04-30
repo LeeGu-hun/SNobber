@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import bean.FollowBean;
 import bean.FollowSubmitBean;
+import spring.Board;
 
 @Service
 public class KuService {
@@ -39,4 +40,5 @@ public class KuService {
 	public void cancleUpdate(FollowSubmitBean bean) {
 		sqlSession.update("kuSQL.cancleUpdate", bean);
 	}
+	
 }

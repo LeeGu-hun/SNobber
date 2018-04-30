@@ -186,6 +186,7 @@ public class MainController {
 	@RequestMapping(value = "/main", method = RequestMethod.POST)
 	public String homePost(HttpSession session, BoardCommand board, HttpServletRequest request) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		String name = ((AuthInfo) session.getAttribute("authInfo")).getName();
 		MultipartFile multi = board.getBOARD_FILE();
 		String originalFilename = multi.getOriginalFilename();
 		String newFilename = "";
@@ -205,6 +206,7 @@ public class MainController {
 			bb.setBOARD_FILE("");
 		}
 		bb.setMem_Num(host);
+		bb.setMem_NickName(name);
 		bb.setBOARD_CONTENT(board.getBOARD_CONTENT());
 		bb.setFolderMode(board.getFolderMode());
 		bb.setWriteMode(board.getWriteMode());

@@ -3,16 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kuSQL">
-	<insert id="write" parameterType="spring.Board" >
-		insert into a_board (board_num,mem_num,mem_nickname,board_content,board_date,board_secret,board_read_count,board_file,board_type,folder_num)
-		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{mem_NickName},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode},#{folderMode})
-	</insert>
-	
-	<insert id ="writeNull" parameterType="spring.Board" >
-		insert into a_board (board_num,mem_num,mem_nickname,board_content,board_date,board_secret,board_read_count,board_file,board_type)
-		values(A_BOARD_SEQ.NEXTVAL,#{mem_Num},#{mem_NickName},#{BOARD_CONTENT},sysdate,#{secretMode},0,#{BOARD_FILE},#{writeMode})
-	</insert>
-	
+		
 	<select id="following" resultType="bean.FollowBean"
 		parameterType="bean.FollowBean">
 		select
