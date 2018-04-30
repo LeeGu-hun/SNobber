@@ -44,10 +44,11 @@
 				<td>
 					글 분류
 				</td>
-				<td>
-					
-					<input type="radio" name="writeMode" value="1" onclick="change()" checked="checked" />기본
-					<input type="radio" name="writeMode" value="2" onclick="change()"/>SNol
+				<td>					
+					<input type="radio" name="writeMode" value="1" onclick="change()" checked="checked" />
+						기본
+					<input type="radio" name="writeMode" value="2" onclick="change()"/>
+						SNol
 					
 					<div id ="folder" style="display:none">
 						폴더 선택

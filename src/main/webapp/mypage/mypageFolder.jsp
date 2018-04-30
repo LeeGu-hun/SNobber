@@ -72,7 +72,7 @@ body, h1, h2, h3, h4, h5, h6 {
 </script>
 
 </head>
-<body class="w3-light-grey w3-content" style="max-width: 1600px">
+<body class="w3-light-grey w3-content">
 <%@ include file="/include/header.jsp"%>
 	<input class="next" value="${folderName.folder_Num}" style="display: none;">	
 
@@ -121,17 +121,19 @@ body, h1, h2, h3, h4, h5, h6 {
 							<span>
 								조회수 : ${bo.board_Read_Count}
 							</span>
-							<span>
-								${bo.board_Date }
-							</span>
-							<c:if test="${host eq bo.mem_Num }">
-								<span onclick="boardNum(${bo.board_Num})" style="text-align: right;">
-									Edit
+							<div style="text-align: right;">
+								<span style="font-size: 0.8em;">
+									${bo.board_Date } &nbsp;&nbsp;
 								</span>
-								<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">
-									Delete
-								</span>									
-							</c:if>
+								<c:if test="${host eq bo.mem_Num }">
+									<span onclick="boardNum(${bo.board_Num})" style="text-align: right; font-size: 0.8em;">
+										Edit
+									</span>
+									<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right; font-size: 0.8em;">
+										Delete
+									</span>									
+								</c:if>
+							</div>
 						</figcaption>							
 					</figure>
 				</c:forEach>

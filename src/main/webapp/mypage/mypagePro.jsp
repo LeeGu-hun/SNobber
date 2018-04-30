@@ -197,7 +197,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	}
 </script>
 </head>
-<body class="w3-light-grey w3-content" style="max-width: 1600px">
+<body class="w3-light-grey w3-content">
 	<input class="next" value="${member.mem_num}" style="display: none;">	
 
 	<%@ include file="/include/header.jsp"%>
@@ -231,7 +231,6 @@ body, h1, h2, h3, h4, h5, h6 {
 
 								<table style="height: 200px;">
 									<tr>
-
 										<td rowspan="10" style="width: 220px;">
 											<div
 												style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
@@ -243,13 +242,15 @@ body, h1, h2, h3, h4, h5, h6 {
 											</c:if>
 										</td>
 										<td>이름 ${member.mem_Nickname }</td>
-										<td><c:if test="${member.mem_num==host }">
+										<td>
+											<c:if test="${member.mem_num==host }">
 												<button type="button" class="btn btn-default btn-xs"
 													data-toggle="modal" data-target="#myModal">수정</button>
 											</c:if>
+											
+											
 											<div class="modal fade" id="myModal" role="dialog">
 												<div class="modal-dialog">
-
 													<!-- Modal content-->
 													<div class="modal-content">
 														<div class="modal-header">
@@ -260,9 +261,11 @@ body, h1, h2, h3, h4, h5, h6 {
 															<p><%@ include file="mypageEdit.jsp"%></p>
 														</div>
 													</div>
-
 												</div>
-											</div></td>
+											</div>
+											
+											
+										</td>
 									</tr>
 									<tr>
 										<td>이메일 ${member.mem_Email }</td>
@@ -353,17 +356,19 @@ body, h1, h2, h3, h4, h5, h6 {
 											<span>
 												조회수 : ${bo.board_Read_Count}
 											</span>
-											<span>
-												${bo.board_Date }
-											</span>
-											<c:if test="${host eq bo.mem_Num }">
-												<span onclick="boardNum(${bo.board_Num})" style="text-align: right;">
-													Edit
+											<div style="text-align: right;">
+												<span style="font-size: 0.8em;">
+													${bo.board_Date } &nbsp;&nbsp;
 												</span>
-												<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right;">
-													Delete
-												</span>									
-											</c:if>
+												<c:if test="${host eq bo.mem_Num }">
+													<span onclick="boardNum(${bo.board_Num})" style="text-align: right; font-size: 0.8em;">
+														Edit
+													</span>
+													<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right; font-size: 0.8em;">
+														Delete
+													</span>									
+												</c:if>
+											</div>
 										</figcaption>							
 									</figure>
 							</c:if>
