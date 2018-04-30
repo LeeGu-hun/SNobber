@@ -47,8 +47,33 @@ public class MinController {
 				model.addAttribute("folder", folder);
 				List<BoardBean> boardProBoard = minService.mypageProBoard(pageNum);
 				model.addAttribute("boardProBoard", boardProBoard);
-			} else if (host != pageNum) { // �궓 �럹�씠吏��뿉 媛붿쓣 �븣
-				List<BoardBean> folder = minService.mypageProNam(pageNum);
+			} else if (host != pageNum) { // 남의 페이지에 갔을때
+				
+				List<FolderBean> folder = minService.mypageProNam(pageNum);
+				for(int i=0;i<folder.size();i++) {
+					FolderBean bean = new FolderBean();
+					bean.setMem_Num(host);
+					bean.setFolder_Num(folder.get(i).getFolder_Num());
+					
+//					라이크 테이블로 접근해서 해당 행이 있는지 검열
+					List<FolderBean> listLastBean = minService.mypageFolderNum(bean);
+					if(listLastBean.size()==1) {
+						folder.get(i).setLike_on(1);
+					} else {
+						folder.get(i).setLike_on(0);
+					}
+					
+					List<FolderBean> followChck = minService.followChck(bean);
+					System.out.println("listLastBean   "+ followChck.size() );
+					if(followChck.size()==1) {
+						folder.get(i).setFollow_on(1);
+					} else {
+						folder.get(i).setFollow_on(0);
+					}					
+					
+				}
+				
+				
 				model.addAttribute("folder", folder);
 				
 				FollowBean bean = new FollowBean();
@@ -218,13 +243,25 @@ public class MinController {
 
 		String id = request.getParameter("id");
 		int folderNum = Integer.parseInt(request.getParameter("num"));
+		
+		FolderBean Fbean = new FolderBean();
+		Fbean.setMem_Num(host);
+		Fbean.setFolder_Num(folderNum);		
+		List<FolderBean> listLastBean = minService.followChck(Fbean);		
 
 		bean.setMem_Num(host);
 		bean.setFolder_Num(folderNum);
 
-		if (id != null) {
-			minService.folderFollow(bean);
+		if(listLastBean.size()==0) {
+			if (id != null) {				
+				minService.folderFollow(bean);
+//				없다면 추가
+			}			
+		} else {
+			minService.folderFollowDelete(bean);
+//			있다면 삭제
 		}
+		
 		return "./main";
 	}
 
@@ -236,15 +273,27 @@ public class MinController {
 
 		String id = request.getParameter("id");
 		int folderNum = Integer.parseInt(request.getParameter("num"));
-
+		
+		FolderBean Fbean = new FolderBean();
+		Fbean.setMem_Num(host);
+		Fbean.setFolder_Num(folderNum);		
+		List<FolderBean> listLastBean = minService.mypageFolderNum(Fbean);
+		
 		bean.setMem_Num(host);
 		bean.setLike_Target_Num(folderNum);
-
-		if (id != null) {
-			minService.folderLikeke(bean);
+		
+		if(listLastBean.size()==0) {
+			if (id != null) {				
+				minService.folderLikeke(bean);
+//				없다면 추가
+			}			
+		} else {
+			minService.folderlikekeDelete(bean);
+//			있다면 삭제
 		}
+
 
 		return "./main";
 	}
-	
+		
 }

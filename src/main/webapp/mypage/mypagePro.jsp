@@ -400,12 +400,12 @@ body, h1, h2, h3, h4, h5, h6 {
 							</c:if>
 							<c:if test="${fol.mem_Num ne host }">
 								<span onclick="folderFollow('${fol.folder_Num}')" style="float: right;"> 
-									Follow &nbsp;&nbsp;&nbsp; 
+									  ${fol.follow_on == 1 ? "Un Follow" : "Follow"} &nbsp;&nbsp;&nbsp;
 								</span>
 							</c:if>
 							<c:if test="${fol.mem_Num ne host }">
-								<span onclick="folderLike('${fol.folder_Num}')" style="float: right;"> 
-									Like &nbsp;&nbsp;&nbsp; 
+								<span onclick="folderLike('${fol.folder_Num}')" style="float: right;">
+									 ${fol.like_on == 1 ? "Un Like" : "Like"} &nbsp;&nbsp;&nbsp;
 								</span>
 							</c:if>
 						</p>

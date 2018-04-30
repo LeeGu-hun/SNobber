@@ -29,6 +29,11 @@
 	<select id="mypageProNam" parameterType="spring.Member" resultType="bean.FolderBean">
 		select * from a_folder where mem_num=#{mem_Num} and folder_secret = 1
 	</select>
+	<select id="mypageFolderNum" parameterType="bean.FolderBean"  resultType="bean.FolderBean">
+		select * from a_like where mem_num = #{mem_Num} 
+    		and LIKE_TARGET_NUM = #{folder_Num} and LIKE_TYPE = 3		
+	</select>
+	
 	<!-- Folder 추가하기 -->
 	<insert id="mypageFolder" parameterType="bean.FolderBean">
 		insert into a_folder (folder_num, mem_num, folder_title, folder_secret) values 
@@ -47,11 +52,23 @@
 		insert into a_follow values (a_follow_seq.nextval, 
 			#{mem_Num}, null, #{folder_Num}, null)
 	</insert>
+	<select id="followChck" parameterType="bean.FolderBean" resultType="bean.FolderBean">
+		select * from a_follow where mem_num = #{mem_Num}
+    		and folder_num = #{folder_Num}
+	</select>
+	<delete id="folderFollowDelete" parameterType="bean.FollowBean">
+		delete from a_follow where mem_num = #{mem_Num}
+    		and folder_num = #{folder_Num}
+	</delete>
 	<!-- folder Like -->
 	<insert id="folderLikeke" parameterType="bean.LikeKeyBean">
 		insert into a_like values(a_like_seq.nextval, null, 
 			#{mem_Num}, null, #{like_Target_Num}, 3, 1)		
 	</insert>
+	<delete id="folderlikekeDelete" parameterType="bean.LikeKeyBean">
+		delete from a_like where mem_num = #{mem_Num} and 
+			LIKE_TARGET_NUM = #{like_Target_Num} and LIKE_TYPE = 3
+	</delete>
 	<!-- folder Page 갔을때 -->
 	<select id="folderPage" parameterType="bean.BoardBean" resultType="bean.BoardBean">
 		select * from a_board where folder_num = #{folder_Num} and board_type = 2

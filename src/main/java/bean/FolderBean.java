@@ -4,9 +4,40 @@ public class FolderBean {
 	private int folder_Num, mem_Num, folder_secret;
 	private String mem_Nickname, folder_Title, folder_Content;
 	
+	private int like_on, follow_on;
+	
 	public FolderBean() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getLike_on() {
+		return like_on;
+	}
+
+	public void setLike_on(int like_on) {
+		this.like_on = like_on;
+	}
+
+	public int getFollow_on() {
+		return follow_on;
+	}
+
+	public void setFollow_on(int follow_on) {
+		this.follow_on = follow_on;
+	}
+
+	public FolderBean(int folder_Num, int mem_Num, int folder_secret, String mem_Nickname, String folder_Title,
+			String folder_Content, int like_on, int follow_on) {
+		super();
+		this.folder_Num = folder_Num;
+		this.mem_Num = mem_Num;
+		this.folder_secret = folder_secret;
+		this.mem_Nickname = mem_Nickname;
+		this.folder_Title = folder_Title;
+		this.folder_Content = folder_Content;
+		this.like_on = like_on;
+		this.follow_on = follow_on;
 	}
 
 	public FolderBean(int folder_Num, int mem_Num, int folder_secret, String mem_Nickname, String folder_Title,

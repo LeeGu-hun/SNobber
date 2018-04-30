@@ -83,9 +83,14 @@ public class MinService {
 		return list;
 	}
 
-	public List<BoardBean> mypageProNam(int num) {
+	public List<FolderBean> mypageProNam(int num) {
 		String str = Integer.toString(num);
-		List<BoardBean> list = sqlSession.selectList("minSQL.mypageProNam", num);
+		List<FolderBean> list = sqlSession.selectList("minSQL.mypageProNam", num);
+		return list;
+	}
+
+	public List<FolderBean> mypageFolderNum(FolderBean bean) {
+		List<FolderBean> list = sqlSession.selectList("minSQL.mypageFolderNum", bean);
 		return list;
 	}
 
@@ -110,9 +115,19 @@ public class MinService {
 	public void folderFollow(FollowBean bean) {
 		sqlSession.insert("minSQL.folderFollow", bean);
 	}
+	public List<FolderBean> followChck(FolderBean bean) {
+		List<FolderBean> list = sqlSession.selectList("minSQL.followChck", bean);
+		return list;
+	}
+	public void folderFollowDelete(FollowBean bean) {
+		sqlSession.delete("minSQL.folderFollowDelete",bean);
+	}
 
 	public void folderLikeke(LikeKeyBean bean) {
 		sqlSession.insert("minSQL.folderLikeke", bean);
+	}
+	public void folderlikekeDelete(LikeKeyBean bean) {
+		sqlSession.delete("minSQL.folderlikekeDelete", bean);
 	}
 
 	public List<BoardBean> FolderPage(BoardBean num) {
