@@ -44,5 +44,15 @@
 		values(a_follow_seq.nextval,#{mem_Num},${follow_You_Num},null,1)
 	</insert>
 	
+	<insert id="addLike" parameterType="bean.LikeKeyBean">
+		insert into a_like
+		values(A_LIKE_SEQ.nextval,#{board_Num},
+		#{mem_Num},#{mem_Nickname},#{like_Target_Num},1,1)
+	</insert>
+	
+	<delete id="deleteLike" parameterType="bean.LikeKeyBean">
+		delete from a_like
+		where board_num=#{board_Num} and mem_num=#{mem_Num} and like_target_num=#{like_Target_Num}
+	</delete>
 </mapper>
 

@@ -92,6 +92,53 @@
 
 		$(location).attr('href', './mypagePro?num=' + next + '');
 	}
+	
+	function checkLike(mem_num){
+		var num =$('.next').val();
+		var like=parseInt($('#likeNum').val());
+		if(mem_num==1){
+			$.ajax({
+				type : "POST",
+				url : "./likeAdd",
+				data : {
+					num : num,
+					like:like
+				},
+				success : addLike()
+			});
+			//var frm =document.getElementById('likeCheck'); 
+			//frm.innerHTML ='<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" >';
+		}
+		else if(mem_num==2){
+			$.ajax({
+				type : "POST",
+				url : "./likeDelete",
+				data : {
+					num : num,
+					like: like
+				},
+				success : deleteLike()
+			});
+			//var frm =document.getElementById('likeCheck');
+			//frm.innerHTML = "<img src="${pageContext.request.contextPath}/image/unlike.png" onclick="checkLike('1')">";
+		}
+	}
+	function addLike(data){
+		var addr=$('#addr').val();
+		var like=parseInt($('#likeNum').val());
+		var str ="checkLike(2)";
+		var spanTag = "<img src='"+addr+"/image/like.png' onclick='"+str+"'>";
+		$('#likeCheck').html(spanTag);
+		$('#likeText').html(like+1);
+	}
+	function deleteLike(data){
+		var addr=$('#addr').val();
+		var like=parseInt($('#likeNum').val());
+		var str ="checkLike(1)";
+		var spanTag = "<img src='"+addr+"/image/unlike.png' onclick='"+str+"'>";
+		$('#likeCheck').html(spanTag);
+		$('#likeText').html(like);
+	}
 </script>
 <script type="text/javascript">
 function ingShow(num) {
@@ -105,15 +152,25 @@ function ingShow(num) {
 </script>
 </head>
 <body style="background-color: silver;">
-
+	
 	<div style="width: 100%; text-align: center;">	
 		<%@ include file="/include/header.jsp"%>
 			<br>
 			<c:forEach var="bm" items="${bm }">
-			<input class="next" type="text" value="${bm.mem_Num }" style="display: none;">	
+			<input class="next" type="text" value="${bm.board_Num }" style="display: none;">
+			<input id="addr" type="hidden" value="${pageContext.request.contextPath}">
+			<input id="likeNum" type="hidden" value="${likeNum}">
 			<div id="column">
 			<figure>
 				<p style="text-align: left; margin-left: 10px;">
+				<c:choose>
+					<c:when test="${bm.mem_photo != null}">
+						<img src="${pageContext.request.contextPath}/${bm.mem_photo}">			
+					</c:when>
+					<c:otherwise>
+						<img src="${pageContext.request.contextPath}/image/basic.png">
+					</c:otherwise>
+				</c:choose>
 				${bm.mem_Nickname }
 				</p>
 				<c:if test="${bm.board_File != null}">
@@ -123,8 +180,22 @@ function ingShow(num) {
 				<p style="width: 500px;">
 				${bm.board_Content }
 				</p>
-				<span>
-					좋아요 ${likeNum }
+				좋아요
+				<span id="likeText">
+					${likeNum }
+				</span>
+				<span id="likeCheck">
+					<c:choose>
+						<c:when test="${like =='0'}">
+							<img src="${pageContext.request.contextPath}/image/unlike.png" onclick="checkLike('1')">
+						</c:when>
+						<c:when test="${like == '1'}">
+							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" >
+						</c:when>
+						<c:otherwise>
+							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')">
+						</c:otherwise>
+					</c:choose>
 				</span>
 				<span>
 				${bm.board_Date }

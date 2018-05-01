@@ -164,8 +164,13 @@ public class MinController {
 		model.addAttribute("likeNum", likeNum);
 		List<ReBean> re = minService.reBean(num);
 		model.addAttribute("re", re);
-		List<likeChangeBean> like = minService.boardLike(num);
-
+		
+		likeChangeBean likeBean = new likeChangeBean();
+		likeBean.setBoard_Num(Integer.parseInt(num));
+		likeBean.setMem_Num(host);
+		
+		String like = minService.boardLike(likeBean);
+		model.addAttribute("like",like);
 		return "mypage/mypageWritingView";
 	}
 

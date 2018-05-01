@@ -72,10 +72,11 @@ public class MinService {
 		return in;
 	}
 
-	public List<likeChangeBean> boardLike(String num) {
-		List<likeChangeBean> list = sqlSession.selectList("minSQL.boardLike", num);
-		return list;
+	public String boardLike(likeChangeBean num) {
+		String result = sqlSession.selectOne("minSQL.boardLike", num);
+		return result;
 	}
+	
 
 	public List<BoardBean> mypagePro(int num) {
 		String str = Integer.toString(num);

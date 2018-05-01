@@ -111,9 +111,9 @@
 		select count(*) from a_like where like_on = 1 and like_type = 1 and like_target_num= #{num}
 	</select>
 	
-	<select id="boardLike" parameterType="String" resultType="bean.likeChangeBean">
-		select like_target_num, mem_num from a_like 
-			where like_on = 1 and like_type = 1 and like_target_num= #{num}
+	<select id="boardLike" parameterType="bean.likeChangeBean" resultType="String">
+		SELECT NVL(max(like_on), '0') like_on FROM a_like where mem_num= #{mem_Num}
+		 and like_type=1 and board_num= #{board_Num}
 	</select>
 	<!-- 댓글 가져오기 -->
 	<select id="reBean" parameterType="String" resultType="bean.ReBean">
