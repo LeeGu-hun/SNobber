@@ -17,11 +17,11 @@
 		<input type="hidden" name="mem_num" value="${member.mem_num}">
 		</td>
 	</tr>
-	<p style="background-color: lime; text-align: center; width: 500px; margin: 0 auto; font-size: 35px;">${member.mem_Nickname} 회원을 복구하시겠습니까?</p>
-	<td colspan=2 style="text-align: center; background-color: yellow; width: 500px; font-size: 35px;">
-		<input type="submit" value="복구">
+	<p style="text-align: center; width: 500px; margin: 0 auto; font-size: 28px;">${member.mem_Nickname} 회원을 복구하시겠습니까?</p>
+	<td colspan=2 style="text-align: center; width: 500px; font-size: 35px;">
+		<input type="submit" style="font-size: small;" value="복구">
 		&nbsp;&nbsp;
-		<a href="javascript:history.go(-1)">[돌아가기]</a>
+		<button data-dismiss="modal" style="font-size: small;">돌아가기</button>
 	</td>
 </table>
 </form:form>

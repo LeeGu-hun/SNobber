@@ -58,10 +58,10 @@ body, h1, h2, h3, h4, h5, h6 {
 
   <p>
   <c:if test="${member.mem_Photo != null}">
-  <img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px">
+  <img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 200px; height: 200px; border-radius: 45%; margin-left:100px">
   </c:if>
   <c:if test="${member.mem_Photo == null}">
-  <img src="${pageContext.request.contextPath}/image/basic.png" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px">
+  <img src="${pageContext.request.contextPath}/image/basic.png" style="max-width: 200px; height: 200px; border-radius: 45%; margin-left:100px">
   </c:if>
   </p>
   <p style="margin-left:100px">아이디: ${member.mem_Id}</p>
@@ -69,9 +69,11 @@ body, h1, h2, h3, h4, h5, h6 {
 	<p style="margin-left:100px">이름: ${member.mem_Nickname}</p>
 	<p style="margin-left:100px">소개: ${member.mem_Introduce}</p>
 	<p style="margin-left:100px">상태: ${member.mem_Condition}</p>
-	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModals">[정지]</button>
-	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModalr">[복구]</button>
-	<a href="javascript:history.back();" style="margin-left:100px">[뒤로]</a>
+	<div style="text-align: center;">
+	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModals">[정지]</button>&nbsp;
+	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModalr">[복구]</button>&nbsp;
+	<a href="javascript:history.back();" class="btn btn-default btn-xs">[뒤로]</a>
+	</div>
 	</div>
 
 	</form:form>
