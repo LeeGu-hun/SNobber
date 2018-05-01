@@ -16,11 +16,11 @@ function pop(){
 	<div>
 		<c:if test="${member.mem_Photo != null}">
 		<img src="${pageContext.request.contextPath}/${member.mem_Photo}"
-			style="max-width: 150%; height: auto;" onclick="javascript:pop();">
+			style="max-width: 100%; height: auto;" onclick="javascript:pop();">
 		</c:if>
 		<c:if test="${member.mem_Photo == null}">
 		<img src="${pageContext.request.contextPath}/image/basic.png"
-			style="max-width: 150%; height: auto;" onclick="javascript:pop();">
+			style="max-width: 100%; height: auto;" onclick="javascript:pop();">
 		</c:if>
 	</div>
 </body>

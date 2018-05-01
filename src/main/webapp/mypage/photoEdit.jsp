@@ -20,7 +20,7 @@
 			<td rowspan="10" style="width: 220px;">
 				<div style="width:150px; height:150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 					<c:if test="${member.mem_Photo != null}">
-					<img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 150%; height: auto;">
+					<img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 100%; height: auto;">
 					</c:if>
 					<c:if test="${member.mem_Photo == null}">
 					<img src="${pageContext.request.contextPath}/image/basic.png" style="max-width: 100%; height: auto;">
