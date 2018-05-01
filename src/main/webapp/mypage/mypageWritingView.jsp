@@ -130,10 +130,10 @@ function ingShow(num) {
 				${bm.board_Date }
 				</span>
 				<c:if test="${host eq bm.mem_Num }">
-				<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>
-				<span class="boardD" onclick="ingShow('${bm.board_Num}')" style="text-align: left; font-size: 0.8em;">
+				<a href="#" onclick="boardNum(${bm.board_Num})"style="text-align: left; font-size: 0.8em;">수정</a>
+				<a class="boardD" href="#" onclick="ingShow('${bm.board_Num}')" style="text-align: left; font-size: 0.8em;">
 				삭제
-				</span>	
+				</a>	
 				</c:if>
 			</figcaption>							
 			</figure>

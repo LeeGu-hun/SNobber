@@ -253,7 +253,7 @@ body, h1, h2, h3, h4, h5, h6 {
 											</div> 
 											<div style="margin-top:15px; margin-left: 35px">	
 												<c:if test="${member.mem_num==host }">
-													<a href="mypage/photoEdit">사진 수정</a>
+													<a href="photoEdit">사진 수정</a>
 												</c:if>
 											</div>
 										</td>
@@ -389,7 +389,8 @@ body, h1, h2, h3, h4, h5, h6 {
 																	<c:forEach var="fol" items="${following}">
 																			<tr>
 																				<td rowspan="2">
-																																									<c:if test="${fol.mem_Photo != null}">
+																				<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+																				<c:if test="${fol.mem_Photo != null}">
 																				<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
 																					style="max-width: 150%; height: auto;">
 																				</c:if>
@@ -397,6 +398,7 @@ body, h1, h2, h3, h4, h5, h6 {
 																				<img src="./image/basic.png"
 																					style="max-width: 150%; height: auto;">
 																				</c:if>
+																				</div>
 																				</td>
 																				<td>
 																					<a href="#" onclick="memNum('${fol.follow_You_Num}')">
