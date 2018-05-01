@@ -71,7 +71,7 @@ html, body, h1, h2, h3, h4, h5 {
 	<!-- Navbar -->
 
 	<!-- Page Container -->
-
+	<c:if test="${sessionScope.authInfo.mem_num != 3}">
 	<div style="width: 80%; height: 100%; width: 100%;">
 
 		<div id="followList" >
@@ -84,6 +84,9 @@ html, body, h1, h2, h3, h4, h5 {
 		<div id="followFolderList" style="display: none; width: 60%; margin-left: 100px"">
 			<%@ include file="/include/followFolderList.jsp"%></div>
 	</div>
+	</c:if>
+	<br>
+	<br>
 
 	<!-- Footer -->
 	<div>
