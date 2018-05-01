@@ -332,4 +332,8 @@ public class BoardService {
 	public void editBoard(BoardMemberBean bm) {
 		sqlSession.update("boardSQL.editBoard", bm);
 	}
+	
+	public void editBoardy(BoardMemberBean bm) {
+		sqlSession.update("boardSQL.editBoardy", bm);
+	}
 }

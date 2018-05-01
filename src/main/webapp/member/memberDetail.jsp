@@ -56,7 +56,14 @@ body, h1, h2, h3, h4, h5, h6 {
 	<form:form commandName="member" id="detail">
 	<div class="w3-container w3-flat-wet-asphalt" style="width:50%; margin-top:100px; margin-left:350px;">
 
-  <p><img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px"></p>
+  <p>
+  <c:if test="${member.mem_Photo != null}">
+  <img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px">
+  </c:if>
+  <c:if test="${member.mem_Photo == null}">
+  <img src="./image/basic.png" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px">
+  </c:if>
+  </p>
   <p style="margin-left:100px">아이디: ${member.mem_Id}</p>
 	<p style="margin-left:100px">이메일: ${member.mem_Email}</p>
 	<p style="margin-left:100px">이름: ${member.mem_Nickname}</p>

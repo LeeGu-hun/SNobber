@@ -10,7 +10,7 @@ public class BoardCommand {
 	private String BOARD_CONTENT;
 	private String writeMode;
 	private String folderMode;
-	private MultipartFile BOARD_FILE;
+	private MultipartFile board_File;
 	private int secretMode;
 
 	public int getSecretMode() {
@@ -57,11 +57,11 @@ public class BoardCommand {
 		this.folderMode = folderMode;
 	}
 
-	public MultipartFile getBOARD_FILE() {
-		return BOARD_FILE;
+	public MultipartFile getBoard_File() {
+		return board_File;
 	}
 
-	public void setBOARD_FILE(MultipartFile bOARD_FILE) {
-		BOARD_FILE = bOARD_FILE;
+	public void setBoard_File(MultipartFile board_File) {
+		this.board_File = board_File;
 	}
 }

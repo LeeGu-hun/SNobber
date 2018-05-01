@@ -101,11 +101,18 @@ html, body, h1, h2, h3, h4, h5 {
 
 
 						<div class="w3-container w3-card w3-white w3-round w3-margin">
-							<br> <img
-								src="${pageContext.request.contextPath}/${bo.mem_Photo}"
+							<br> 
+							<c:if test="${bo.mem_Photo != null}">
+							<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
 								class="w3-left w3-circle w3-margin-right"
-								style="width: 100px; margin-top: 10px"> <span
-								class="w3-right w3-opacity">${bo.board_Date }</span>
+								style="width: 100px; margin-top: 10px"> 
+							</c:if>
+							<c:if test="${bo.mem_Photo == null}">
+							<img src=".image/basic.png"
+								class="w3-left w3-circle w3-margin-right"
+								style="width: 100px; margin-top: 10px"> 
+							</c:if> 
+								<span class="w3-right w3-opacity">${bo.board_Date }</span>
 							<h4>
 								<a href="#" onclick="memNum('${bo.mem_Num}')"
 									style="text-align: right; margin-top:10px"> ${bo.mem_Nickname} </a>
@@ -120,9 +127,11 @@ html, body, h1, h2, h3, h4, h5 {
 								<div class="w3-half">
 									<c:if test="${bo.board_File ne null}">
 										<div class="w3-row-padding" style="margin: 0 -16px">
+											<c:if test="${bo.board_File != null}">
 											<img
 												src="${pageContext.request.contextPath}/${bo.board_File}"
 												style="width: 400px; height: 300px; boarder-radius: 50%;">
+											</c:if>
 										</div>
 									</c:if>
 								</div>
@@ -267,8 +276,10 @@ var listSize = data.listSize;
 	
 	if(listSize<=allList){
 		for (var i=Number(reallastbno); i<Number(listSize); i++){
-            $('#table_id').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br><p><img src='"+u+"/"+mem_photo[i]+"'style='width: 100px; margin-top:10px;' class='w3-left w3-circle w3-margin-right' >"+
+            $('#table_id').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br><p><c:if test='"+(${mem_photo[i] != null})+"'><img src='"+u+"/"+mem_photo[i]+"'style='width: 100px; margin-top:10px;' class='w3-left w3-circle w3-margin-right' >"+
 			
+            "</c:if><c:if test='"+(${mem_photo[i] == null})+"'><img src='"+u+"''/image/basic.png'style='width: 100px; margin-top:10px;' class='w3-left w3-circle w3-margin-right' ></c:if>"+
+            
 			"<span class='w3-right w3-opacity'>"+boarddate[i]+"</span><h4><a href='#' onclick="+"'memNum(\""+mem_num[i] +"\")' style='text-align: right;'>"+mem_nickname[i]+"</a></h4>"+
 
 			"<br><hr class='w3-clear'><p class='content'>"+ 

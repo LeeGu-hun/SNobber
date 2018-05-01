@@ -83,7 +83,7 @@
 				<td style="font-family: 돋음; font-size: 12">
 					<div align="center">파일 첨부</div>
 				</td>
-				<td><input id="files" name="BOARD_FILE" type="file" class="w3-button w3-theme"/></td>
+				<td><input id="files" name="board_File" type="file" class="w3-button w3-theme"/></td>
 			</tr>
 			<tr bgcolor="cccccc">
 				<td colspan="2" style="height: 1px;"></td>

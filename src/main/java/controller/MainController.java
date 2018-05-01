@@ -115,7 +115,7 @@ public class MainController {
 		return issuemap;
 	}
 
-	@RequestMapping(value = "mypage/photoEdit")
+	@RequestMapping(value = "photoEdit")
 	public String photoEditGet(HttpSession session, Model model) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		Member member = boardService.selectById(host);
@@ -123,7 +123,7 @@ public class MainController {
 		return "mypage/photoEdit";
 	}
 
-	@RequestMapping(value = "mypage/photoEdit", method = RequestMethod.POST)
+	@RequestMapping(value = "photoEdit", method = RequestMethod.POST)
 	public String photoEditPost(mypageEditCommand command, HttpSession session, HttpServletRequest request,
 			Errors errors) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
@@ -180,7 +180,7 @@ public class MainController {
 	public String homePost(HttpSession session, BoardCommand board, HttpServletRequest request) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		String name = ((AuthInfo) session.getAttribute("authInfo")).getName();
-		MultipartFile multi = board.getBOARD_FILE();
+		MultipartFile multi = board.getBoard_File();
 		String originalFilename = multi.getOriginalFilename();
 		String newFilename = "";
 		Board bb = new Board();

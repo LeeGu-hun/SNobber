@@ -112,8 +112,10 @@ body, h1, h2, h3, h4, h5, h6 {
 				</c:if>
 				<c:forEach var="bo" items="${board }">
 					<figure>
+						<c:if test="${bo.board_File != null }">
 						<img src="${pageContext.request.contextPath}/${bo.board_File }" 
 								onclick="stBoard('${bo.board_Num}')"/>
+						</c:if>
 						<figcaption>
 							<p class="content" onclick="stBoard('${bo.board_Num}')">
 								${bo.board_Content }

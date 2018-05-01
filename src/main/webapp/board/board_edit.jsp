@@ -17,7 +17,7 @@ function editboard(num) {
 </head>
 <body>
 	<%@ include file="/include/header.jsp"%>
-	<form:form action="boardEdit" method="POST" commandName="boardMemberBean" name="boardform"
+	<form:form action="boardEdit" method="POST" commandName="boardCommand" name="boardform"
 		enctype="multipart/form-data">
 		<table cellpadding="0" cellspacing="0" style="margin: 0 auto;">
 			<tr align="center" valign="middle">
@@ -36,7 +36,7 @@ function editboard(num) {
 					공개 범위
 				</td>
 				<td>
-					<select name="board_Secret">
+					<select name="SecretMode">
 							<option value="1">전체 공개</option>
     						<option value="2">친구? 공개</option>
     						<option value="3">비공개</option>
@@ -47,11 +47,12 @@ function editboard(num) {
 				<td style="font-family: 돋음; font-size: 12">
 					<div align="center">내 용</div>
 				</td>
-				<td><textarea name="board_Content" cols="67" rows="15">${bm.board_Content}</textarea>
+				<td><textarea name="BOARD_CONTENT" cols="67" rows="15">${bm.board_Content}</textarea>
 				</td>
 			</tr>
 			<tr bgcolor="cccccc">
-				<td colspan="2" style="height: 1px;"></td>
+				<td style="height: 1px;">파일</td>
+				<td><input name="board_File" type="file"></td>
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp;</td>

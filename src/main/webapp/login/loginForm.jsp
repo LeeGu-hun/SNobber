@@ -156,8 +156,14 @@ body, h1, h2, h3, h4, h5, h6 {
 					<c:forEach items="${fList}" var="fl" varStatus="sts">
 						<div class="w3-third w3-container w3-margin-bottom">
 							<h1>RANK ${fl.rownum }</h1>
+							<c:if test="${fl.mem_photo != null}">
 							<img src="${pageContext.request.contextPath}/${fl.mem_photo}"
 								alt="Norway" style="width: 300px" class="w3-hover-opacity" height="200px">
+							</c:if>
+							<c:if test="${fl.mem_photo == null}">
+							<img src="./image/basic.png"
+								alt="Norway" style="width: 300px" class="w3-hover-opacity" height="200px">
+							</c:if>
 							<div class="w3-container w3-white" style="margin-top: 20px">
 
 								<table>

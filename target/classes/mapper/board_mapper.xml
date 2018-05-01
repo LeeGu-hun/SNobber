@@ -554,5 +554,10 @@
 		update a_board set board_secret=#{board_Secret}, board_content=#{board_Content} where board_num=#{board_Num}
 	</update>
 	
+	<update id="editBoardy" parameterType="bean.BoardMemberBean">
+	update a_board set board_secret=#{board_Secret},
+	board_content=#{board_Content}, board_file=#{board_File} where board_num=#{board_Num}
+	</update>
+	
 </mapper>
 

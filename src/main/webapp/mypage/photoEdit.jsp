@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +19,12 @@
 		<tr>
 			<td rowspan="10" style="width: 220px;">
 				<div style="width:150px; height:150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+					<c:if test="${member.mem_Photo != null}">
 					<img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 150%; height: auto;">
+					</c:if>
+					<c:if test="${member.mem_Photo == null}">
+					<img src="./image/basic.png" style="max-width: 100%; height: auto;">
+					</c:if>
 				</div>
 					<input name="mem_Photo" type="file" value="${member.mem_Photo }" >
 			</td>

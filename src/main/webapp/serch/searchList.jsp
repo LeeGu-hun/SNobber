@@ -92,8 +92,10 @@ select {
 				
 					<div class="w3-third w3-container w3-margin-bottom"
 						style="margin-top:80px; margin-left:200px; ">
+						<c:if test="${bo.board_File != null}">
 						<img src="${pageContext.request.contextPath}/${bo.board_File}" onclick="move(${bo.board_Num})"
 							style="width: 300px" class="w3-hover-opacity" height="200px">
+						</c:if>
 
 						<div class="w3-container w3-white">
 							<table>
@@ -131,10 +133,14 @@ select {
 				<c:forEach var="bo" items="${map.memberList}">
 					<div class="w3-third w3-container w3-margin-bottom"
 						style="margin-top: 80px; margin-left:200px;" style="margin-top:10px">
-						<c:if test="${bo.mem_Photo ne null}">
+					<c:if test="${bo.mem_Photo ne null}">
 					<img src="${pageContext.request.contextPath}/${bo.mem_Photo}" onclick="memNum('${bo.mem_num}')" 
 						style="width: 70%" class="w3-hover-opacity" height="300px;">
-</c:if>
+					</c:if>
+					<c:if test="${bo.mem_Photo eq null}">
+					<img src="./image/basic.png" onclick="memNum('${bo.mem_num}')" 
+						style="width: 70%" class="w3-hover-opacity" height="300px;">
+					</c:if>
 						<!-- 그사람 사진 -->
 
 						<div class="w3-container" style="background-color: white; width: 70%;">

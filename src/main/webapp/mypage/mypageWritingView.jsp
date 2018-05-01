@@ -81,9 +81,11 @@
 			<input class="next" type="text" value="${bm.board_Num }" style="display: none;">	
 			<div id="column">
 			<figure>
-				<img src="${pageContext.request.contextPath}/${bm.board_File }"/>
+				<c:if test="${bm.board_File != null}">
+				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 500px; height: 500px;"/>
+				</c:if>
 				<figcaption>
-				<p class="contents">
+				<p style="width: 500px;">
 				${bm.board_Content }
 				</p>
 				<span>
@@ -109,7 +111,12 @@
 						<table style="width: 30%; margin-top: 5px; margin: 0 auto;">
 							<tr style="font-size: 8pt; background-color: white;  text-align: left;">
 								<td style="width: 50px;">
+									<c:if test="${re.mem_Photo != null}">
 									<img src="${pageContext.request.contextPath}/${re.mem_Photo }" style="width: 50px; height: 50px;"> 
+									</c:if>
+									<c:if test="${re.mem_Photo == null}">
+									<img src="./image/basic.png" style="width: 50px; height: 50px;"> 
+									</c:if>  
 								</td>
 								<td style="width: 60%; font-size: large;">
 									${re.re_Content }
