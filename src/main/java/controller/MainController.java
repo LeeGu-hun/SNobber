@@ -70,6 +70,7 @@ public class MainController {
 		List<FolderListBean> fList = boardService.folderListInDex();
 		model.addAttribute("fList", fList);
 
+
 		return "login/loginForm";
 	}
 
@@ -166,7 +167,13 @@ public class MainController {
 		lb.setB_mem_num(host);
 		lb.setF_mem_num(host);
 		List<BoardBean> list = boardService.boardListTiemLine(lb);
-
+		List<BoardBean> allList = boardService.showListSize(lb);
+		
+		System.out.println("allList:"+allList.size());
+		
+		model.addAttribute("allSize",allList.size());
+		model.addAttribute("listSize",list.size());
+		
 		List<FollowFolderBean> folderfollowList = boardService.myFollowFolder(host);
 		model.addAttribute("folderfollowList", folderfollowList);
 		List<FolderListBean> fList = boardService.folderListMain(host);

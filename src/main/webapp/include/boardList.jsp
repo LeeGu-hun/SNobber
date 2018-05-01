@@ -49,7 +49,7 @@ html, body, h1, h2, h3, h4, h5 {
 	<!-- Page Container -->
 	<div class="w3-container w3-content" style="max-width: 100%; margin: auto 10%; margin-top: 100px">
 		<!-- The Grid -->
-		<div class="w3-row" style="margin: auto 10%;">
+		<div class="w3-row" style="margin: auto 10%;" id="table_id">
 
 		<!-- Middle Column -->
 			<c:forEach var="bo" items="${list }" varStatus="status">
@@ -151,9 +151,11 @@ html, body, h1, h2, h3, h4, h5 {
 			</c:if>
 			<!-- End Middle Column -->
 		</div>
+		<c:if test="${listSize < allSize }">
 		<div id="b_id">
+		
 			<button onclick="te()" id="showBt">더보기</button>
-		</div>
+		</div></c:if>
 		<!-- End Page Container -->
 	</div>
 	<br>
@@ -221,12 +223,13 @@ function sc(data) {
 	
     for(var i=Number(reallastbno); i<Number(listSize); i++){
 	   	tag[i] = like_on[i] == 1 ? "<img src='./image/like.png'>":"<img src='./image/unlike.png'>";
-	    memtag[i]= mem_photo[i] !=null ? "<img src='"+u+"/"+mem_photo[i]+"' class='w3-left w3-circle w3-margin-right' style='width: 100px; margin-top: 10px'>":"<img src='./image/basic.png' class='w3-left w3-circle w3-margin-right' style='width: 100px; margin-top: 10px'>"; 
+	    memtag[i]= mem_photo[i] !=null ? "<img src='"+u+"/"+mem_photo[i]+"' class='w3-left w3-circle w3-margin-right' style='width: 100px; margin-top: 10px'>":"<img src='./image/basic.png' class='w3-left w3-circle w3-margin-right'"+
+				+"style='width: 100px; margin-top: 10px'>"; 
     }
 
     var s='${pageContext.request.contextPath}';
     for(var i=Number(reallastbno); i<Number(listSize); i++) {
-   		filetag[i]= file[i]!=0? file[i]:"";
+   		filetag[i]= file[i]!=0? "<div class='fic'><img src='"+u+"/"+file[i]+"'></div>" :"<div class='fic' ><img></div>";
    	 //파일 부분
     }
  
@@ -254,8 +257,9 @@ function sc(data) {
 
 			"<span style='margin-top:10px'>"+count[i]+"</span></div>");
 		} 
-	
-	
+
+		
+		
 		if(scrollIndex<allList){
 			$('#b_id').append("<div><button onclick='te()' id='showBt'>더보기</button></div>");	    	
 	 	}	
