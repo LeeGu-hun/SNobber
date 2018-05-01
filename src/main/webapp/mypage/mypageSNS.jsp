@@ -89,11 +89,11 @@ body, h1, h2, h3, h4, h5, h6 {
 	<!-- Overlay effect when opening sidebar on small screens -->
 
 	<!-- !PAGE CONTENT! -->
-	<div class="w3-main" style="margin-right: 100px; margin-left: 100px; margin-top: 100px;">
+	<div class="w3-main" style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
 
 		<!-- Header -->
 		<header id="portfolio">
-			<div class="w3-container">
+			<div class="w3-container" style="margin-left: 13%;margin-right: 13%;">
 				<h1>
 					<b>SNS</b>
 				</h1>
@@ -224,11 +224,12 @@ body, h1, h2, h3, h4, h5, h6 {
 		</header>
 
 		<!-- First Photo Grid-->
-		<div id="columns">
+		<div id="columns"  style="margin-left: 13%; margin-right: 13%;">
 			<c:if test="${empty boardSNS }">
 				<p>등록된 글이 없습니다.</p>
 			</c:if>
 			<c:forEach var="bo" items="${boardSNS }">
+			<div class="w3-row-padding">
 				<figure>
 					<c:if test="${bo.board_File != null}">
 					<img src="${pageContext.request.contextPath}/${bo.board_File }" 
@@ -256,6 +257,7 @@ body, h1, h2, h3, h4, h5, h6 {
 						</div>
 					</figcaption>							
 				</figure>
+			</div>
 			</c:forEach>
 		</div>
 		<!-- Modal -->

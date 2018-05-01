@@ -215,7 +215,8 @@ body, h1, h2, h3, h4, h5, h6 {
 			<!-- Overlay effect when opening sidebar on small screens -->
 			<div class="w3-overlay w3-hide-large w3-animate-opacity"
 				onclick="w3_close()" style="cursor: pointer" title="close side menu"
-				id="myOverlay"></div>
+				id="myOverlay">
+			</div>
 
 			<!-- !PAGE CONTENT! -->
 			<div class="w3-main" style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
@@ -230,7 +231,10 @@ body, h1, h2, h3, h4, h5, h6 {
 						<i class="fa fa-bars"></i>
 					</span>
 					<div class="w3-container" style="margin-left: 13%;margin-right: 13%;">
-					
+						<h1>
+							<b>SNol</b>
+						</h1>
+						
 					<!-- 사진 정보 수정 팔로우에 대한 정보들 -->
 						<div class="w3-container w3-padding-large"
 							style="margin-bottom: 32px">
@@ -253,7 +257,7 @@ body, h1, h2, h3, h4, h5, h6 {
 											</div> 
 											<div style="margin-top:15px; margin-left: 35px">	
 												<c:if test="${member.mem_num==host }">
-													<a href="mypage/photoEdit">
+													<a href="photoEdit">
 														사진 수정
 													</a>
 												</c:if>
@@ -383,7 +387,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<p>등록된 글이 없습니다.</p>
 				</c:if>
 				<c:forEach var="fol" items="${folder }" varStatus="stFolder">
-					<div class="w3-row-padding" style="margin-left: 10%; margin-right: 10%;">
+					<div class="w3-row-padding" style="margin-left: 13%; margin-right: 13%;">
 						<p>
 							<b onclick="stFolder('${fol.folder_Num}')">
 								${fol.folder_Title } 

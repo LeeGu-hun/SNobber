@@ -76,11 +76,11 @@ body, h1, h2, h3, h4, h5, h6 {
 <%@ include file="/include/header.jsp"%>
 	<input class="next" value="${folderName.folder_Num}" style="display: none;">	
 
-	<div class="w3-main" style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
+	<div class="w3-main" style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
 		
 		<!-- Header -->
 		<header id="portfolio">
-			<div class="w3-container">
+			<div class="w3-container" style="margin-left: 13%; margin-right: 13%;">
 				<h1>
 					<b>List</b>
 				</h1>
@@ -101,7 +101,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		</header>
 		
 		<br>
-		<div style="margin: 0.5em;">			
+		<div style="margin: 0.5em; margin-left: 13%; margin-right: 13%;">			
 			<b>
 				${folderName.folder_Title }
 			</b>
