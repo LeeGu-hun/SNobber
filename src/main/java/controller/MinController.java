@@ -265,7 +265,6 @@ public class MinController {
 			minService.folderFollowDelete(bean);
 			// 있다면 삭제
 		}
-
 		return "./main";
 	}
 
@@ -295,8 +294,6 @@ public class MinController {
 			minService.folderlikekeDelete(bean);
 			// 있다면 삭제
 		}
-
 		return "./main";
 	}
-
 }
