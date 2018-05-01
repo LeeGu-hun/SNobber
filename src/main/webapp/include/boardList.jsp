@@ -75,31 +75,13 @@ html, body, h1, h2, h3, h4, h5 {
 			<!-- Left Column -->
 			<div class="w3-col m3">
 				<!-- Profile -->
-
-
-
-				<!-- Accordion -->
-
-
-				<!-- Interests -->
-
-
-
-
-				<!-- End Left Column -->
 			</div>
 
 			<!-- Middle Column -->
 			<div>
 				<div class="w3-col m7" id="table_id"
 					style="width: 70%; margin-left: 94px; float: left">
-
 					<c:forEach var="bo" items="${list}" varStatus="status">
-
-
-
-
-
 						<div class="w3-container w3-card w3-white w3-round w3-margin">
 							<br> 
 							<c:if test="${bo.mem_Photo != null}">
@@ -108,7 +90,7 @@ html, body, h1, h2, h3, h4, h5 {
 								style="width: 100px; margin-top: 10px"> 
 							</c:if>
 							<c:if test="${bo.mem_Photo == null}">
-							<img src=".image/basic.png"
+							<img src="${pageContext.request.contextPath}/image/basic.png"
 								class="w3-left w3-circle w3-margin-right"
 								style="width: 100px; margin-top: 10px"> 
 							</c:if> 
@@ -148,42 +130,24 @@ html, body, h1, h2, h3, h4, h5 {
 								style="margin-top:10px">
 								${bo.count}</span>
 						</div>
-
-
 					</c:forEach>
 
 					<c:if test="${empty list }">
-	등록된 글이 없습니다.
-	</c:if>
+						등록된 글이 없습니다.
+					</c:if>
 					<!-- End Middle Column -->
 				</div>
-				
 			</div>
-
-
 			<!-- End Grid -->
 		</div>
-<div id="b_id">
+				<div id="b_id">
 					<button onclick="te()" id="showBt">더보기</button>
 				</div>
 		<!-- End Page Container -->
 	</div>
 	<br>
 
-	<script>
-
-
-
-
-
-
-
-
-
-
-</script>
-
-	<script type="text/javascript">
+<script type="text/javascript">
 
 function te(){
 	$("#showBt").hide();
@@ -208,13 +172,13 @@ lastbno++;
 
 </script>
 
-	<script>
+<script>
 function sc(data) {
 
-var lastbno=new Array();
-var reallastbno=data.realscrolllastbno;
-
-var listSize = data.listSize;
+	var lastbno=new Array();
+	var reallastbno=data.realscrolllastbno;
+	
+	var listSize = data.listSize;
 
 
      var content= Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
@@ -243,6 +207,7 @@ var listSize = data.listSize;
     	  mem_num[i]=eval("data.scrollAddMeNu"+i);
     	  mem_nickname[i]=eval("data.scrollAddMeN"+i);
     	  board_num[i]=eval("data.scrollAddBoardBum"+i);
+    	  //사진 배열에저장
     	  mem_photo[i]=eval("data.scrollAddPhoto"+i);
     	count[i]=eval("data.count"+i);
     	boarddate[i]=eval("data.boarddate"+i);
@@ -253,6 +218,7 @@ var listSize = data.listSize;
 	var filetag= Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
      for(var i=Number(reallastbno); i<Number(listSize); i++){
     	 tag[i] = like_on[i] == 1 ? "<img src='./image/like.png'>":"<img src='./image/unlike.png'>";
+    	 mem_photo[i] =
     	/* alert("tag[i]:"+tag[i]); */
 
      
@@ -261,10 +227,9 @@ var listSize = data.listSize;
      var s='${pageContext.request.contextPath}';
      for(var i=Number(reallastbno); i<Number(listSize); i++){
     	 filetag[i]= file[i]!=0? file[i]:"";
-   
+   		//파일 부분
      }
  
-     
 	for (var i=Number(reallastbno); i<Number(listSize); i++)
 	    {
 		liketag[i] = "<span id='btnLike'><a href='#' style='text-decoration:none;' onclick="
@@ -276,10 +241,8 @@ var listSize = data.listSize;
 	
 	if(listSize<=allList){
 		for (var i=Number(reallastbno); i<Number(listSize); i++){
-            $('#table_id').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br><p><c:if test='"+(${mem_photo[i] != null})+"'><img src='"+u+"/"+mem_photo[i]+"'style='width: 100px; margin-top:10px;' class='w3-left w3-circle w3-margin-right' >"+
-			
-            "</c:if><c:if test='"+(${mem_photo[i] == null})+"'><img src='"+u+"''/image/basic.png'style='width: 100px; margin-top:10px;' class='w3-left w3-circle w3-margin-right' ></c:if>"+
-            
+            $('#table_id').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br><p><img src='"+u+"/"+mem_photo[i]+"'style='width: 100px; margin-top:10px;' class='w3-left w3-circle w3-margin-right' >"+
+			            
 			"<span class='w3-right w3-opacity'>"+boarddate[i]+"</span><h4><a href='#' onclick="+"'memNum(\""+mem_num[i] +"\")' style='text-align: right;'>"+mem_nickname[i]+"</a></h4>"+
 
 			"<br><hr class='w3-clear'><p class='content'>"+ 
