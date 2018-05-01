@@ -212,22 +212,27 @@ function sc(data) {
     	count[i]=eval("data.count"+i);
     	boarddate[i]=eval("data.boarddate"+i);
     	  console.log( "boarddate[i]:"+boarddate[i]);
+
+    	  
     	 
     }
 	var u='${pageContext.request.contextPath}';
 	var filetag= Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
+	var memtag= Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
      for(var i=Number(reallastbno); i<Number(listSize); i++){
     	 tag[i] = like_on[i] == 1 ? "<img src='./image/like.png'>":"<img src='./image/unlike.png'>";
-    	 mem_photo[i] =
-    	/* alert("tag[i]:"+tag[i]); */
-
-     
+       memtag[i]= mem_photo[i] !=null ? "<img src='"+u+"/"+mem_photo[i]+"' class='w3-left w3-circle w3-margin-right' style='width: 100px; margin-top: 10px'>":"<img src='./image/basic.png' class='w3-left w3-circle w3-margin-right' style='width: 100px; margin-top: 10px'>";
+    
+    
      }
+     
 
      var s='${pageContext.request.contextPath}';
      for(var i=Number(reallastbno); i<Number(listSize); i++){
     	 filetag[i]= file[i]!=0? file[i]:"";
-   		//파일 부분
+   	
+    	
+    	 //파일 부분
      }
  
 	for (var i=Number(reallastbno); i<Number(listSize); i++)
@@ -239,9 +244,9 @@ function sc(data) {
 	    } 
 
 	
-	if(listSize<=allList){
+if(listSize<=allList){
 		for (var i=Number(reallastbno); i<Number(listSize); i++){
-            $('#table_id').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br><p><img src='"+u+"/"+mem_photo[i]+"'style='width: 100px; margin-top:10px;' class='w3-left w3-circle w3-margin-right' >"+
+            $('#table_id').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br><p>"+memtag[i]+
 			            
 			"<span class='w3-right w3-opacity'>"+boarddate[i]+"</span><h4><a href='#' onclick="+"'memNum(\""+mem_num[i] +"\")' style='text-align: right;'>"+mem_nickname[i]+"</a></h4>"+
 
@@ -255,18 +260,16 @@ function sc(data) {
 
 			"<span style='margin-top:10px'>"+count[i]+"</span></div>");
 
-           /*  alert("<img src='./upload/"+mem_photo[i]+"' style='width:auto; height:auto; boarder-radius:50%;' >"); */
 		} 
 	
 	
-	 	if(scrollIndex<allList){
+		if(scrollIndex<allList){
 	   $('#b_id').append("<div><button onclick='te()' id='showBt'>더보기</button></div>");
 	    	
 	 	}	
 	 	$("#showBt").hide();
 
 	} 
-
 
 
 
