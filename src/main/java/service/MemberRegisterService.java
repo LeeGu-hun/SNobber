@@ -28,6 +28,6 @@ public class MemberRegisterService {
 		Member newMem = new Member(mem.getMem_Id(), mem.getMem_Nickname(), mem.getMem_Password(), mem.getMem_Email(),
 				mem.getMem_Photo(), mem.getMem_Introduce());
 		sqlSession.insert("memberSQL.memberInsert", newMem);
-		sqlSession.insert("memberSQL.boardBasic",mem.getMem_num());
+		sqlSession.insert("memberSQL.boardBasic",mem);
 	}
 }
