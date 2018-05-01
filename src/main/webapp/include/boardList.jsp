@@ -18,6 +18,8 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet"href="${pageContext.request.contextPath}/resources/css/min.css" ver="1.5" />
+
 <style>
 html, body, h1, h2, h3, h4, h5 {
 	font-family: "Open Sans", sans-serif
@@ -45,78 +47,109 @@ html, body, h1, h2, h3, h4, h5 {
 	</div>
 
 	<!-- Page Container -->
-	<div class="w3-container w3-content" style="max-width: 100%; margin: auto 5%; margin-top: 100px">
+	<div class="w3-container w3-content" style="max-width: 100%; margin: auto 10%; margin-top: 100px">
 		<!-- The Grid -->
-		<div class="w3-row" style="margin: auto 5%;">
+		<div class="w3-row" style="margin: auto 10%;">
 
 		<!-- Middle Column -->
-				<c:forEach var="bo" items="${list}" varStatus="status">
-					<div class="w3-container w3-card w3-white w3-round w3-margin">
-						<br> 
-						<c:if test="${bo.mem_Photo != null}">
-							<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
-									class="w3-left w3-circle w3-margin-right"
-									style="width: 100px; margin-top: 10px"> 
-						</c:if>
-						<c:if test="${bo.mem_Photo == null}">
-							<img src="${pageContext.request.contextPath}/image/basic.png"
-									class="w3-left w3-circle w3-margin-right"
-									style="width: 100px; margin-top: 10px"> 
-						</c:if> 
-						<span class="w3-right w3-opacity">
-							${bo.board_Date }
-						</span>
-						<h4>
-							<a href="#" onclick="memNum('${bo.mem_Num}')"
-								 style="text-align: right; margin-top:10px"> ${bo.mem_Nickname} 
-							</a>
-						</h4>
-						<br>
-						<hr class="w3-clear">
-						<span >
-							<p class="content">
-								${bo.board_Content}
-							</p>
-						</span>
-							<a href="#" onclick="boardNum(${bo.board_Num})"
-									style="text-decoration: none; margin-top: 10px">
-								<자세히보기>
-							</a>
-						
-						<div class="w3-row-padding" style="margin: 0 -16px">
-							<div class="w3-half">
-								<c:if test="${bo.board_File ne null}">
-									<div class="w3-row-padding" style="margin: 0 -16px">
-										<c:if test="${bo.board_File != null}">
-											<img src="${pageContext.request.contextPath}/${bo.board_File}"
-													style="width: 400px; height: 300px; boarder-radius: 50%;">
-										</c:if>
-									</div>
-								</c:if>
+			<c:forEach var="bo" items="${list }" varStatus="status">
+				<div class="contner">
+						<!-- 게시물 사진 -->
+						<c:if test="${bo.board_File != null}">
+							<div class="fic">
+								<img src="${pageContext.request.contextPath}/${bo.board_File}">
 							</div>
-						</div>
-						<button type="button" style="background-color: #000; margin-top:10px; border: none; 
-								overflow: hidden; text-decoration: none; color: inherit; 
-								background-color: inherit; text-align: right; cursor: pointer; 
-								white-space: nowrap;" class="likeScroll" data-ch="${status.index}">
-							<span id="btnLike"> 
-								<a href="#" onclick="check('${bo.board_Num}','${bo.like_on}','${status.index}')"
-										style="text-decoration: none;"> 
-									${bo.like_on == 1 ? "<img src='./image/like.png'>":"<img src='./image/unlike.png'>"}
+						</c:if>
+						<c:if test="${bo.board_File == null}">
+							<div class="fic" >
+								<img>
+							</div>
+						</c:if>						
+						<div class="myinfo">
+							<!-- 회원 사진 -->
+								<c:if test="${bo.mem_Photo != null}">
+									<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
+											class="w3-left w3-circle w3-margin-right"
+											style="width: 100px; margin-top: 10px"> 
+								</c:if>
+								<c:if test="${bo.mem_Photo == null}">
+									<img src="${pageContext.request.contextPath}/image/basic.png"
+											class="w3-left w3-circle w3-margin-right"
+											style="width: 100px; margin-top: 10px"> 
+								</c:if>
+								<h4>	<!-- 닉네임 -->
+									<a href="#" onclick="memNum('${bo.mem_Num}')"
+										 	style="text-align: right; margin-top:10px"> 
+										 ${bo.mem_Nickname} 
+									</a>
+								</h4>
+								<hr class="w3-clear">
+								<p class="content" onclick="stBoard('${bo.board_Num}')">
+									${bo.board_Content }
+								</p>
+								<a href="#" onclick="boardNum(${bo.board_Num})"
+										style="text-decoration: none; margin-top: 10px">
+									<자세히보기>
 								</a>
-							</span>
-						</button>
-						<span style="margin-top:10px">
-							${bo.count}
-						</span>
+	<%-- 	해당 글의 조회수를 받아올 수 있나??
+								<span>
+									조회수 : ${bo.board_Read_Count}
+								</span>
+	 --%>							
+								<div style="text-align: right;">
+									<span style="font-size: 0.8em;">
+										${bo.board_Date } &nbsp;&nbsp;
+									</span>
+	<%--	세션과 보드의 주인이 같다면 에딧 삭제 보이게 하는 것	//복붙으로 가져왔는데.. 혹시 사용할 수도? 								
+									<c:if test="${host eq bo.mem_Num }">
+										<span onclick="boardNum(${bo.board_Num})" style="text-align: right; font-size: 0.8em;">
+											Edit
+										</span>
+										<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: right; font-size: 0.8em;">
+											Delete
+										</span>									
+									</c:if>
+	 --%>								
+								</div>
+								<!-- 좋아요 버튼 -->
+								<button type="button" style="background-color: #000; margin-top:10px; border: none; 
+										overflow: hidden; text-decoration: none; color: inherit; 
+										background-color: inherit; text-align: right; cursor: pointer; 
+										white-space: nowrap;" class="likeScroll" data-ch="${status.index}">
+									<span id="btnLike"> 
+										<a href="#" onclick="check('${bo.board_Num}','${bo.like_on}','${status.index}')"
+												style="text-decoration: none;"> 
+											${bo.like_on == 1 ? "<img src='./image/like.png'>":"<img src='./image/unlike.png'>"}
+										</a>
+									</span>
+								</button>
+	<%-- 							
+								<!-- 좋아요 갯수 가져오는거 -->
+								<span style="margin-top:10px">
+									${bo.count}
+								</span>
+	 --%>							
+						</div>
 					</div>
 				</c:forEach>
+<%-- 			
+			<!-- 기존	 -->
+			<c:forEach var="bo" items="${list}" >
+				<div class="w3-container w3-card w3-white w3-round w3-margin">
+					<br> 
+					<span class="w3-right w3-opacity">
+						${bo.board_Date }
+					</span>
+					<br>
+					
+				</div>
+			</c:forEach>
+ --%>
 
-				<c:if test="${empty list }">
-					등록된 글이 없습니다.
-				</c:if>
-				<!-- End Middle Column -->
-			<!-- End Grid -->
+			<c:if test="${empty list }">
+				등록된 글이 없습니다.
+			</c:if>
+			<!-- End Middle Column -->
 		</div>
 		<div id="b_id">
 			<button onclick="te()" id="showBt">더보기</button>
