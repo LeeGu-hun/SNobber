@@ -218,17 +218,20 @@ body, h1, h2, h3, h4, h5, h6 {
 				id="myOverlay"></div>
 
 			<!-- !PAGE CONTENT! -->
-			<div class="w3-main"
-				style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
+			<div class="w3-main" style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
 
 				<!-- Header -->
 				<header id="portfolio">
-					<a href="#"><img src="/w3images/avatar_g2.jpg"
-						style="width: 65px;"
-						class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-					<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey"
-						onclick="w3_open()"><i class="fa fa-bars"></i></span>
+					<a href="#">
+						<img src="/w3images/avatar_g2.jpg" style="width: 65px;"
+								class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity">
+					</a>
+					<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()">
+						<i class="fa fa-bars"></i>
+					</span>
 					<div class="w3-container" style="margin-left: 200px;margin-right: 200px;">
+					
+					<!-- 사진 정보 수정 팔로우에 대한 정보들 -->
 						<div class="w3-container w3-padding-large"
 							style="margin-bottom: 32px">
 							<div class="w3-col m6">
@@ -258,15 +261,18 @@ body, h1, h2, h3, h4, h5, h6 {
 	                                  		<c:choose>
 												<c:when test="${member.mem_num==host }">
 													<button type="button" class="btn btn-default btn-xs" 
-														data-toggle="modal" data-target="#updateModal">수정
+															data-toggle="modal" data-target="#updateModal">
+														수정
 													</button>
 													<br>
 													<button type="button" class="btn btn-default btn-xs" 
-														data-toggle="modal" data-target="#a">팔로워 보기
+															data-toggle="modal" data-target="#a">
+														팔로워 보기
 													</button>
 													<br>
 													<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-														data-toggle="modal" data-target="#b">팔로잉 보기
+															data-toggle="modal" data-target="#b">
+														팔로잉 보기
 													</button>
 													<br>
 												</c:when>
@@ -437,10 +443,8 @@ body, h1, h2, h3, h4, h5, h6 {
 											</div>
 										</td> 
 									</tr>
-									
 								</table>
 							</div>
-
 						</div>
 
 						<div class="w3-section w3-bottombar w3-padding-16">
