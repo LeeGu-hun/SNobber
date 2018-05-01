@@ -299,7 +299,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	</div>
 	
 		<!-- 팔로워 보기 모달 -->
-	<div class="modal fade" id="a" role="dialog">
+	<div class="modal fade" id="a" role="dialog" style="widht:130px">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -310,33 +310,30 @@ body, h1, h2, h3, h4, h5, h6 {
 					</button>
 				</div>
 				<div class="modal-body">
-					<div style="margin-top:150px; width:100px; folat:left;">
-						<table class="w3-table w3-bordered" style="width: 400px">
-							<tr>
-								<th colspan="2">
-									팔로워
-								</th>
-							</tr>
+					<div style="width:100%;">
+								<table class="w3-table w3-bordered" style="width: 70%; margin-left:10%">
+						
 							<c:forEach var="fol" items="${follower}">
 								<tr>
-									<td rowspan="2">
-									<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+									<td rowspan="2" style="width:50%">
+								<div
+											style="width: 100%; height: 100%; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 									<c:if test="${fol.mem_Photo != null}">
 										<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-											style="max-width: 100%; height: auto;">
+											style="max-width: 100%; height: 130px;">
 									</c:if>
 									<c:if test="${fol.mem_Photo == null}">
 										<img src="${pageContext.request.contextPath}/image/basic.png"
-											style="max-width: 100%; height: auto;">
+											style="max-width: 100%; height: 130px;">
 									</c:if>
 									</div>
 									</td>
-									<td>
+									<td style="vertical-align: bottom;">
 										<a href="#" onclick="memNum('${fol.mem_Num}')">${fol.mem_Nickname}</a>
 									</td>
 								</tr>
 								<tr>
-									<td>${fol.mem_Introduce}</td>
+									<td style="vertical-align: bottom;">${fol.mem_Introduce}</td>
 								</tr>
 								<tr>
 									<td colspan="2">
@@ -356,7 +353,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	</div>
 	
 	<!-- 팔로잉 보기 모달 -->
-	<div class="modal fade" id="b" role="dialog">
+	<div class="modal fade" id="b" role="dialog" style="widht:130px">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -367,31 +364,33 @@ body, h1, h2, h3, h4, h5, h6 {
 					</button>
 				</div>
 				<div class="modal-body">
-					<div style="margin-top: 150px; folat:right; width:100px; ">
-						<table class="w3-table w3-bordered" style="width: 400px">
-							<tr>
-								<th colspan="2">팔로잉</th>
-							</tr>
-							<c:forEach var="fol" items="${following}">
+					<div style="width:100%;">
+						<table class="w3-table w3-bordered" style="width: 70%; margin-left:10%">
+							
+							<c:forEach var="fol" items="${following}" >
+							
+							
 									<tr>
-										<td rowspan="2">
+										<td rowspan="2" style="width:50%">
+										<div
+											style="width: 100%; height: 100%; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 											<c:if test="${fol.mem_Photo != null}">
 											<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-													style="max-width: 100%; height: auto;">
+													style="max-width: 100%; height: 130px;">
 											</c:if>
 											<c:if test="${fol.mem_Photo == null}">
 											<img src="${pageContext.request.contextPath}/image/basic.png"
-													style="max-width: 100%; height: auto;">
+													style="max-width: 100%; height: 130px;">
 											</c:if>
 										</td>
-										<td>
+										<td style="vertical-align: bottom;">
 											<a href="#" onclick="memNum('${fol.follow_You_Num}')">
 												${fol.mem_Nickname}
 											</a>
 										</td>
 									</tr>
 									<tr>
-										<td>${fol.mem_Introduce}</td>
+										<td style="vertical-align: bottom;">${fol.mem_Introduce}</td>
 									</tr>
 							</c:forEach>
 						</table>
@@ -400,7 +399,6 @@ body, h1, h2, h3, h4, h5, h6 {
 			</div>
 		</div>
 	</div>
-	
 	<!-- 팔로우 취소 모달 -->
 	<div class="modal fade" id="cancleModal" role="dialog">
 		<div class="modal-dialog">
@@ -411,7 +409,8 @@ body, h1, h2, h3, h4, h5, h6 {
 				</div>
 				<div class="modal-body">
 					<form action="followsubmit" method="POST">
-						<h4>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h4>
+						<h3>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h3>
+						<br>
 						<input type="submit" value="취소">
 						<button type="button" data-dismiss="modal">취소</button>
 						<input type="hidden" id="type" name="type" value="1"/>
@@ -432,7 +431,8 @@ body, h1, h2, h3, h4, h5, h6 {
 				</div>
 				<div class="modal-body">
 					<form action="followsubmit" method="POST">
-						<h4>${member.mem_Nickname }님에게 팔로우 신청 하겠습니까?</h4>
+						<h3>${member.mem_Nickname }님에게 팔로우 신청 하겠습니까?</h3>
+						<br>
 						<input type="submit" value="신청">
 						<button type="button" data-dismiss="modal">취소</button>
 						<input type="hidden" id="type" name="type" value="2"/>
