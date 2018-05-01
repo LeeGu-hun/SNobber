@@ -84,6 +84,9 @@
 			<input class="next" type="text" value="${bm.board_Num }" style="display: none;">	
 			<div id="column">
 			<figure>
+				<p style="text-align: left; margin-left: 10px;">
+				${bm.mem_Nickname }
+				</p>
 				<c:if test="${bm.board_File != null}">
 				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 500px; height: 500px;"/>
 				</c:if>
@@ -122,6 +125,9 @@
 									<img src="./image/basic.png" style="width: 50px; height: 50px;"
 										onclick="javascript:memNum(${re.mem_Num})"> 
 									</c:if>  
+								</td>
+								<td style="width: 10%; font-size: small;" onclick="javascript:memNum(${re.mem_Num})">
+									${re.mem_Nickname}
 								</td>
 								<td style="width: 60%; font-size: large;">
 									${re.re_Content }
