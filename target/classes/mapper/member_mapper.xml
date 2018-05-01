@@ -14,7 +14,7 @@
 		#{mem_Nickname}, #{mem_Password}, #{mem_Email}, #{mem_Photo},
 		#{mem_Introduce}, 1)
 	</insert>
-	
+
 	<insert id="boardBasic" parameterType="bean.MemberBean">
 		insert into a_folder(folder_num,mem_num,mem_nickname,folder_title,folder_secret) values(a_folder_seq.nextval,a_member_seq.currval,#{mem_Nickname},'기본','1')
 	</insert>

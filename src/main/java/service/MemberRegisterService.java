@@ -24,7 +24,7 @@ public class MemberRegisterService {
 		} else if(name != null) {
 			throw new AlreadyExistingMemberException("dup mem_Name " + mem.getMem_Nickname());
 		}
-
+		
 		Member newMem = new Member(mem.getMem_Id(), mem.getMem_Nickname(), mem.getMem_Password(), mem.getMem_Email(),
 				mem.getMem_Photo(), mem.getMem_Introduce());
 		sqlSession.insert("memberSQL.memberInsert", newMem);
