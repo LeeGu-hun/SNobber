@@ -107,9 +107,16 @@ body, h1, h2, h3, h4, h5, h6 {
 									<tr>
 										<td rowspan="10" style="width: 10%;">
 											<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+												<c:if test="${member.mem_Photo != null}">
 												<img src="${pageContext.request.contextPath}/${member.mem_Photo}"
-														style="max-width: 150%; height: auto; margin-bottom: 100px"
+														style="max-width: 100%; height: auto; margin-bottom: 100px"
 														onclick="javascript:pop()">
+												</c:if>
+												<c:if test="${member.mem_Photo == null}">
+												<img src="./image/basic.png"
+														style="max-width: 100%; height: auto; margin-bottom: 100px"
+														onclick="javascript:pop()">
+												</c:if>
 											</div> 
 											<div style="margin-top:15px; margin-left: 35px">	
 												<c:if test="${member.mem_num==host }">
@@ -168,7 +175,7 @@ body, h1, h2, h3, h4, h5, h6 {
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="btn btn-default btn-xs"
-																	data-toggle="modal" data-target="#cancleModal">
+																	data-dismiss="modal">
 																팔로워 보기
 															</button>
 														</div>
@@ -184,8 +191,14 @@ body, h1, h2, h3, h4, h5, h6 {
 																		<tr>
 																			<td rowspan="2">
 																			<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+																			<c:if test="${fol.mem_Photo != null}">
 																				<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
 																					style="max-width: 150%; height: auto;">
+																			</c:if>
+																			<c:if test="${fol.mem_Photo == null}">
+																				<img src="./image/basic.png"
+																					style="max-width: 150%; height: auto;">
+																			</c:if>
 																			</div>
 																			</td>
 																			<td>
@@ -219,7 +232,7 @@ body, h1, h2, h3, h4, h5, h6 {
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="btn btn-default btn-xs"
-																	data-toggle="modal" data-target="#cancleModal">
+																	data-dismiss="modal">
 																팔로잉 보기
 															</button>
 														</div>
@@ -232,8 +245,14 @@ body, h1, h2, h3, h4, h5, h6 {
 																	<c:forEach var="fol" items="${following}">
 																			<tr>
 																				<td rowspan="2">
+																					<c:if test="${fol.mem_Photo != null}">
 																					<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
 																							style="max-width: 150%; height: auto;">
+																					</c:if>
+																					<c:if test="${fol.mem_Photo == null}">
+																					<img src="./image/basic.png"
+																							style="max-width: 150%; height: auto;">
+																					</c:if>
 																				</td>
 																				<td>
 																					<a href="#" onclick="memNum('${fol.follow_You_Num}')">
@@ -338,8 +357,10 @@ body, h1, h2, h3, h4, h5, h6 {
 			</c:if>
 			<c:forEach var="bo" items="${boardSNS }">
 				<figure>
+					<c:if test="${bo.board_File != null}">
 					<img src="${pageContext.request.contextPath}/${bo.board_File }" 
 							onclick="stBoard('${bo.board_Num}')"/>
+					</c:if>
 					<figcaption>
 						<p class="content" onclick="stBoard('${bo.board_Num}')">
 							${bo.board_Content }
