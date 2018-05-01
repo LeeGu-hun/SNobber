@@ -73,6 +73,35 @@
 	function memNum(num) {
 		$(location).attr('href', './mypagePro?num=' + num + '');
 	}
+	function boardDelete() {
+		var num = $('#boNum').attr("value");
+		var id = "Like";
+
+		$.ajax({
+			type : "POST",
+			url : "./mypageBoardDelete",
+			data : {
+				id : id,
+				num : num
+			},
+			success : boardDelete2
+		});
+	}
+	function boardDelete2(num) {
+		var next = $('.next').val();
+
+		$(location).attr('href', './mypagePro?num=' + next + '');
+	}
+</script>
+<script type="text/javascript">
+function ingShow(num) {
+	$('#boNum').attr("value", num);
+	$('#lightBoxOK').attr("value", num);
+
+	$("#content").html("정말 삭제하시겠습니까?");
+	document.getElementById('myModalll').style.display = 'block';
+	//modal을 띄워준다.  	    
+}
 </script>
 </head>
 <body style="background-color: silver;">
@@ -81,7 +110,7 @@
 		<%@ include file="/include/header.jsp"%>
 			<br>
 			<c:forEach var="bm" items="${bm }">
-			<input class="next" type="text" value="${bm.board_Num }" style="display: none;">	
+			<input class="next" type="text" value="${bm.mem_Num }" style="display: none;">	
 			<div id="column">
 			<figure>
 				<p style="text-align: left; margin-left: 10px;">
@@ -101,7 +130,10 @@
 				${bm.board_Date }
 				</span>
 				<c:if test="${host eq bm.mem_Num }">
-				<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>							
+				<a href="#" onclick="boardNum(${bm.board_Num})">수정</a>
+				<span class="boardD" onclick="ingShow('${bm.board_Num}')" style="text-align: left; font-size: 0.8em;">
+				삭제
+				</span>	
 				</c:if>
 			</figcaption>							
 			</figure>
@@ -163,6 +195,25 @@
 					</c:forEach>
 				</div>
 			</c:forEach>			
+		</div>
+		<!-- Modal -->
+		<div id="myModalll" class="w3-modal"> 
+			<div class="w3-modal-content">
+				<div class="w3-container">
+					<span
+						onclick="document.getElementById('myModal').style.display='none'"
+						class="w3-button w3-display-topright">&times;</span> <input
+						type="hidden" id="title" name="title" />
+					<p id="content"></p>
+					<input type="hidden" id="boNum" name="boNum" />
+					<div id="lightBoxOK">
+						<input type="button" value="확인" onclick="boardDelete()"style="text-align: right;">
+						<input type="button" onclick="document.getElementById('myModalll').style.display='none'"
+							value="취소">
+					</div>
+					<p>&nbsp;</p>
+				</div> 
+			</div>
 		</div>
 		<br>
 		<%@ include file="/include/footer.jsp" %>
