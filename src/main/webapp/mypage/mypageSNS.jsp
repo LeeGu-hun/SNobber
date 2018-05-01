@@ -256,6 +256,7 @@ body, h1, h2, h3, h4, h5, h6 {
 																	<c:forEach var="fol" items="${following}">
 																			<tr>
 																				<td rowspan="2">
+																				<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 																					<c:if test="${fol.mem_Photo != null}">
 																					<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
 																							style="max-width: 150%; height: auto;">
@@ -264,6 +265,7 @@ body, h1, h2, h3, h4, h5, h6 {
 																					<img src="./image/basic.png"
 																							style="max-width: 150%; height: auto;">
 																					</c:if>
+																				</div>
 																				</td>
 																				<td>
 																					<a href="#" onclick="memNum('${fol.follow_You_Num}')">
