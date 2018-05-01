@@ -69,7 +69,6 @@ public class MinController {
 					} else {
 						folder.get(i).setFollow_on(0);
 					}
-
 				}
 
 				model.addAttribute("folder", folder);
@@ -103,6 +102,12 @@ public class MinController {
 		List<BoardBean> boardSNS = minService.mypageSNS(pageNum);
 		model.addAttribute("boardSNS", boardSNS);
 
+		FollowBean bean = new FollowBean(host);
+		List<FollowBean> followerBean = minService.getFollower(bean);
+		FollowBean bean1 = new FollowBean(host);
+		List<FollowBean> followingBean = minService.getFollowing(bean1);
+		model.addAttribute("follower", followerBean);
+		model.addAttribute("following", followingBean);
 		return "mypage/mypageSNS";
 	}
 
@@ -139,11 +144,6 @@ public class MinController {
 	public String mypageWritionView(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		String num = request.getParameter("num");
-		// num �� 蹂대뱶�쓽 �꽆踰꾩엫
-
-		// List<BoardBean> board = minService.mypageWritingView(num1);
-		// model.addAttribute("board", board);
-		// 議고쉶�닔 利앷� 荑쇰━
 		minService.boardReadCount(num);
 		model.addAttribute("host", host);
 		List<BoardMemberBean> boardMember = minService.BoardMemberBean(num);
@@ -153,7 +153,6 @@ public class MinController {
 		List<ReBean> re = minService.reBean(num);
 		model.addAttribute("re", re);
 		List<likeChangeBean> like = minService.boardLike(num);
-		// 醫뗭븘�슂 �쉶�썝�쓽 �젙蹂� 媛�吏�怨� �삤�뒗嫄�
 
 		return "mypage/mypageWritingView";
 	}
@@ -205,7 +204,7 @@ public class MinController {
 	@RequestMapping(value = "mypageFolderCreate", method = { RequestMethod.GET, RequestMethod.POST }) // 占쏙옙占쏙옙 占쏙옙占쏙옙占�
 	public String mypageFolderCreate(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		String name= ((AuthInfo) session.getAttribute("authInfo")).getName();
+		String name = ((AuthInfo) session.getAttribute("authInfo")).getName();
 		String id = request.getParameter("id");
 
 		if (id.equals("folder_create_btn")) {
@@ -220,7 +219,7 @@ public class MinController {
 				secret = "2";
 				num = Integer.parseInt(secret);
 			}
-			minService.mypageFolder(host, title, num,name);
+			minService.mypageFolder(host, title, num, name);
 
 		}
 		return "main";
