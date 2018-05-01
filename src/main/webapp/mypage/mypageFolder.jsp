@@ -82,7 +82,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		<header id="portfolio">
 			<div class="w3-container" style="margin-left: 13%; margin-right: 13%;">
 				<h1>
-					<b>List</b>
+					<b>${folderName.folder_Title }</b>
 				</h1>
 				<div class="w3-section w3-bottombar w3-padding-16">
 					<span class="w3-margin-right">Filter:</span>
@@ -101,10 +101,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		</header>
 		
 		<br>
-		<div style="margin: 0.5em; margin-left: 13%; margin-right: 13%;">			
-			<b>
-				${folderName.folder_Title }
-			</b>
+		<div style="margin: 0.5em; margin-left: 13%; margin-right: 13%;">
 			<hr>
 			<div id="columns">			
 				<c:if test="${empty board }">
