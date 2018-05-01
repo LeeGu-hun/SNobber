@@ -80,7 +80,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		
 		<!-- Header -->
 		<header id="portfolio">
-			<div class="w3-container" style="margin-left: 13%; margin-right: 13%;">
+			<div class="w3-container" style="margin: auto 5%">
 				<h1>
 					<b>${folderName.folder_Title }</b>
 				</h1>
@@ -101,7 +101,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		</header>
 		
 		<br>
-		<div style="margin: 0.5em; margin-left: 13%; margin-right: 13%;">
+		<div style="margin: 0.5em; margin: auto 6%">
 			<hr>
 			<div id="columns">			
 				<c:if test="${empty board }">

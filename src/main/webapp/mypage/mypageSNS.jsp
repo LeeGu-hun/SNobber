@@ -93,7 +93,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<!-- Header -->
 		<header id="portfolio">
-			<div class="w3-container" style="margin-left: 13%;margin-right: 13%;">
+			<div class="w3-container" style="margin: auto 5%">
 				<h1>
 					<b>SNS</b>
 				</h1>
@@ -224,7 +224,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		</header>
 
 		<!-- First Photo Grid-->
-		<div id="columns"  style="margin-left: 13%; margin-right: 13%;">
+		<div id="columns"  style="margin: auto 6%">
 			<c:if test="${empty boardSNS }">
 				<p>등록된 글이 없습니다.</p>
 			</c:if>
