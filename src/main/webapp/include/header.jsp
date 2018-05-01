@@ -58,7 +58,7 @@ html, body, h1, h2, h3, h4, h5 {
 						class="fa fa-home w3-margin-right"></i>TODAY's Hot</a> <a
 						href="./main"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-						title="Account Settings"><i class="fa fa-user">My TimeLine</i></a>
+						title="Account Settings"><i class="fa fa-user">TimeLine</i></a>
 					<a href="./searching"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages"><i class="fa fa-search">Search</i></a> <a
@@ -66,7 +66,7 @@ html, body, h1, h2, h3, h4, h5 {
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages"
 						onclick="mypagePro('${sessionScope.authInfo.mem_num}')"><i
-						class="fa fa-male">My Page</i></a> <a href="./logout"
+						class="fa fa-male">Mypage</i></a> <a href="./logout"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages"><i class="fa fa-close">Logout</i></a>
 				</div>
