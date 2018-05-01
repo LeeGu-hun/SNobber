@@ -154,7 +154,7 @@ function ingShow(num) {
 										onclick="javascript:memNum(${re.mem_Num})"> 
 									</c:if>
 									<c:if test="${re.mem_Photo == null}">
-									<img src="./image/basic.png" style="width: 50px; height: 50px;"
+									<img src="${pageContext.request.contextPath}/image/basic.png" style="width: 50px; height: 50px;"
 										onclick="javascript:memNum(${re.mem_Num})"> 
 									</c:if>  
 								</td>

@@ -138,7 +138,7 @@ select {
 						style="width: 70%" class="w3-hover-opacity" height="300px;">
 					</c:if>
 					<c:if test="${bo.mem_Photo eq null}">
-					<img src="./image/basic.png" onclick="memNum('${bo.mem_num}')" 
+					<img src="${pageContext.request.contextPath}/image/basic.png" onclick="memNum('${bo.mem_num}')" 
 						style="width: 70%" class="w3-hover-opacity" height="300px;">
 					</c:if>
 						<!-- 그사람 사진 -->

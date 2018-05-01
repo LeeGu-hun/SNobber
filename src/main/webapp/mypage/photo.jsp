@@ -19,7 +19,7 @@ function pop(){
 			style="max-width: 150%; height: auto;" onclick="javascript:pop();">
 		</c:if>
 		<c:if test="${member.mem_Photo == null}">
-		<img src="./image/basic.png"
+		<img src="${pageContext.request.contextPath}/image/basic.png"
 			style="max-width: 150%; height: auto;" onclick="javascript:pop();">
 		</c:if>
 	</div>

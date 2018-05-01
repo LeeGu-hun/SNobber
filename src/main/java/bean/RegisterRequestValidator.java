@@ -33,10 +33,17 @@ public class RegisterRequestValidator implements Validator {
 		} else {
 			Matcher matcher = idpattern.matcher(regReq.getMem_Id());
 			if (!matcher.matches()) {
-				errors.rejectValue("mem_Id", "bad");
+				errors.rejectValue("mem_Id", "badid");
 			}
 		}
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mem_Email", "required");
+		if (regReq.getMem_Email() == null || regReq.getMem_Email().trim().isEmpty()) {
+			errors.rejectValue("mem_Email", "required");
+		} else {
+			Matcher matcher = emailpattern.matcher(regReq.getMem_Email());
+			if (!matcher.matches()) {
+				errors.rejectValue("mem_Email", "bademail");
+			}
+		}
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mem_Name", "required");
 		ValidationUtils.rejectIfEmpty(errors, "mem_Password", "required");
 		ValidationUtils.rejectIfEmpty(errors, "mem_ConfirmPassword", "required");

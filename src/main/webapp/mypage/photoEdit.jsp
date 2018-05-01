@@ -23,7 +23,7 @@
 					<img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 150%; height: auto;">
 					</c:if>
 					<c:if test="${member.mem_Photo == null}">
-					<img src="./image/basic.png" style="max-width: 100%; height: auto;">
+					<img src="${pageContext.request.contextPath}/image/basic.png" style="max-width: 100%; height: auto;">
 					</c:if>
 				</div>
 					<input name="mem_Photo" type="file" value="${member.mem_Photo }" >

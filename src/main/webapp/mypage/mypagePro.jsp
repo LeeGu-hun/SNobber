@@ -250,7 +250,7 @@ body, h1, h2, h3, h4, h5, h6 {
 													onclick="javascript:pop()">
 												</c:if>
 												<c:if test="${member.mem_Photo == null}">
-												<img src="./image/basic.png"
+												<img src="${pageContext.request.contextPath}/image/basic.png"
 													style="max-width: 100%; height: auto; margin-bottom: 100px"
 													onclick="javascript:pop()">
 												</c:if>
@@ -546,7 +546,7 @@ body, h1, h2, h3, h4, h5, h6 {
 													style="max-width: 150%; height: auto;">
 											</c:if>
 											<c:if test="${fol.mem_Photo == null}">
-												<img src="./image/basic.png"
+												<img src="${pageContext.request.contextPath}/image/basic.png"
 													style="max-width: 150%; height: auto;">
 											</c:if>
 										</div>
@@ -600,7 +600,7 @@ body, h1, h2, h3, h4, h5, h6 {
 												style="max-width: 150%; height: auto;">
 											</c:if>
 											<c:if test="${fol.mem_Photo == null}">
-											<img src="./image/basic.png"
+											<img src="${pageContext.request.contextPath}/image/basic.png"
 												style="max-width: 150%; height: auto;">
 											</c:if>
 											</td>

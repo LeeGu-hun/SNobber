@@ -61,7 +61,7 @@ body, h1, h2, h3, h4, h5, h6 {
   <img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px">
   </c:if>
   <c:if test="${member.mem_Photo == null}">
-  <img src="./image/basic.png" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px">
+  <img src="${pageContext.request.contextPath}/image/basic.png" style="max-width: 200px; height: 250px; border-radius: 45%; margin-left:100px">
   </c:if>
   </p>
   <p style="margin-left:100px">아이디: ${member.mem_Id}</p>

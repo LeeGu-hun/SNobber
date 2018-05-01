@@ -161,7 +161,7 @@ body, h1, h2, h3, h4, h5, h6 {
 								alt="Norway" style="width: 300px" class="w3-hover-opacity" height="200px">
 							</c:if>
 							<c:if test="${fl.mem_photo == null}">
-							<img src="./image/basic.png"
+							<img src="${pageContext.request.contextPath}/image/basic.png"
 								alt="Norway" style="width: 300px" class="w3-hover-opacity" height="200px">
 							</c:if>
 							<div class="w3-container w3-white" style="margin-top: 20px">

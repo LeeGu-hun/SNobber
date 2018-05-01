@@ -34,7 +34,7 @@
 							onclick="javascript:pop()">
 					</c:if>
 					<c:if test="${member.mem_Photo == null}">
-						<img src="./image/basic.png"
+						<img src="${pageContext.request.contextPath}/image/basic.png"
 							style="max-width: 100%; height: auto; margin-bottom: 100px"
 							onclick="javascript:pop()">
 					</c:if>

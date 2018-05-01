@@ -43,6 +43,13 @@ public class RegisterController {
 		String originalFilename = multi.getOriginalFilename(); 
 		String newFilename = "";
 		MemberBean  mem = new MemberBean();
+		mem.setMem_Id(rr.getMem_Id());
+		mem.setMem_Password(rr.getMem_Password());
+		mem.setMem_Nickname(rr.getMem_Name());
+		mem.setMem_Email(rr.getMem_Email());
+		mem.setMem_Introduce(rr.getMem_Introduce());
+		if (errors.hasErrors())
+			return "register/step1";
 		if (!originalFilename.equals("")) {
 			newFilename = System.currentTimeMillis() + "_" 
 					+ originalFilename;
@@ -53,17 +60,19 @@ public class RegisterController {
 		
 			String path = root_path + newFilename;
 			mem.setMem_Photo(newFilename);
-			if (errors.hasErrors())
-				return "register/step1";
 			try {
 				File file = new File(path);
 				multi.transferTo(file);
+				memberRegisterService.regist(mem);
+				LoginCommand loginCommand = new LoginCommand();
+				loginCommand.setId(mem.getMem_Id());
+				model.addAttribute("loginCommand", loginCommand);
 			}catch (AlreadyExistingMemberException e) {
 				if(e.getMessage().indexOf("dup mem_Id") == 0) {
 					errors.rejectValue("mem_Id", "duplicate");
 				} else if(e.getMessage().indexOf("dup mem_Name") == 0) {
 					errors.rejectValue("mem_Name", "duplicate");
-				} else if(e.getMessage().indexOf("dup mem_Email ") == 0) {
+				} else if(e.getMessage().indexOf("dup mem_Email") == 0) {
 					errors.rejectValue("mem_Email", "duplicate");
 				}
 				return "register/step1";
@@ -72,16 +81,22 @@ public class RegisterController {
 			}
 		} else {
 			mem.setMem_Photo("");
+			try {
+				memberRegisterService.regist(mem);
+				LoginCommand loginCommand = new LoginCommand();
+				loginCommand.setId(mem.getMem_Id());
+				model.addAttribute("loginCommand", loginCommand);
+			}catch (AlreadyExistingMemberException e) {
+				if(e.getMessage().indexOf("dup mem_Id") == 0) {
+					errors.rejectValue("mem_Id", "duplicate");
+				} else if(e.getMessage().indexOf("dup mem_Name") == 0) {
+					errors.rejectValue("mem_Name", "duplicate");
+				} else if(e.getMessage().indexOf("dup mem_Email") == 0) {
+					errors.rejectValue("mem_Email", "duplicate");
+				}
+				return "register/step1";
+			}
 		}
-		mem.setMem_Id(rr.getMem_Id());
-		mem.setMem_Password(rr.getMem_Password());
-		mem.setMem_Nickname(rr.getMem_Name());
-		mem.setMem_Email(rr.getMem_Email());
-		mem.setMem_Introduce(rr.getMem_Introduce());
-		memberRegisterService.regist(mem);
-		LoginCommand loginCommand = new LoginCommand();
-		loginCommand.setId(mem.getMem_Id());
-		model.addAttribute("loginCommand", loginCommand);
 		return "register/step3";
 	}
 }
