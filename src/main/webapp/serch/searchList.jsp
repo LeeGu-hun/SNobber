@@ -34,6 +34,8 @@
 	function move(num){
 		$(location).attr('href', './mypageWritingView?num=' + num + '');
 	}
+	
+	
 </script>
 <style>
 select {
@@ -64,6 +66,32 @@ select {
 	height: 30px;
 }
 </style>
+<script>
+
+function check(){
+	if(document.getElementById("searchbox").value==""){
+		
+		alert("검색어를 입력해주세요");
+		windows.history.back();
+		return false;
+	}else{
+	
+	    document.searchFriend.submit(); 
+
+
+		    }
+	}
+
+
+	
+	
+	
+
+
+
+
+</script>
+
 </head>
 <body style="background-color: silver;">
 	<div style="margin-top: 100px;">
@@ -74,7 +102,7 @@ select {
 
 
 		<br>
-		<form action="searching" name="searchFriend" method="post">
+		<form action="searching" name="searchFriend" method="post" >
 			<div style="margin-left: 19px; text-align: center; margin: 0 auto;">
 				<select name="searchOption">
 					<option value="all,all">Member Search</option>
@@ -83,18 +111,18 @@ select {
 						Introduce</option>
 					<option value="board_content,mem_nickname">SNobber</option>
 				</select> <input type="text" placeholder="Search.." name="keyword"
-					value="${keyword }" id="searchbox"> <input type="submit"
-					id="searchsu" value="조회">
+					value="${keyword }" id="searchbox"> <input type="button" id="searchsu" value="조회" onclick="check()">
 			</div>
 
 			<c:if test="${map.cntboard  > 0 }">
 				<c:forEach var="bo" items="${map.boardList}">
-				
+
 					<div class="w3-third w3-container w3-margin-bottom"
-						style="margin-top:80px; margin-left:200px; ">
+						style="margin-top: 80px; margin-left: 10%;">
 						<c:if test="${bo.board_File != null}">
-						<img src="${pageContext.request.contextPath}/${bo.board_File}" onclick="move(${bo.board_Num})"
-							style="width: 300px" class="w3-hover-opacity" height="200px">
+							<img src="${pageContext.request.contextPath}/${bo.board_File}"
+								onclick="move(${bo.board_Num})" style="width: 100px"
+								class="w3-hover-opacity" height="150px">
 						</c:if>
 
 						<div class="w3-container w3-white">
@@ -132,18 +160,21 @@ select {
 			<c:if test="${map.cntMember > 0 }">
 				<c:forEach var="bo" items="${map.memberList}">
 					<div class="w3-third w3-container w3-margin-bottom"
-						style="margin-top: 80px; margin-left:200px;" style="margin-top:10px">
-					<c:if test="${bo.mem_Photo ne null}">
-					<img src="${pageContext.request.contextPath}/${bo.mem_Photo}" onclick="memNum('${bo.mem_num}')" 
-						style="width: 70%" class="w3-hover-opacity" height="300px;">
-					</c:if>
-					<c:if test="${bo.mem_Photo eq null}">
-					<img src="${pageContext.request.contextPath}/image/basic.png" onclick="memNum('${bo.mem_num}')" 
-						style="width: 70%" class="w3-hover-opacity" height="300px;">
-					</c:if>
+						style="margin-top: 80px; margin-left: 90px; margin-top: 150px; width: 28%">
+						<c:if test="${bo.mem_Photo ne null}">
+							<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
+								onclick="memNum('${bo.mem_num}')" style="width: 50%"
+								class="w3-hover-opacity" height="200px;">
+						</c:if>
+						<c:if test="${bo.mem_Photo eq null}">
+							<img src="${pageContext.request.contextPath}/image/basicsq.png"
+								onclick="memNum('${bo.mem_num}')" style="width: 50%"
+								class="w3-hover-opacity" height="200px;">
+						</c:if>
 						<!-- 그사람 사진 -->
 
-						<div class="w3-container" style="background-color: white; width: 70%;">
+						<div class="w3-container"
+							style="background-color: white; width: 50%;">
 
 							<table>
 								<tr>
@@ -158,14 +189,6 @@ select {
 									<td>검색 키워드:${map.keyword}</td>
 								</tr>
 							</table>
-
-
-
-
-
-
-
-
 
 						</div>
 					</div>
