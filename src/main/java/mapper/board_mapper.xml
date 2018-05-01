@@ -89,14 +89,14 @@
 		order by b.board_date DESC, b.board_num DESC
 	</select>
 
-	<select id="search" resultType="bean.SearchBean" parameterType="bean.SearchKeyBean">
+<select id="search" resultType="bean.SearchBean" parameterType="bean.SearchKeyBean">
 		select
 		m.mem_nickname,m.mem_photo,m.mem_introduce,
 		b.board_read_count,b.board_content,b.board_file
 		from a_member m,a_board
 		b
 		where ${searchOption0} like '%${keyword}%' and ${searchOption1} like
-		'%${keyword}%'
+		'%${keyword}%' and <![CDATA[ m.mem_nickname <> 'admin'  ]]>
 	</select>
 
 	<select id="searchBoard" resultType="bean.BoardBean"
@@ -109,7 +109,7 @@
 				where
 				${searchOption0} like '%${keyword}%' and board_type=2 or
 				${searchOption1} like
-				'%${keyword}%' and board_type=2
+				'%${keyword}%' and board_type=2 and <![CDATA[mem_nickname <> 'admin' ]]>
 			</when>
 
 		</choose>
@@ -123,19 +123,18 @@
 			<when test="searchOption0=='all'">
 				mem_nickname like '%${keyword}%' or
 				mem_introduce like
-				'%${keyword}%'
+				'%${keyword}%' and <![CDATA[ mem_nickname <> 'admin' ]]>
 			</when>
 
 			<when test="searchOption0=='mem_nickname'">
-				${searchOption0} like '%${keyword}%'
+				${searchOption0} like '%${keyword}%' and <![CDATA[ mem_nickname <> 'admin' ]]>
 			</when>
 
 			<when test="searchOption0=='mem_introduce'">
-				${searchOption0} like '%${keyword}%'
+				${searchOption0} like '%${keyword}%' and  <![CDATA[ mem_nickname <> 'admin' ]]>
 			</when>
 		</choose>
 	</select>
-
 	<select id="count" resultType="int" parameterType="bean.SearchKeyBean">
 		<choose>
 			<when test="searchOption0=='board_content'">
