@@ -218,17 +218,20 @@ body, h1, h2, h3, h4, h5, h6 {
 				id="myOverlay"></div>
 
 			<!-- !PAGE CONTENT! -->
-			<div class="w3-main"
-				style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
+			<div class="w3-main" style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
 
 				<!-- Header -->
 				<header id="portfolio">
-					<a href="#"><img src="/w3images/avatar_g2.jpg"
-						style="width: 65px;"
-						class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-					<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey"
-						onclick="w3_open()"><i class="fa fa-bars"></i></span>
+					<a href="#">
+						<img src="/w3images/avatar_g2.jpg" style="width: 65px;"
+								class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity">
+					</a>
+					<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()">
+						<i class="fa fa-bars"></i>
+					</span>
 					<div class="w3-container" style="margin-left: 200px;margin-right: 200px;">
+					
+					<!-- 사진 정보 수정 팔로우에 대한 정보들 -->
 						<div class="w3-container w3-padding-large"
 							style="margin-bottom: 32px">
 							<div class="w3-col m6">
@@ -236,42 +239,57 @@ body, h1, h2, h3, h4, h5, h6 {
 								<table style="height: 200px; width:1100px">
 									<tr>
 										<td rowspan="10" style="width: 10%;">
-											<div
-												style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+											<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 												<img src="${pageContext.request.contextPath}/${member.mem_Photo}"
-													style="max-width: 150%; height: auto; margin-bottom: 100px"
-													onclick="javascript:pop()">
-												
+														style="max-width: 150%; height: auto; margin-bottom: 100px"
+														onclick="javascript:pop()">
 											</div> 
-												
-												<div style="margin-top:15px; margin-left: 35px">	<c:if test="${member.mem_num==host }">
-												<a href="mypage/photoEdit">사진 수정</a></c:if></div>
+											<div style="margin-top:15px; margin-left: 35px">	
+												<c:if test="${member.mem_num==host }">
+													<a href="mypage/photoEdit">사진 수정</a>
+												</c:if>
+											</div>
 										</td>
-										<td width="80%" style="text-align: left;"><div style="margin-left: 100px"><p>닉네임 ${member.mem_Nickname }</p>
-										<p>이메일 ${member.mem_Email }</p> <p>소개 ${member.mem_Introduce }</p></div></td>
+										<td width="80%" style="text-align: left;">
+											<div style="margin-left: 100px">
+												<p>닉네임 ${member.mem_Nickname }</p>
+												<p>이메일 ${member.mem_Email }</p> 
+												<p>소개 ${member.mem_Introduce }</p>
+											</div>
+										</td>
 										<td width="10%" style="text-align: right;">
 	                                  		<c:choose>
 												<c:when test="${member.mem_num==host }">
 													<button type="button" class="btn btn-default btn-xs" 
-														data-toggle="modal" data-target="#updateModal">수정</button>
+															data-toggle="modal" data-target="#updateModal">
+														수정
+													</button>
 													<br>
 													<button type="button" class="btn btn-default btn-xs" 
-														data-toggle="modal" data-target="#a">팔로워 보기</button>
+															data-toggle="modal" data-target="#a">
+														팔로워 보기
+													</button>
 													<br>
 													<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-														data-toggle="modal" data-target="#b">팔로잉 보기</button>
+															data-toggle="modal" data-target="#b">
+														팔로잉 보기
+													</button>
 													<br>
 												</c:when>
 												<c:otherwise>
-													<c:if test="${follow == '1' }">
-														&nbsp 팔로우 중 <br>
+													<c:if test="${follow == '1' }"> &nbsp;
+														팔로우 중
+														<br>
 														<button type="button" class="btn btn-default btn-xs"
-															data-toggle="modal" data-target="#cancleModal">팔로우 취소</button>
-														
+																data-toggle="modal" data-target="#cancleModal">
+															팔로우 취소
+														</button>														
 													</c:if>
 													<c:if test="${follow != '1' }">
 														<button type="button" class="btn btn-default btn-xs"
-															data-toggle="modal" data-target="#followModal">팔로우 하기</button>
+																data-toggle="modal" data-target="#followModal">
+															팔로우 하기
+														</button>
 													</c:if>
 												</c:otherwise>
 											</c:choose>
@@ -283,41 +301,45 @@ body, h1, h2, h3, h4, h5, h6 {
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="btn btn-default btn-xs"
-															data-toggle="modal" data-target="#cancleModal">팔로워 보기</button>
+																	data-toggle="modal" data-target="#cancleModal">
+																팔로워 보기
+															</button>
 														</div>
 														<div class="modal-body">
 															<div style="margin-top:150px; width:100px; folat:left;">
 																<table class="w3-table w3-bordered" style="width: 400px">
 																	<tr>
-																		<th colspan="2">팔로워</th>
+																		<th colspan="2">
+																			팔로워
+																		</th>
 																	</tr>
 																	<c:forEach var="fol" items="${follower}">
-																			<tr>
-																				<td rowspan="2">
-																				<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
-																					<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-																						style="max-width: 150%; height: auto;">
-																				</div>
-																				</td>
-																					<td>
-																						<a href="#" onclick="memNum('${fol.mem_Num}')">${fol.mem_Nickname}</a>
-																					</td>
-																			</tr>
-																					<tr>
-																						<td>${fol.mem_Introduce}</td>
-																					</tr>
-																			<tr>
-																				<td colspan="2">
-																					<c:choose>
-																						<c:when test="${fol.follow == 1}">
-																							팔로우중
-																						</c:when>
-																					</c:choose>
-																				</td>
-																			</tr>
-																		</c:forEach>
-																	</table>
-																</div>
+																		<tr>
+																			<td rowspan="2">
+																			<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+																				<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
+																					style="max-width: 150%; height: auto;">
+																			</div>
+																			</td>
+																			<td>
+																				<a href="#" onclick="memNum('${fol.mem_Num}')">${fol.mem_Nickname}</a>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td>${fol.mem_Introduce}</td>
+																		</tr>
+																		<tr>
+																			<td colspan="2">
+																				<c:choose>
+																					<c:when test="${fol.follow == 1}">
+																						팔로우중
+																					</c:when>
+																				</c:choose>
+																			</td>
+																		</tr>
+																	</c:forEach>
+																</table>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -330,7 +352,9 @@ body, h1, h2, h3, h4, h5, h6 {
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="btn btn-default btn-xs"
-															data-toggle="modal" data-target="#cancleModal">팔로잉 보기</button>
+																	data-toggle="modal" data-target="#cancleModal">
+																팔로잉 보기
+															</button>
 														</div>
 														<div class="modal-body">
 															<div style="margin-top: 150px; folat:right; width:100px; ">
@@ -340,11 +364,15 @@ body, h1, h2, h3, h4, h5, h6 {
 																	</tr>
 																	<c:forEach var="fol" items="${following}">
 																			<tr>
-																				<td rowspan="2"><img
-																					src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-																					style="max-width: 150%; height: auto;"></td>
-																				<td><a href="#" onclick="memNum('${fol.follow_You_Num}')">${fol.mem_Nickname}</a></td>
-														
+																				<td rowspan="2">
+																					<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
+																							style="max-width: 150%; height: auto;">
+																				</td>
+																				<td>
+																					<a href="#" onclick="memNum('${fol.follow_You_Num}')">
+																						${fol.mem_Nickname}
+																					</a>
+																				</td>
 																			</tr>
 																			<tr>
 																				<td>${fol.mem_Introduce}</td>
@@ -415,10 +443,8 @@ body, h1, h2, h3, h4, h5, h6 {
 											</div>
 										</td> 
 									</tr>
-									
 								</table>
 							</div>
-
 						</div>
 
 						<div class="w3-section w3-bottombar w3-padding-16">
@@ -467,11 +493,12 @@ body, h1, h2, h3, h4, h5, h6 {
 					<div class="w3-row-padding" style="margin-left: 230px; margin-right: 150px;">
 						<p>
 							<b onclick="stFolder('${fol.folder_Num}')">
-								${fol.folder_Title } </b>
+								${fol.folder_Title } 
+							</b>
 							<c:if test="${fol.mem_Num eq host }">
 								<c:if test="${fol.folder_Title != '기본'}">
 									<span id="delete" class="folderD"
-										onclick="ingShoww('${fol.folder_Num}')" style="float: right;">
+											onclick="ingShoww('${fol.folder_Num}')" style="float: right;">
 										Delete 
 									</span>
 								</c:if>
@@ -488,49 +515,48 @@ body, h1, h2, h3, h4, h5, h6 {
 							</c:if>
 						</p>
 						<div id="columns">
-						<c:forEach var="bo" items="${boardProBoard }" varStatus="stPro">
-							
+						<c:forEach var="bo" items="${boardProBoard }" varStatus="stPro">							
 							<c:if test="${fol.folder_Num eq bo.folder_Num }">
-									<figure>
-										<img src="${pageContext.request.contextPath}/${bo.board_File }" 
-												onclick="stBoard('${bo.board_Num}')"/>
-										<figcaption>
-											<p class="content" onclick="stBoard('${bo.board_Num}')">
-												${bo.board_Content }
-											</p>
-											<span>
-												조회수 : ${bo.board_Read_Count}
+								<figure>
+									<img src="${pageContext.request.contextPath}/${bo.board_File }" 
+											onclick="stBoard('${bo.board_Num}')"/>
+									<figcaption>
+										<p class="content" onclick="stBoard('${bo.board_Num}')">
+											${bo.board_Content }
+										</p>
+										<span>
+											조회수 : ${bo.board_Read_Count}
+										</span>
+										<div style="text-align: right;">
+											<span style="font-size: 0.8em;">
+												${bo.board_Date } &nbsp;&nbsp;
 											</span>
-											<div style="text-align: right;">
-												<span style="font-size: 0.8em;">
-													${bo.board_Date } &nbsp;&nbsp;
+											<c:if test="${host eq bo.mem_Num }">
+												<span onclick="boardNum(${bo.board_Num})" style="text-align: right; font-size: 0.8em;">
+													Edit
 												</span>
-												<c:if test="${host eq bo.mem_Num }">
-													<span onclick="boardNum(${bo.board_Num})" style="text-align: right; font-size: 0.8em;">
-														Edit
-													</span>
-													<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: left; font-size: 0.8em;">
-														Delete
-													</span>									
-												</c:if>
-											</div>
-										</figcaption>							
-									</figure>
+												<span class="boardD" onclick="ingShow('${bo.board_Num}')" style="text-align: left; font-size: 0.8em;">
+													Delete
+												</span>									
+											</c:if>
+										</div>
+									</figcaption>							
+								</figure>
 							</c:if>
 						</c:forEach>
 					</div>
-								</div>
+				</div>
 				</c:forEach>	
 
 				<!-- Pagination -->
 				<div class="w3-center w3-padding-32">
 					<div class="w3-bar">
-						<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a> <a
-							href="#" class="w3-bar-item w3-black w3-button">1</a> <a href="#"
-							class="w3-bar-item w3-button w3-hover-black">2</a> <a href="#"
-							class="w3-bar-item w3-button w3-hover-black">3</a> <a href="#"
-							class="w3-bar-item w3-button w3-hover-black">4</a> <a href="#"
-							class="w3-bar-item w3-button w3-hover-black">»</a>
+						<a href="#" class="w3-bar-item w3-button w3-hover-black">«</a> 
+						<a href="#" class="w3-bar-item w3-black w3-button">1</a> 
+						<a href="#" class="w3-bar-item w3-button w3-hover-black">2</a> 
+						<a href="#" class="w3-bar-item w3-button w3-hover-black">3</a> 
+						<a href="#" class="w3-bar-item w3-button w3-hover-black">4</a> 
+						<a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
 					</div>
 				</div>
 
