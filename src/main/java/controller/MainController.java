@@ -275,32 +275,33 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value = "/folderScrollFollow", method = RequestMethod.POST)
 	public HashMap<String, Object> followfolderScroll(
-			@RequestParam(value = "follow_rowsCount", required = false) int follow_rowsCount, HttpSession session) {
+			@RequestParam(value = "follow_rowsCount", required = false) int follow_rowsCount,@RequestParam(value = "follow_rowsCountTest", required = false) int follow_rowsCountTest, HttpSession session) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-
+		
 		FollowFolderKeyBean ffk = new FollowFolderKeyBean();
 		int follow_rowsCountPlus = follow_rowsCount + 1;
 		ffk.setHost(host);
 
-		ffk.setRown(follow_rowsCountPlus);
+		ffk.setRown(follow_rowsCountTest);
 		List<FollowFolderBean> followFlist = boardService.myFollowFolderScroll(ffk);
 		List<FollowFolderBean> allfollowFlist = boardService.myFollowFolderScrollAll(host);
 		HashMap<String, Object> follow_map = new HashMap<String, Object>();
 
-		for (int b = followFlist.size() - 1; b < followFlist.size(); b++) {
+		for (int b = follow_rowsCount+1; b < followFlist.size(); b++) {
 			FollowFolderBean bb = (FollowFolderBean) followFlist.get(b);
 
 			String folder_creater = bb.getFolder_creater();
 			String folder_title = bb.getFolder_title();
+			int folder_num=bb.getFolder_num();
 
-			follow_map.put("scrollAddFolder_creator", folder_creater);
-			follow_map.put("scrollAddFolder_title", folder_title);
-
+			follow_map.put("scrollAddFolder_creator"+b, folder_creater);
+			follow_map.put("scrollAddFolder_title"+b, folder_title);
+			follow_map.put("scrollAddFolder_folder_num"+b, folder_num);
 		}
 
 		follow_map.put("followFlist", followFlist.size());
 		follow_map.put("allfollowFlist", allfollowFlist.size());
-		follow_map.put("follow_rowsCount", follow_rowsCount);
+		follow_map.put("follow_rowsCount", follow_rowsCountPlus);
 		return follow_map;
 	}
 

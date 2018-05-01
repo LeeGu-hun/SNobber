@@ -13,6 +13,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resourcescss/font-awesome.min.css">
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
@@ -26,19 +33,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <div class="w3-row">
     <!-- Left Column -->
     <div class="w3-col m3">
-      <!-- Profile -->
-     
-    
-      
-      <!-- Accordion -->
-     
-   
-      <!-- Interests --> 
-     
-      
- 
-    
-    <!-- End Left Column -->
+
     </div>
     
     <!-- Middle Column -->
@@ -49,7 +44,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <h4>${d.folder_creater }</h4><br>
         <hr class="w3-clear">
-        <p><a href="#" onclick="folder('${d.folder_num}')">${d.folder_title }</a></p>
+        <p class="followScroll" data-follow=${followIn.index }><a href="#" onclick="folder('${d.folder_num}')">${d.folder_title }</a></p>
      
       </div>
       
@@ -59,11 +54,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 	등록된 글이 없습니다.
 	</c:if>
        
-       
-       
-       
-       
-    <!-- End Middle Column -->
+<div id="button_id">
+					<button onclick="followfolder()" id="followbutton">더보기</button>
+				</div>
     </div>
    
     
@@ -89,54 +82,75 @@ function folder(num) {
 
 
 
+</script><script type="text/javascript">
+function followfolder(){	  
+	 $("#followbutton").hide();
 
 
-$(document).ready(function () {
-	  $(document).scroll(function() {
-	    var follow_maxHeight = $(document).height();
-	    var follow_currentScroll = $(window).scrollTop() + $(window).height();
 	    var follow_rowsCount=$(".followScroll:last").attr("data-follow");
-	    /* 	var follow_table = document.getElementById("followTable");
-					var follow_rowsCount = follow_table.rows.length; */
+	    var follow_rowsCountTest=Number(follow_rowsCount)+Number(2); 
+	  	var follow_table = document.getElementById("followTable");
+					//var follow_rowsCount = follow_table.rows.length; 
 					//var lastbno = $(".likeScroll:last").attr("data-ch");
 				
-
-					  if (follow_maxHeight <= follow_currentScroll) {
-							follow_rowsCount++;
+				//			follow_rowsCount++;
 						
 
 							$.ajax({
 								type : "POST",
 								dataType : "json",
 								url : "./folderScrollFollow",
-								data : "follow_rowsCount=" + follow_rowsCount ,
+									data :  "follow_rowsCount=" + follow_rowsCount+"&follow_rowsCountTest="+follow_rowsCountTest, 
 								success : followsc
 
 							   });
-					    }
-					  });
-					});			 
+					   
+					 
+					  } 
 
 		function followsc(data) {
+			alert("왔나??");
+ 	var followFlist=data.followFlist;
+			var allfollowFlist=data.allfollowFlist;
+			var follow_rowsCount=data.follow_rowsCount;//lastbno
+			
+			
+		var folder_creater = Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
+			
+		var folder_num = Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
+			
+		var folder_title = Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
+		
+		var title_tag= Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
+		
+		
+		for (var i=Number(follow_rowsCount); i<Number(followFlist); i++)
+	    {
+			folder_creater[i]=eval("data.scrollAddFolder_creator"+i);
+			folder_title[i]=eval("data.scrollAddFolder_title"+i);
+			folder_num[i]=eval("data.scrollAddFolder_folder_num"+i);
+			title_tag[i]= "<a href='#' onclick="+"'folder(\""+folder_num[i]+"\")'>" + folder_title[i]  + "</a>";
+		
+			console.log("folder_creater[i]:"+folder_creater[i]);
+			console.log("folder_title[i] :"+folder_title[i]);
+	    }
+		
+		
 	
-		var folder_creater = data.scrollAddFolder_creator;
-		var folder_title = data.scrollAddFolder_title;
-		var followFlist=data.followFlist;
-		var allfollowFlist=data.allfollowFlist;
-		var follow_rowsCount=data.follow_rowsCount;
-		var title_tag = "<a href='#'>" + folder_title  + "</a>";
+		
 		
 		if (followFlist< allfollowFlist) {
-			$('#followTable').append("<div class='w3-container w3-card w3-white w3-round w3-margin'>"+
+			for (var i=Number(follow_rowsCount); i<Number(followFlist); i++)
+		    {
+			$('#followTable').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br>"+
 
-					"</h4><a href='#' onclick="+"'memNum(\""+ folder_creater +"\")'>"+folder_creater+"</a>"+
+					"<h4><a href='#' onclick="+"'memNum(\""+ folder_creater[i] +"\")'>"+folder_creater[i]+"</a></h4><br>"+
 
-					"</h4><br><hr class='w3-clear'><span id='searchHash'>"+title_tag +"</span> <br> <br> <br><div class='w3-row-padding' style='margin: 0 -16px'>"+
+					"<p class='followScroll' data-follow="+follow_rowsCount[i]+">"+title_tag[i] +"</p>"+
 
-					"</div>");}
+					"</div>");}}
 		
 
-		
 		
 		
 		
