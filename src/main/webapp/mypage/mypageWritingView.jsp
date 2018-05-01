@@ -70,6 +70,9 @@
 	function boardNum(num) {
 		$(location).attr('href', './boardEdit?num='+num+'');
 	}
+	function memNum(num) {
+		$(location).attr('href', './mypagePro?num=' + num + '');
+	}
 </script>
 </head>
 <body style="background-color: silver;">
@@ -112,10 +115,12 @@
 							<tr style="font-size: 8pt; background-color: white;  text-align: left;">
 								<td style="width: 50px;">
 									<c:if test="${re.mem_Photo != null}">
-									<img src="${pageContext.request.contextPath}/${re.mem_Photo }" style="width: 50px; height: 50px;"> 
+									<img src="${pageContext.request.contextPath}/${re.mem_Photo }" style="width: 50px; height: 50px;"
+										onclick="javascript:memNum(${re.mem_Num})"> 
 									</c:if>
 									<c:if test="${re.mem_Photo == null}">
-									<img src="./image/basic.png" style="width: 50px; height: 50px;"> 
+									<img src="./image/basic.png" style="width: 50px; height: 50px;"
+										onclick="javascript:memNum(${re.mem_Num})"> 
 									</c:if>  
 								</td>
 								<td style="width: 60%; font-size: large;">
