@@ -102,9 +102,6 @@ public class MinController {
 	public String mypageSns(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int pageNum = Integer.parseInt(request.getParameter("num"));
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		System.out.println(pageNum);
-		System.out.println("페이지 아래 호스트");
-		System.out.println(host);
 		model.addAttribute("host", host);
 		Member member = minService.selectById(pageNum);
 		model.addAttribute("member", member);

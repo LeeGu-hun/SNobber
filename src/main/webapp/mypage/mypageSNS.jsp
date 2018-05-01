@@ -138,6 +138,17 @@ body, h1, h2, h3, h4, h5, h6 {
 															data-toggle="modal" data-target="#updateModal">
 														수정
 													</button>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" 
+															data-toggle="modal" data-target="#a">
+														팔로워 보기
+													</button>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+															data-toggle="modal" data-target="#b">
+														팔로잉 보기
+													</button>
+													<br>
 												</c:when>
 												<c:otherwise>
 													<br>
