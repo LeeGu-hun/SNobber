@@ -284,6 +284,17 @@ body, h1, h2, h3, h4, h5, h6 {
 													<br>
 												</c:when>
 												<c:otherwise>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" 
+															data-toggle="modal" data-target="#a">
+														팔로워 보기
+													</button>
+													<br>
+													<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+															data-toggle="modal" data-target="#b">
+														팔로잉 보기
+													</button>
+													<br>
 													<c:if test="${follow == '1' }"> &nbsp;
 														팔로우 중
 														<br>
@@ -307,7 +318,6 @@ body, h1, h2, h3, h4, h5, h6 {
 													<!-- Modal content-->
 													<div class="modal-content">
 														<div class="modal-header">
-														므ㅟㅜㅏㄹㄴ밀ㄴ무ㅏㅣ
 															<button type="button" class="btn btn-default btn-xs"
 																	data-dismiss="modal">
 																팔로워 보기

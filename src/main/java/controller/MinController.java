@@ -36,19 +36,27 @@ public class MinController {
 	@RequestMapping(value = "mypagePro") // 留덉씠�럹�씠吏� 泥� 李�
 	public String mypagePro(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		
 		if (request.getParameter("num") != null) {
 			int pageNum = Integer.parseInt(request.getParameter("num"));
-
+			FollowBean erBean = null;
+			FollowBean ingBean = null;
+			
 			model.addAttribute("host", host);
 			Member member = minService.selectById(pageNum);
 			model.addAttribute("member", member);
+			
 			if (host == pageNum) { // �궡 �럹�씠吏�濡� 媛��뒗嫄�
 				List<BoardBean> folder = minService.mypagePro(pageNum);
 				model.addAttribute("folder", folder);
 				List<BoardBean> boardProBoard = minService.mypageProBoard(pageNum);
 				model.addAttribute("boardProBoard", boardProBoard);
+				
+				erBean = new FollowBean(host);
+				ingBean = new FollowBean(host);
 			} else if (host != pageNum) { // 남의 페이지에 갔을때
-
+				erBean = new FollowBean(pageNum);
+				ingBean = new FollowBean(pageNum);
 				List<FolderBean> folder = minService.mypageProNam(pageNum);
 				for (int i = 0; i < folder.size(); i++) {
 					FolderBean bean = new FolderBean();
@@ -81,11 +89,9 @@ public class MinController {
 				model.addAttribute("follow", follow);
 				model.addAttribute("boardProBoard", boardProBoard);
 			}
-			FollowBean bean = new FollowBean(host);
-			List<FollowBean> followerBean = minService.getFollower(bean);
+			List<FollowBean> followerBean = minService.getFollower(erBean);
+			List<FollowBean> followingBean = minService.getFollowing(ingBean);
 			model.addAttribute("follower", followerBean);
-			FollowBean bean1 = new FollowBean(host);
-			List<FollowBean> followingBean = minService.getFollowing(bean1);
 			model.addAttribute("following", followingBean);
 			return "mypage/mypagePro";
 		}
@@ -96,16 +102,25 @@ public class MinController {
 	public String mypageSns(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int pageNum = Integer.parseInt(request.getParameter("num"));
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		System.out.println(pageNum);
+		System.out.println("페이지 아래 호스트");
+		System.out.println(host);
 		model.addAttribute("host", host);
 		Member member = minService.selectById(pageNum);
 		model.addAttribute("member", member);
 		List<BoardBean> boardSNS = minService.mypageSNS(pageNum);
 		model.addAttribute("boardSNS", boardSNS);
-
-		FollowBean bean = new FollowBean(host);
-		List<FollowBean> followerBean = minService.getFollower(bean);
-		FollowBean bean1 = new FollowBean(host);
-		List<FollowBean> followingBean = minService.getFollowing(bean1);
+		FollowBean erBean =null;
+		FollowBean ingBean = null;
+		if(pageNum==host) {
+			erBean=new FollowBean(host);
+			ingBean =new FollowBean(host);
+		}else {
+			erBean =new FollowBean(pageNum);
+			ingBean =new FollowBean(pageNum);
+		}
+		List<FollowBean> followerBean = minService.getFollower(erBean);
+		List<FollowBean> followingBean = minService.getFollowing(ingBean);
 		model.addAttribute("follower", followerBean);
 		model.addAttribute("following", followingBean);
 		return "mypage/mypageSNS";
