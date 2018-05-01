@@ -229,16 +229,16 @@ body, h1, h2, h3, h4, h5, h6 {
 					<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()">
 						<i class="fa fa-bars"></i>
 					</span>
-					<div class="w3-container" style="margin-left: 200px;margin-right: 200px;">
+					<div class="w3-container" style="margin-left: 13%;margin-right: 13%;">
 					
 					<!-- 사진 정보 수정 팔로우에 대한 정보들 -->
 						<div class="w3-container w3-padding-large"
 							style="margin-bottom: 32px">
-							<div class="w3-col m6">
+							<div class="w3-col m6" style="width: 100%;">
 
-								<table style="height: 200px; width:1100px">
+								<table style="height: 200px; width: 100%;">
 									<tr>
-										<td rowspan="10" style="width: 10%;">
+										<td rowspan="10" style="width: 200px;">
 											<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
 												<c:if test="${member.mem_Photo != null}">
 												<img src="${pageContext.request.contextPath}/${member.mem_Photo}"
@@ -253,228 +253,89 @@ body, h1, h2, h3, h4, h5, h6 {
 											</div> 
 											<div style="margin-top:15px; margin-left: 35px">	
 												<c:if test="${member.mem_num==host }">
-													<a href="photoEdit">사진 수정</a>
+													<a href="mypage/photoEdit">
+														사진 수정
+													</a>
 												</c:if>
 											</div>
 										</td>
-										<td width="80%" style="text-align: left;">
-											<div style="margin-left: 100px">
-												<p>닉네임 ${member.mem_Nickname }</p>
-												<p>이메일 ${member.mem_Email }</p> 
-												<p>소개 ${member.mem_Introduce }</p>
-											</div>
-										</td>
-										<td width="10%" style="text-align: right;">
-	                                  		<c:choose>
-												<c:when test="${member.mem_num==host }">
+									</tr>									
+                                  		<c:choose>
+											<c:when test="${member.mem_num==host }">
+												<tr>
+													<td style="width: 200px;">닉네임 ${member.mem_Nickname }</td>
+													<td style="text-align: right;">
 													<button type="button" class="btn btn-default btn-xs" 
 															data-toggle="modal" data-target="#updateModal">
 														수정
 													</button>
-													<br>
-													<button type="button" class="btn btn-default btn-xs" 
-															data-toggle="modal" data-target="#a">
-														팔로워 보기
-													</button>
-													<br>
-													<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-															data-toggle="modal" data-target="#b">
-														팔로잉 보기
-													</button>
-													<br>
-												</c:when>
-												<c:otherwise>
-													<br>
-													<button type="button" class="btn btn-default btn-xs" 
-															data-toggle="modal" data-target="#a">
-														팔로워 보기
-													</button>
-													<br>
-													<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-															data-toggle="modal" data-target="#b">
-														팔로잉 보기
-													</button>
-													<br>
-													<c:if test="${follow == '1' }"> &nbsp;
-														팔로우 중
-														<br>
-														<button type="button" class="btn btn-default btn-xs"
-																data-toggle="modal" data-target="#cancleModal">
-															팔로우 취소
-														</button>														
-													</c:if>
-													<c:if test="${follow != '1' }">
-														<button type="button" class="btn btn-default btn-xs"
-																data-toggle="modal" data-target="#followModal">
-															팔로우 하기
+												</td>
+												</tr>
+												<tr>
+													<td style="width: 200px;">이메일 ${member.mem_Email }</td>												
+													<td style="text-align: right;">
+														<button type="button" class="btn btn-default btn-xs" 
+																data-toggle="modal" data-target="#a">
+															팔로워 보기
 														</button>
-													</c:if>
-												</c:otherwise>
-											</c:choose>
-											
-											<!-- 팔로워 보기 모달 -->
-											<div class="modal fade" id="a" role="dialog">
-												<div class="modal-dialog">
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
+													</td>
+												</tr>
+												<tr>
+													<td style="width: 200px;">소개 ${member.mem_Introduce }</td>
+													<td style="text-align: right;">
+														<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+																data-toggle="modal" data-target="#b">
+															팔로잉 보기
+														</button>
+													</td>
+												</tr>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td style="width: 200px;">닉네임 ${member.mem_Nickname }</td>
+													<td style="text-align: right;">
+														<button type="button" class="btn btn-default btn-xs" 
+																data-toggle="modal" data-target="#a">
+															팔로워 보기
+														</button>
+													</td>
+												</tr>
+												<tr>
+													<td style="width: 200px;">이메일 ${member.mem_Email }</td>
+													<td style="text-align: right;">
+														<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+																data-toggle="modal" data-target="#b">
+															팔로잉 보기
+														</button>
+													</td>
+												</tr>
+												<tr>
+													<td style="width: 200px;">소개 ${member.mem_Introduce }</td>
+													<td style="text-align: right;">
+														<c:if test="${follow != '1' }">
 															<button type="button" class="btn btn-default btn-xs"
-																	data-dismiss="modal">
-																팔로워 보기
+																	data-toggle="modal" data-target="#followModal">
+																팔로우 하기
 															</button>
-														</div>
-														<div class="modal-body">
-															<div style="margin-top:150px; width:100px; folat:left;">
-																<table class="w3-table w3-bordered" style="width: 400px">
-																	<tr>
-																		<th colspan="2">
-																			팔로워
-																		</th>
-																	</tr>
-																	<c:forEach var="fol" items="${follower}">
-																		<tr>
-																			<td rowspan="2">
-																			<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
-																				<c:if test="${fol.mem_Photo != null}">
-																					<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-																						style="max-width: 150%; height: auto;">
-																				</c:if>
-																				<c:if test="${fol.mem_Photo == null}">
-																					<img src="./image/basic.png"
-																						style="max-width: 150%; height: auto;">
-																				</c:if>
-																			</div>
-																			</td>
-																			<td>
-																				<a href="#" onclick="memNum('${fol.mem_Num}')">${fol.mem_Nickname}</a>
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>${fol.mem_Introduce}</td>
-																		</tr>
-																		<tr>
-																			<td colspan="2">
-																				<c:choose>
-																					<c:when test="${fol.follow == 1}">
-																						팔로우중
-																					</c:when>
-																				</c:choose>
-																			</td>
-																		</tr>
-																	</c:forEach>
-																</table>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<!-- 팔로잉 보기 모달 -->
-											<div class="modal fade" id="b" role="dialog">
-												<div class="modal-dialog">
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
+														</c:if>
+														<c:if test="${follow == '1' }">
 															<button type="button" class="btn btn-default btn-xs"
-																	data-dismiss="modal">
-																팔로잉 보기
-															</button>
-														</div>
-														<div class="modal-body">
-															<div style="margin-top: 150px; folat:right; width:100px; ">
-																<table class="w3-table w3-bordered" style="width: 400px">
-																	<tr>
-																		<th colspan="2">팔로잉</th>
-																	</tr>
-																	<c:forEach var="fol" items="${following}">
-																			<tr>
-																				<td rowspan="2">
-																				<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
-																				<c:if test="${fol.mem_Photo != null}">
-																				<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
-																					style="max-width: 150%; height: auto;">
-																				</c:if>
-																				<c:if test="${fol.mem_Photo == null}">
-																				<img src="./image/basic.png"
-																					style="max-width: 150%; height: auto;">
-																				</c:if>
-																				</div>
-																				</td>
-																				<td>
-																					<a href="#" onclick="memNum('${fol.follow_You_Num}')">
-																						${fol.mem_Nickname}
-																					</a>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td>${fol.mem_Introduce}</td>
-																			</tr>
-																	</c:forEach>
-																</table>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<!-- 팔로우 취소 모달 -->
-											<div class="modal fade" id="cancleModal" role="dialog">
-												<div class="modal-dialog">
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
-															팔로우 취소
-														</div>
-														<div class="modal-body">
-															<form action="followsubmit" method="POST">
-																<h4>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h4>
-																<input type="submit" value="취소">
-																<button type="button" data-dismiss="modal">취소</button>
-																<input type="hidden" id="type" name="type" value="1"/>
-																<input type="hidden" id="title" name="title" value="${member.mem_num }"/>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<!-- 팔로우 신청 모달 -->
-											<div class="modal fade" id="followModal" role="dialog">
-												<div class="modal-dialog">
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
-															팔로우 신청
-														</div>
-														<div class="modal-body">
-															<form action="followsubmit" method="POST">
-																<h4>${member.mem_Nickname }님에게 팔로우 신청 하겠습니까?</h4>
-																<input type="submit" value="신청">
-																<button type="button" data-dismiss="modal">취소</button>
-																<input type="hidden" id="type" name="type" value="2"/>
-																<input type="hidden" id="title" name="title"  value="${member.mem_num }"/>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!-- 수정 모달 -->
-											<div class="modal fade" id="updateModal" role="dialog">
-												<div class="modal-dialog">
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal">&times;</button>
-															<h4 id="updateTitle" class="modal-title"></h4>
-														</div>
-														<div class="modal-body">
-															<p><%@ include file="mypageEdit.jsp"%></p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</td> 
-									</tr>
+																	data-toggle="modal" data-target="#cancleModal">
+																팔로우 취소
+															</button>	
+													</td>													
+												</tr>
+												<tr>
+													<td style="width: 200px;">
+													</td>
+													<td style="text-align: right;">팔로우 중
+													</td>
+												</tr>
+														</c:if>
+												</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
 								</table>
 							</div>
 						</div>
@@ -522,7 +383,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<p>등록된 글이 없습니다.</p>
 				</c:if>
 				<c:forEach var="fol" items="${folder }" varStatus="stFolder">
-					<div class="w3-row-padding" style="margin-left: 230px; margin-right: 150px;">
+					<div class="w3-row-padding" style="margin-left: 10%; margin-right: 10%;">
 						<p>
 							<b onclick="stFolder('${fol.folder_Num}')">
 								${fol.folder_Title } 
@@ -650,6 +511,165 @@ body, h1, h2, h3, h4, h5, h6 {
 							value="취소">
 					</div>
 					<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+		<!-- 팔로워 보기 모달 -->
+		<div class="modal fade" id="a" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn btn-default btn-xs"
+								data-dismiss="modal">
+							팔로워 보기
+						</button>
+					</div>
+					<div class="modal-body">
+						<div style="margin-top:150px; width:100px; folat:left;">
+							<table class="w3-table w3-bordered" style="width: 400px">
+								<tr>
+									<th colspan="2">
+										팔로워
+									</th>
+								</tr>
+								<c:forEach var="fol" items="${follower}">
+									<tr>
+										<td rowspan="2">
+										<div style="width: 150px; height: 150px; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+											<c:if test="${fol.mem_Photo != null}">
+												<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
+													style="max-width: 150%; height: auto;">
+											</c:if>
+											<c:if test="${fol.mem_Photo == null}">
+												<img src="./image/basic.png"
+													style="max-width: 150%; height: auto;">
+											</c:if>
+										</div>
+										</td>
+										<td>
+											<a href="#" onclick="memNum('${fol.mem_Num}')">${fol.mem_Nickname}</a>
+										</td>
+									</tr>
+									<tr>
+										<td>${fol.mem_Introduce}</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<c:choose>
+												<c:when test="${fol.follow == 1}">
+													팔로우중
+												</c:when>
+											</c:choose>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 팔로잉 보기 모달 -->
+		<div class="modal fade" id="b" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn btn-default btn-xs"
+								data-dismiss="modal">
+							팔로잉 보기
+						</button>
+					</div>
+					<div class="modal-body">
+						<div style="margin-top: 150px; folat:right; width:100px; ">
+							<table class="w3-table w3-bordered" style="width: 400px">
+								<tr>
+									<th colspan="2">팔로잉</th>
+								</tr>
+								<c:forEach var="fol" items="${following}">
+										<tr>
+											<td rowspan="2">
+																																<c:if test="${fol.mem_Photo != null}">
+											<img src="${pageContext.request.contextPath}/${fol.mem_Photo}"
+												style="max-width: 150%; height: auto;">
+											</c:if>
+											<c:if test="${fol.mem_Photo == null}">
+											<img src="./image/basic.png"
+												style="max-width: 150%; height: auto;">
+											</c:if>
+											</td>
+											<td>
+												<a href="#" onclick="memNum('${fol.follow_You_Num}')">
+													${fol.mem_Nickname}
+												</a>
+											</td>
+										</tr>
+										<tr>
+											<td>${fol.mem_Introduce}</td>
+										</tr>
+								</c:forEach>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 팔로우 취소 모달 -->
+		<div class="modal fade" id="cancleModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						팔로우 취소
+					</div>
+					<div class="modal-body">
+						<form action="followsubmit" method="POST">
+							<h4>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h4>
+							<input type="submit" value="취소">
+							<button type="button" data-dismiss="modal">취소</button>
+							<input type="hidden" id="type" name="type" value="1"/>
+							<input type="hidden" id="title" name="title" value="${member.mem_num }"/>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 팔로우 신청 모달 -->
+		<div class="modal fade" id="followModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						팔로우 신청
+					</div>
+					<div class="modal-body">
+						<form action="followsubmit" method="POST">
+							<h4>${member.mem_Nickname }님에게 팔로우 신청 하겠습니까?</h4>
+							<input type="submit" value="신청">
+							<button type="button" data-dismiss="modal">취소</button>
+							<input type="hidden" id="type" name="type" value="2"/>
+							<input type="hidden" id="title" name="title"  value="${member.mem_num }"/>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 수정 모달 -->
+		<div class="modal fade" id="updateModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 id="updateTitle" class="modal-title"></h4>
+					</div>
+					<div class="modal-body">
+						<p><%@ include file="mypageEdit.jsp"%></p>
+					</div>
 				</div>
 			</div>
 		</div>
