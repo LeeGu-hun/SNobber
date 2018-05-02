@@ -36,22 +36,22 @@ public class MinController {
 	@RequestMapping(value = "mypagePro") // 留덉씠�럹�씠吏� 泥� 李�
 	public String mypagePro(HttpSession session, Model model, HttpServletRequest request) throws IOException {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		
+
 		if (request.getParameter("num") != null) {
 			int pageNum = Integer.parseInt(request.getParameter("num"));
 			FollowBean erBean = null;
 			FollowBean ingBean = null;
-			
+
 			model.addAttribute("host", host);
 			Member member = minService.selectById(pageNum);
 			model.addAttribute("member", member);
-			
+
 			if (host == pageNum) { // �궡 �럹�씠吏�濡� 媛��뒗嫄�
 				List<BoardBean> folder = minService.mypagePro(pageNum);
 				model.addAttribute("folder", folder);
 				List<BoardBean> boardProBoard = minService.mypageProBoard(pageNum);
 				model.addAttribute("boardProBoard", boardProBoard);
-				
+
 				erBean = new FollowBean(host);
 				ingBean = new FollowBean(host);
 			} else if (host != pageNum) { // 남의 페이지에 갔을때
@@ -85,9 +85,15 @@ public class MinController {
 				bean.setMem_Num(host);
 				bean.setFollow_You_Num(pageNum);
 				String follow = minService.getFollow(bean);
-				List<BoardBean> boardProBoard = minService.mypageProBoardNam(pageNum);
+				// 남글 가져오기
+				if (follow == null || follow.equals("2")) {
+					List<BoardBean> boardProBoard = minService.notFollowPro(pageNum);
+					model.addAttribute("boardProBoard", boardProBoard);
+				} else {
+					List<BoardBean> boardProBoard = minService.mypageProBoardNam(pageNum);
+					model.addAttribute("boardProBoard", boardProBoard);
+				}
 				model.addAttribute("follow", follow);
-				model.addAttribute("boardProBoard", boardProBoard);
 			}
 			List<FollowBean> followerBean = minService.getFollower(erBean);
 			List<FollowBean> followingBean = minService.getFollowing(ingBean);
@@ -105,16 +111,27 @@ public class MinController {
 		model.addAttribute("host", host);
 		Member member = minService.selectById(pageNum);
 		model.addAttribute("member", member);
-		List<BoardBean> boardSNS = minService.mypageSNS(pageNum);
-		model.addAttribute("boardSNS", boardSNS);
-		FollowBean erBean =null;
+
+		FollowBean erBean = null;
 		FollowBean ingBean = null;
-		if(pageNum==host) {
-			erBean=new FollowBean(host);
-			ingBean =new FollowBean(host);
-		}else {
-			erBean =new FollowBean(pageNum);
-			ingBean =new FollowBean(pageNum);
+		if (pageNum == host) {
+			erBean = new FollowBean(host);
+			ingBean = new FollowBean(host);
+		} else {
+			FollowBean bean = new FollowBean();
+			bean.setMem_Num(host);
+			bean.setFollow_You_Num(pageNum);
+			String follow = minService.getFollow(bean);
+			model.addAttribute("follow", follow);
+			if (follow == null || follow.equals("2")) {
+				List<BoardBean> boardSNS = minService.notFollowSNS(pageNum);
+				model.addAttribute("boardSNS", boardSNS);
+			} else {
+				List<BoardBean> boardSNS = minService.mypageSNS(pageNum);
+				model.addAttribute("boardSNS", boardSNS);
+			}
+			erBean = new FollowBean(pageNum);
+			ingBean = new FollowBean(pageNum);
 		}
 		List<FollowBean> followerBean = minService.getFollower(erBean);
 		List<FollowBean> followingBean = minService.getFollowing(ingBean);
@@ -164,13 +181,13 @@ public class MinController {
 		model.addAttribute("likeNum", likeNum);
 		List<ReBean> re = minService.reBean(num);
 		model.addAttribute("re", re);
-		
+
 		likeChangeBean likeBean = new likeChangeBean();
 		likeBean.setBoard_Num(Integer.parseInt(num));
 		likeBean.setMem_Num(host);
-		
+
 		String like = minService.boardLike(likeBean);
-		model.addAttribute("like",like);
+		model.addAttribute("like", like);
 		return "mypage/mypageWritingView";
 	}
 

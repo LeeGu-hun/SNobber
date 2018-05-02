@@ -40,7 +40,6 @@ public class MinService {
 	}
 
 	public List<BoardBean> mypageSNS(int num) {
-		String str = Integer.toString(num);
 		List<BoardBean> list = sqlSession.selectList("minSQL.mypageSNS", num);
 		return list;
 	}
@@ -52,7 +51,6 @@ public class MinService {
 	}
 
 	public List<BoardBean> mypageProBoardNam(int num) {
-		String str = Integer.toString(num);
 		List<BoardBean> list = sqlSession.selectList("minSQL.mypageProBoardNam", num);
 		return list;
 	}
@@ -76,7 +74,6 @@ public class MinService {
 		String result = sqlSession.selectOne("minSQL.boardLike", num);
 		return result;
 	}
-	
 
 	public List<BoardBean> mypagePro(int num) {
 		String str = Integer.toString(num);
@@ -95,7 +92,7 @@ public class MinService {
 		return list;
 	}
 
-	public void mypageFolder(int num, String title, int secret,String name) {
+	public void mypageFolder(int num, String title, int secret, String name) {
 		FolderBean bean = new FolderBean();
 		bean.setMem_Num(num);
 		bean.setFolder_Title(title);
@@ -184,6 +181,16 @@ public class MinService {
 
 	public List<FollowBean> getFollowing(FollowBean mem_Num) {
 		List<FollowBean> list = sqlSession.selectList("kuSQL.following", mem_Num);
+		return list;
+	}
+
+	public List<BoardBean> notFollowPro(int pageNum) {
+		List<BoardBean> list = sqlSession.selectList("minSQL.notFollowPro", pageNum);
+		return list;
+	}
+
+	public List<BoardBean> notFollowSNS(int pageNum) {
+		List<BoardBean> list = sqlSession.selectList("minSQL.notFollowSNS", pageNum);
 		return list;
 	}
 }

@@ -6,21 +6,34 @@
 	<!-- mypageSNS 창으로 넘어갈때 -->
 	<select id="mypageSNS" parameterType="spring.Member" resultType="bean.BoardBean">
 		select * from a_board
-	    	where mem_num=#{mem_Num} and board_secret = 1 and board_type = 1
+	    	where mem_num=#{mem_Num} and (board_secret = 1 or board_secret = 2) and board_type = 1
 	    	ORDER BY board_date DESC
 	</select>	
+	<!-- 남 마이페이지 sns 들어갈때 -->
+	<select id="notFollowSNS" parameterType="spring.Member" resultType="bean.BoardBean">
+		select * from a_board
+	    	where mem_num=#{mem_Num} and board_secret = 1 and board_type = 1
+	    	ORDER BY board_date DESC
+	</select>
 	<!-- mypagePro 게시글 가져오기 -->
 	<select id="mypageProBoard" parameterType="spring.Member" resultType="bean.BoardBean">
 		select * from a_board
 	    	where mem_num=#{mem_Num} and board_type = 2
 	    	ORDER BY board_date DESC
 	</select>
-	<!-- mypagePro 남 게시글 가져오기 -->
+	<!-- mypagePro 남 게시글 팔로우 인것 가져오기 -->
 	<select id="mypageProBoardNam" parameterType="spring.Member" resultType="bean.BoardBean">
 		select * from a_board
 	    	where mem_num=#{mem_Num} and (board_secret = 1 or board_secret = 2) and board_type = 2
 	    	ORDER BY board_date DESC
 	</select>
+	<!-- 팔로우 아닌사람 글 가져오기  -->
+	<select id="notFollowPro" parameterType="spring.Member" resultType="bean.BoardBean">
+		select * from a_board
+	    	where mem_num=#{mem_Num} and board_secret = 1 and board_type = 2
+	    	ORDER BY board_date DESC
+	</select>
+	
 	<!-- mypagePro 멤버 정보 가져오기 -->
 	<select id="mypagePro" parameterType="spring.Member" resultType="bean.FolderBean">
 		select * from a_folder where mem_num=#{mem_Num}
