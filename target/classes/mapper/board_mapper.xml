@@ -28,7 +28,7 @@
 		where
 		b.mem_num in (select follow_you_num from
 		a_follow where
-		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and b.board_secret=1 or  b.board_secret=2 and <![CDATA[ b.board_num > 0
+		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and <![CDATA[ b.board_num > 0
 		group by
 		b.board_num,b.mem_num,b.mem_nickname,b.board_content,
 		b.board_date
@@ -59,7 +59,7 @@
 		where
 		b.mem_num in (select follow_you_num from
 		a_follow where
-		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and b.board_secret=1 or  b.board_secret=2 and  b.board_num > 0
+		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and b.board_num > 0
 		group by
 		b.board_num,b.mem_num,b.mem_nickname,b.board_content,
 		b.board_date
@@ -82,7 +82,7 @@
 		where
 		b.mem_num in (select follow_you_num from
 		a_follow where
-		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and b.board_secret=1 or  b.board_secret=2 and  b.board_num > 0
+		mem_num=#{f_mem_num}) or b.mem_num=#{b_mem_num} and  b.board_num > 0
 		group by
 		b.board_num,b.mem_num,b.mem_nickname,b.board_content,
 		b.board_date

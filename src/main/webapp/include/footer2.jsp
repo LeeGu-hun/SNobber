@@ -5,5 +5,5 @@
 bottom: 0;
 width: 100%;
 height: 50px;">
-	<p>SNobber</p>
+	<img src="./image/snobe.png" style="height: 50px;"><p style="text-align: center;">SNobber.co</p>
 </footer>

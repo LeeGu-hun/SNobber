@@ -264,7 +264,7 @@ body, h1, h2, h3, h4, h5, h6 {
 												<c:if test="${member.mem_Photo != null}">
 													<img
 														src="${pageContext.request.contextPath}/${member.mem_Photo}"
-														style="max-width: 100%; height: auto; margin-bottom: 100px"
+														style="max-width: 100%; height: 100%; margin-bottom: 100px"
 														onclick="javascript:pop()">
 												</c:if>
 												<c:if test="${member.mem_Photo == null}">
