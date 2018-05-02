@@ -10,7 +10,8 @@
   margin:0;
   margin-bottom: 15px;
   padding:10px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  
 }
 #columns figure img{
   width:100%;
@@ -88,11 +89,13 @@
 	display: inline-block;
 	width: 50%;
 	float: left;
-
+	max-height: 600px;
+	overflow: hidden;
 }
 
 .fic img {
 	width: 100%;
+	
 }
 
 .myinfo {

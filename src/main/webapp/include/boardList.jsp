@@ -69,12 +69,12 @@ html, body, h1, h2, h3, h4, h5 {
 								<c:if test="${bo.mem_Photo != null}">
 									<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
 											class="w3-left w3-circle w3-margin-right"
-											style="width: 100px; margin-top: 10px"> 
+											style="width: 80px; height:80px; margin-top: 10px"> 
 								</c:if>
 								<c:if test="${bo.mem_Photo == null}">
 									<img src="${pageContext.request.contextPath}/image/basic.png"
 											class="w3-left w3-circle w3-margin-right"
-											style="width: 100px; margin-top: 10px"> 
+											style="width: 80px; height:80px; margin-top: 10px"> 
 								</c:if>
 								<h4>	<!-- 닉네임 -->
 									<a href="#" onclick="memNum('${bo.mem_Num}')"
@@ -237,31 +237,6 @@ function sc(data) {
         			+"<button type='button' style='background-color: #000; margin-bottom: 10px; border: none; display: inline-block; overflow: hidden; text-decoration: none; color: inherit; background-color: inherit; cursor: pointer; white-space: nowrap; class='likeScroll' data-ch="+lastbno[i]+">"+liketag[i]+"</button>"	
         			+"</div></div>");
 		} 
-
-		
-		 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		if(scrollIndex<allList){
 			$('#b_id').append("<div><button onclick='te()' id='showBt' style='border:0; outline: 0; background-color: skyblue; width:30%'>더보기</button></div>");	    	
