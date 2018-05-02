@@ -53,19 +53,18 @@ html, body, h1, h2, h3, h4, h5 {
 
 		<!-- Middle Column -->
 			<c:forEach var="bo" items="${list }" varStatus="status">
-				<div class="contner">
-						<!-- 게시물 사진 -->
+				<div class="contner">				
+						<!-- 게시물 사진 있을때 -->
 						<c:if test="${bo.board_File != null}">
 							<div class="fic">
 								<img src="${pageContext.request.contextPath}/${bo.board_File}">
 							</div>
+							<div class="myinfo">
 						</c:if>
+						<!-- 게시물 사진 없을때 -->
 						<c:if test="${bo.board_File == null}">
-							<div class="fic" >
-								<img>
-							</div>
+							<div class="myinfo" style="width: 94%;">
 						</c:if>						
-						<div class="myinfo">
 							<!-- 회원 사진 -->
 								<c:if test="${bo.mem_Photo != null}">
 									<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
@@ -83,8 +82,9 @@ html, body, h1, h2, h3, h4, h5 {
 										 ${bo.mem_Nickname} 
 									</a>
 								</h4>
+								<br>
 								<hr class="w3-clear">
-								<p class="content" onclick="stBoard('${bo.board_Num}')">
+								<p class="tilineline" onclick="stBoard('${bo.board_Num}')">
 									${bo.board_Content }
 								</p>
 								<a href="#" onclick="boardNum(${bo.board_Num})"
@@ -132,19 +132,6 @@ html, body, h1, h2, h3, h4, h5 {
 						</div>
 					</div>
 				</c:forEach>
-<%-- 			
-			<!-- 기존	 -->
-			<c:forEach var="bo" items="${list}" >
-				<div class="w3-container w3-card w3-white w3-round w3-margin">
-					<br> 
-					<span class="w3-right w3-opacity">
-						${bo.board_Date }
-					</span>
-					<br>
-					
-				</div>
-			</c:forEach>
- --%>
 
 			<c:if test="${empty list }">
 				등록된 글이 없습니다.
