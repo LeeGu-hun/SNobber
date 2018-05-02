@@ -6,7 +6,7 @@
 	<!-- mypageSNS 창으로 넘어갈때 -->
 	<select id="mypageSNS" parameterType="spring.Member" resultType="bean.BoardBean">
 		select * from a_board
-	    	where mem_num=#{mem_Num} and board_secret = 1 and board_type = 1
+	    	where mem_num=#{mem_Num} and (board_secret = 1 or board_secret = 2) and board_type = 1
 	    	ORDER BY board_date DESC
 	</select>	
 	<!-- mypagePro 게시글 가져오기 -->
