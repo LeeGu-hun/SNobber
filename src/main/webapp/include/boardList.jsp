@@ -100,7 +100,8 @@ html, body, h1, h2, h3, h4, h5 {
 	 --%>							
 								<div style="text-align: right;">
 									<span style="font-size: 0.8em;">
-										${bo.board_Date } &nbsp;&nbsp;
+										<fmt:formatDate value="${bo.board_Date }" 
+	                         pattern="yyyy-MM-dd HH:mm"/> &nbsp;&nbsp;
 									</span>
 	<%--	세션과 보드의 주인이 같다면 에딧 삭제 보이게 하는 것	//복붙으로 가져왔는데.. 혹시 사용할 수도? 								
 									<c:if test="${host eq bo.mem_Num }">
@@ -212,13 +213,13 @@ function sc(data) {
 	
     for(var i=Number(reallastbno); i<Number(listSize); i++){
 	   	tag[i] = like_on[i] == 1 ? "<img src='./image/like.png'>":"<img src='./image/unlike.png'>";
-	    memtag[i]= mem_photo[i] !=null ? "<img src='"+u+"/"+mem_photo[i]+"' class='w3-left w3-circle w3-margin-right' style='width: 100px; margin-top: 10px'>":"<img src='./image/basic.png' class='w3-left w3-circle w3-margin-right'"+
-				+"style='width: 100px; margin-top: 10px'>"; 
+	    memtag[i]= mem_photo[i] !=null ? "<img src='"+u+"/"+mem_photo[i]+"' class='w3-left w3-circle w3-margin-right' style='width: 80px; height:80px; margin-top: 10px'>":"<img src='./image/basic.png' class='w3-left w3-circle w3-margin-right'"
++"style='width: 80px; height:80px; margin-top: 10px'>"; 
     }
 
     var s='${pageContext.request.contextPath}';
     for(var i=Number(reallastbno); i<Number(listSize); i++) {
-   		filetag[i]= file[i]!=0? "<div class='fic'><img src='"+u+"/"+file[i]+"'></div>" :"<div class='fic' ><img></div>";
+   		filetag[i]= file[i]!=0? "<div class='fic'><img src='"+u+"/"+file[i]+"'></div><div class='myinfo'>" :"<div class='myinfo' style='width:94%;'>";
    	 //파일 부분
     }
  
@@ -232,7 +233,7 @@ function sc(data) {
 	
 	if(listSize<=allList){
 		for (var i=Number(reallastbno); i<Number(listSize); i++){
-            $('#table_id').append("<div class='contner'>"+filetag[i]+"<div class='myinfo'>"+memtag[i]+"<h4><a href='#' onclick="+"'memNum(\""+mem_num[i] +"\")' style='text-align: right; margin-top:10px;'>"+
+            $('#table_id').append("<div class='contner'>"+filetag[i]+memtag[i]+"<h4><a href='#' onclick="+"'memNum(\""+mem_num[i] +"\")' style='text-align: right; margin-top:10px;'>"+
         	        mem_nickname[i]+"</a></h4><hr class='w3-clear'><p class='content' onclick="+"'stBoard(\""+board_num[i]+"\")'>"+
         	        content[i]+"</p><a href='#' onclick="+"'boardNum(\""+board_num[i]+"\")' style='text-decoration: none; margin-top: 10px'><자세히보기></a>"+
                   "<div style='text-align: right;'><span style='font-size: 0.8em;'>"+boarddate[i]+"&nbsp;&nbsp;</span></div>"

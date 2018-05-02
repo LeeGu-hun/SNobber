@@ -375,7 +375,7 @@ body, h1, h2, h3, h4, h5, h6 {
 											</p>
 											<select id="folder_secret">
 												<option>공개</option>
-												<option>비공개</option>
+										
 											</select> <input id="folder_create_btn" class="w3-button w3-theme"
 												type="button" value="만들기" disabled="disabled" />
 										</div>

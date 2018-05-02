@@ -198,7 +198,7 @@ function check(){
 				</c:forEach>
 			</c:if>
 
-			<c:if test="${map.map.cntMember  <= 0 }">
+			<c:if test="${map.cntMember  <= 0 }">
 				검색 결과가 없습니다
 			</c:if>
 

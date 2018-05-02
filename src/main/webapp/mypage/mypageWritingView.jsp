@@ -127,7 +127,7 @@
 		var addr=$('#addr').val();
 		var like=parseInt($('#likeNum').val());
 		var str ="checkLike(2)";
-		var spanTag = "<img src='"+addr+"/image/like.png' onclick='"+str+"'>";
+		var spanTag = "<img src='"+addr+"/image/like.png' style='width: 15px; height:15px;'  onclick='"+str+"'>";
 		$('#likeCheck').html(spanTag);
 		$('#likeText').html(like+1);
 	}
@@ -135,7 +135,7 @@
 		var addr=$('#addr').val();
 		var like=parseInt($('#likeNum').val());
 		var str ="checkLike(1)";
-		var spanTag = "<img src='"+addr+"/image/unlike.png' onclick='"+str+"'>";
+		var spanTag = "<img src='"+addr+"/image/unlike.png' style='width: 15px; height:15px;' onclick='"+str+"'>";
 		$('#likeCheck').html(spanTag);
 		$('#likeText').html(like);
 	}
@@ -165,10 +165,10 @@ function ingShow(num) {
 				<p style="text-align: left; margin-left: 10px;">
 				<c:choose>
 					<c:when test="${bm.mem_photo != null}">
-						<img src="${pageContext.request.contextPath}/${bm.mem_photo}">			
+						<img src="${pageContext.request.contextPath}/${bm.mem_photo}" style='width:15%;' >			
 					</c:when>
 					<c:otherwise>
-						<img src="${pageContext.request.contextPath}/image/basic.png">
+						<img src="${pageContext.request.contextPath}/image/basic.png" style='width:15%;'>
 					</c:otherwise>
 				</c:choose>
 				${bm.mem_Nickname }
@@ -187,13 +187,13 @@ function ingShow(num) {
 				<span id="likeCheck">
 					<c:choose>
 						<c:when test="${like =='0'}">
-							<img src="${pageContext.request.contextPath}/image/unlike.png" onclick="checkLike('1')">
+							<img src="${pageContext.request.contextPath}/image/unlike.png" onclick="checkLike('1')" style="width: 15px; height:15px;" >
 						</c:when>
 						<c:when test="${like == '1'}">
-							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" >
+							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" style="width: 15px; height:15px;">
 						</c:when>
 						<c:otherwise>
-							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')">
+							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" style="width: 15px; height:15px;">
 						</c:otherwise>
 					</c:choose>
 				</span>

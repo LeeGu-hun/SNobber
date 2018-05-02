@@ -267,8 +267,7 @@ public class MainController {
 			String s = sd.format(bb.getBoard_Date());
 			map.put("boarddate" + b, s);
 
-			map.put("boarddate" + b, bb.getBoard_Date());
-
+		
 			map.put("count" + b, count);
 			map.put("scrollAddFile" + b, bb.getBoard_File());
 			map.put("scrollAddPhoto" + b, mem_ph);
