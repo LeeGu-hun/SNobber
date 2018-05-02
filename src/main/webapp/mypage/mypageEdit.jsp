@@ -76,10 +76,8 @@
 		<tr>
 			<td colspan="2">
 				<input type="submit" class="btn btn-default" value="변경">
-			</td>
-			<td colspan="2">
 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModald">탈퇴</button>
-			</td>		 
+			</td>
 		</tr>		
 	</table>	
 	</form:form>
