@@ -90,7 +90,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			<div class="w3-clear"></div>
 			<header class="w3-center w3-margin-bottom" style="margin-top: 150px">
 
-				<img src="./image/snn.png" style="width: auto; height: auto;">
+				<img src="./image/snobe.png" style="width: 20%; height: 10%;">
 
 				<br>
 				<p>
