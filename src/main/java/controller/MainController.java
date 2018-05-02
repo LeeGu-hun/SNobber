@@ -153,35 +153,43 @@ public class MainController {
 		return "redirect:/main";
 	}
 
-	@RequestMapping("/main")
-	public String home(Model model, @ModelAttribute("cmd") BoardCommand boardCommand, HttpSession session,
-			@RequestParam(defaultValue = "") String keyword) {
-		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
-		FolderBean bean = new FolderBean();
-		bean.setMem_Num(host);
-		List<FolderBean> folderList = boardService.getFolder(bean);
-		model.addAttribute("title", folderList);
+	//수정했음 리스트 사이즈
+		@RequestMapping("/main")
+		public String home(Model model, @ModelAttribute("cmd") BoardCommand boardCommand, HttpSession session,
+				@RequestParam(defaultValue = "") String keyword) {
+			int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+			FolderBean bean = new FolderBean();
+			bean.setMem_Num(host);
+			List<FolderBean> folderList = boardService.getFolder(bean);
+			model.addAttribute("title", folderList);
 
-		ListBean lb = new ListBean();
+			ListBean lb = new ListBean();
 
-		lb.setB_mem_num(host);
-		lb.setF_mem_num(host);
-		List<BoardBean> list = boardService.boardListTiemLine(lb);
-		List<BoardBean> allList = boardService.showListSize(lb);
-		
-		System.out.println("allList:"+allList.size());
-		
-		model.addAttribute("allSize",allList.size());
-		model.addAttribute("listSize",list.size());
-		
-		List<FollowFolderBean> folderfollowList = boardService.myFollowFolder(host);
-		model.addAttribute("folderfollowList", folderfollowList);
-		List<FolderListBean> fList = boardService.folderListMain(host);
-		model.addAttribute("list", list);
-		model.addAttribute("fList", fList);
-		model.addAttribute("folderfollowList", folderfollowList);
-		return "main";
-	}
+			lb.setB_mem_num(host);
+			lb.setF_mem_num(host);
+			List<BoardBean> list = boardService.boardListTiemLine(lb);
+			List<BoardBean> allList = boardService.showListSize(lb);
+			
+			System.out.println("allList:"+allList.size());
+			
+			model.addAttribute("allSize",allList.size());
+			model.addAttribute("listSize",list.size());
+			
+			List<FollowFolderBean> folderfollowList = boardService.myFollowFolder(host);
+			
+			model.addAttribute("folderfollowList", folderfollowList);
+			List<FolderListBean> fList = boardService.folderListMain(host);
+			List<FollowFolderBean> allfollowFlist = boardService.myFollowFolderScrollAll(host);
+			
+			model.addAttribute("followallsize",allfollowFlist.size());
+			
+			model.addAttribute("followsize",fList.size());
+			
+			model.addAttribute("list", list);
+			model.addAttribute("fList", fList);
+			model.addAttribute("folderfollowList", folderfollowList);
+			return "main";
+		}
 
 	@RequestMapping(value = "/main", method = RequestMethod.POST)
 	public String homePost(HttpSession session, BoardCommand board, HttpServletRequest request) {

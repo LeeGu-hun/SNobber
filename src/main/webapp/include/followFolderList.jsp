@@ -50,13 +50,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       
        </c:forEach>
        
-       <c:if test="${empty list }">
+       <c:if test="${empty folderfollowList }">
 	등록된 글이 없습니다.
 	</c:if>
        
-<div id="button_id">
-					<button onclick="followfolder()" id="followbutton">더보기</button>
-				</div>
+
+				<c:if test="${followsize < followallsize }">
+					<div id="button_id" style="margin-left:40%;" >
+						<button onclick="followfolder()" id="followbutton" style="border:0; outline: 0; background-color: skyblue; width:20%">더보기</button>
+					</div>
+				</c:if>
     </div>
    
     

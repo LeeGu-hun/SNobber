@@ -152,9 +152,9 @@ html, body, h1, h2, h3, h4, h5 {
 			<!-- End Middle Column -->
 		</div>
 		<c:if test="${listSize < allSize }">
-		<div id="b_id">
+		<div id="b_id" style="margin-left:40%; " >
 		
-			<button onclick="te()" id="showBt">더보기</button>
+			<button onclick="te()" id="showBt" style="border:0; outline: 0; background-color: skyblue; width:30%">더보기</button>
 		</div></c:if>
 		<!-- End Page Container -->
 	</div>
@@ -243,25 +243,41 @@ function sc(data) {
 	
 	if(listSize<=allList){
 		for (var i=Number(reallastbno); i<Number(listSize); i++){
-            $('#table_id').append("<div class='w3-container w3-card w3-white w3-round w3-margin'><br><p>"+memtag[i]+
-			            
-			"<span class='w3-right w3-opacity'>"+boarddate[i]+"</span><h4><a href='#' onclick="+"'memNum(\""+mem_num[i] +"\")' style='text-align: right;'>"+mem_nickname[i]+"</a></h4>"+
-
-			"<br><hr class='w3-clear'><p class='content'>"+ 
-
-			content[i]+ "<a href='#' onclick="+"'boardNum(\""+board_num[i]+"\")' style='text-decoration: none; margin-top: 10px'><자세히보기></a></p>"+
-
-			"<div class='w3-row-padding' style='margin: 0 -16px'>"+"<div class='w3-half'><img src='"+s+"/"+filetag[i]+"'></div>"+
-
-			"</div><button type='button' style='background-color: #000; margin-bottom: 16px; border: none; display: inline-block; overflow: hidden; text-decoration: none; color: inherit; background-color: inherit; cursor: pointer; white-space: nowrap; class='likeScroll' data-ch="+lastbno[i]+">"+liketag[i]+"</button>"+
-
-			"<span style='margin-top:10px'>"+count[i]+"</span></div>");
+            $('#table_id').append("<div class='contner'>"+filetag[i]+"<div class='myinfo'>"+memtag[i]+"<h4><a href='#' onclick="+"'memNum(\""+mem_num[i] +"\")' style='text-align: right; margin-top:10px;'>"+
+        	        mem_nickname[i]+"</a></h4><hr class='w3-clear'><p class='content' onclick="+"'stBoard(\""+board_num[i]+"\")'>"+
+        	        content[i]+"</p><a href='#' onclick="+"'boardNum(\""+board_num[i]+"\")' style='text-decoration: none; margin-top: 10px'><자세히보기></a>"+
+                  "<div style='text-align: right;'><span style='font-size: 0.8em;'>"+boarddate[i]+"&nbsp;&nbsp;</span></div>"
+        			+"<button type='button' style='background-color: #000; margin-bottom: 10px; border: none; display: inline-block; overflow: hidden; text-decoration: none; color: inherit; background-color: inherit; cursor: pointer; white-space: nowrap; class='likeScroll' data-ch="+lastbno[i]+">"+liketag[i]+"</button>"	
+        			+"</div></div>");
 		} 
 
 		
+		 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		if(scrollIndex<allList){
-			$('#b_id').append("<div><button onclick='te()' id='showBt'>더보기</button></div>");	    	
+			$('#b_id').append("<div><button onclick='te()' id='showBt' style='border:0; outline: 0; background-color: skyblue; width:30%'>더보기</button></div>");	    	
 	 	}	
 	 	$("#showBt").hide();
 	} 
