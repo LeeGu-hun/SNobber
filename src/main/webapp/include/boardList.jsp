@@ -76,12 +76,14 @@ html, body, h1, h2, h3, h4, h5 {
 											class="w3-left w3-circle w3-margin-right"
 											style="width: 80px; height:80px; margin-top: 10px"> 
 								</c:if>
-								<h4>	<!-- 닉네임 -->
+								<h4 style="text-align: right;">	<!-- 닉네임 -->
 									<a href="#" onclick="memNum('${bo.mem_Num}')"
 										 	style="text-align: right; margin-top:10px"> 
 										 ${bo.mem_Nickname} 
 									</a>
+									&nbsp;&nbsp;&nbsp;
 								</h4>
+								<br>
 								<br>
 								<hr class="w3-clear">
 								<p class="tilineline" onclick="stBoard('${bo.board_Num}')">
