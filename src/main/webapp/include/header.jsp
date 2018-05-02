@@ -55,7 +55,7 @@ html, body, h1, h2, h3, h4, h5 {
 						href="javascript:void(0);" onclick="openNav()"><i
 						class="fa fa-bars"></i></a> <a href="./"
 						class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i
-						class="fa fa-home w3-margin-right"></i>TODAY's SNol</a> <a
+						class="fa fa-home w3-margin-right"></i>TODAY's SNobber</a> <a
 						href="./main"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Account Settings"><i class="fa fa-user">TimeLine</i></a>
