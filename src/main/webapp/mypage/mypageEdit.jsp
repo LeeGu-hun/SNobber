@@ -76,9 +76,28 @@
 		<tr>
 			<td colspan="2">
 				<input type="submit" class="btn btn-default" value="변경">
-			</td>			
+			</td>
+			<td colspan="2">
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModald">탈퇴</button>
+			</td>		 
 		</tr>		
 	</table>	
 	</form:form>
+	
+	<div class="modal fade" id="myModald" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">회원 탈퇴</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+				<div class="modal-body" style="text-align: center;">
+					<p>정말 탈퇴하싈?</p>
+				</div>
+				<a href="outmem" class="btn btn-default">탈퇴</a>
+				</div>
+		</div>
+	</div>
 </body>
 </html>

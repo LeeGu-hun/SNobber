@@ -24,7 +24,7 @@
 		FROM A_MEMBER WHERE mem_id=#{mem_Id}
 	</select>
 	
-	<update id="memberDelete" parameterType="spring.Member">
+	<update id="memberStop" parameterType="spring.Member">
 		update a_member set
 		mem_condition=2 where mem_num=
 		#{mem_Num}
@@ -35,6 +35,11 @@
 		mem_condition=1 where mem_num=
 		#{mem_Num}
 	</update>
+	
+	<delete id="memberDelete" parameterType="int">
+		delete a_member where
+		mem_num = #{host}
+	</delete>
 	
 	<select id="loginCheck" parameterType="String" resultType="spring.Member">
 		select

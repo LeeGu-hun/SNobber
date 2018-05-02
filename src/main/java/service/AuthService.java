@@ -18,10 +18,10 @@ public class AuthService {
 	@SuppressWarnings("unused")
 	public AuthInfo authenticate(String id, String password) {
 		Member m = sqlSession.selectOne("memberSQL.loginCheck", id);
-		if(m.getMem_Condition() == 2) {
-			throw new MemberStopException("stop mem_Id" + id);
-		}else if(m == null) { 
+		if(m == null) { 
 			throw new MemberNotFoundException("noexist mem_Id " + id);
+		}else if(m.getMem_Condition() == 2) {
+			throw new MemberStopException("stop mem_Id" + id);
 		}else if(!m.mathPassword(password))
 			throw new IdPasswordNotMatchingException();
 		return new AuthInfo(m.getMem_Id(), m.getMem_Email(), m.getMem_Nickname(),

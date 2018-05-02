@@ -57,11 +57,15 @@ public class MemberService {
 		return member;
 	}
 
-	public void delete(int host) {
-		sqlSession.update("memberSQL.memberDelete", host);
+	public void stop(int host) {
+		sqlSession.update("memberSQL.memberStop", host);
 	}
 	
 	public void repair(int host) {
 		sqlSession.update("memberSQL.memberRepair", host);
+	}
+	
+	public void delete(int host) {
+		sqlSession.delete("memberSQL.memberDelete", host);
 	}
 }

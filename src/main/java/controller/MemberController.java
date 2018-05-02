@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bean.ListCommand;
 import bean.MemberBean;
+import bean.mypageEditCommand;
 import exception.MemberNotFoundException;
 import service.MemberService;
+import spring.AuthInfo;
 import spring.Member;
 
 @Controller
@@ -50,7 +54,7 @@ public class MemberController {
 	@RequestMapping(value="memberdetail/deletemem")
 	public String deleteConPost(MemberBean mem) {
 		int host = mem.getMem_num();
-		memberService.delete(host);
+		memberService.stop(host);
 		return "redirect:/memberlist";
 	}
 	
@@ -66,6 +70,13 @@ public class MemberController {
 		int host = mem.getMem_num();
 		memberService.repair(host);
 		return "redirect:/memberlist";
+	}
+	
+	@RequestMapping(value="outmem")
+	public String outCon(HttpSession session) {
+		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
+		memberService.delete(host);
+		return "redirect:/logout";
 	}
 
 	@ExceptionHandler(TypeMismatchException.class)
