@@ -47,7 +47,7 @@ html, body, h1, h2, h3, h4, h5 {
 	</div>
 
 	<!-- Page Container -->
-	<div class="w3-container w3-content" style="max-width: 100%; margin: auto 10%; margin-top: 100px">
+	<div class="w3-container w3-content" style="max-width: 100%; margin: auto 10%; margin-top: 100px; min-width: 650px;">
 		<!-- The Grid -->
 		<div class="w3-row" style="margin: auto 10%;" id="table_id">
 

@@ -76,7 +76,7 @@ body, h1, h2, h3, h4, h5, h6 {
 <%@ include file="/include/header.jsp"%>
 	<input class="next" value="${folderName.folder_Num}" style="display: none;">	
 
-	<div class="w3-main" style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
+	<div class="w3-main" style="margin-right: 150px; margin-left: 150px; margin-top: 100px; min-width: 650px;">
 		
 		<!-- Header -->
 		<header id="portfolio">

@@ -235,7 +235,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 			<!-- !PAGE CONTENT! -->
 			<div class="w3-main"
-				style="margin-right: 150px; margin-left: 150px; margin-top: 100px">
+				style="margin-right: 150px; margin-left: 150px; margin-top: 100px; min-width: 650px;" >
 
 				<!-- Header -->
 				<header id="portfolio">
