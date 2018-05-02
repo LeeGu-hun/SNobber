@@ -39,7 +39,6 @@ function editboard(num) {
 					<select name="SecretMode">
 							<option value="1">전체 공개</option>
     						<option value="2">친구? 공개</option>
-    						<option value="3">비공개</option>
 					</select>
 				</td>
 			</tr>
