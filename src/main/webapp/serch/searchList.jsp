@@ -121,11 +121,11 @@ function check(){
 						style="margin-top: 80px; margin-left: 10%;">
 						<c:if test="${bo.board_File != null}">
 							<img src="${pageContext.request.contextPath}/${bo.board_File}"
-								onclick="move(${bo.board_Num})" style="width: 100px"
+								onclick="move(${bo.board_Num})" style="width: 280px"
 								class="w3-hover-opacity" height="150px">
 						</c:if>
 
-						<div class="w3-container w3-white">
+						<div class="w3-container w3-white" style="width: 280px">
 							<table>
 								<tr>
 									<td><b><a href="#" onclick="memNum('${bo.mem_Num}')">
