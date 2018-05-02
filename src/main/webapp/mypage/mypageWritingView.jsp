@@ -151,7 +151,7 @@ function ingShow(num) {
 }
 </script>
 </head>
-<body style="background-color: #f5f7f8;">
+<body style="background-color: silver;">
 	
 	<div style="width: 100%; text-align: center;">	
 		<%@ include file="/include/header.jsp"%>
@@ -241,21 +241,13 @@ function ingShow(num) {
 								</td>
 								<td style="font-size: x-small; width: 10%;">
 									<c:if test="${host eq bm.mem_Num}">
-										<c:if test="${host eq re.mem_Num }">
-											<span onclick="modifyRe('${re.re_Num}')">
-												Edit
-											</span>																		
-										</c:if>
 										<span onclick="deleteRe('${re.re_Num}')">
 											Delete
 										</span>
+										
 									</c:if>
 									<c:if test="${host ne bm.mem_Num }">
 										<c:if test="${host eq re.mem_Num }">
-											<span onclick="modifyRe('${re.re_Num}')">
-												Edit												
-											</span>
-											
 											<span onclick="deleteRe('${re.re_Num}')">
 												Delete
 											</span>
