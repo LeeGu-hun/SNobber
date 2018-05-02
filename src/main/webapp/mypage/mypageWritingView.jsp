@@ -157,7 +157,7 @@ function ingShow(num) {
 		<%@ include file="/include/header.jsp"%>
 			<br>
 			<c:forEach var="bm" items="${bm }">
-			<input class="next" type="text" value="${bm.board_Num }" style="display: none;">
+			<input class="next" type="text" value="${bm.mem_Num }" style="display: none;">
 			<input id="addr" type="hidden" value="${pageContext.request.contextPath}">
 			<input id="likeNum" type="hidden" value="${likeNum}">
 			<div id="column">
