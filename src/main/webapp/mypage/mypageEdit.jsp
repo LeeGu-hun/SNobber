@@ -91,7 +91,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 				<div class="modal-body" style="text-align: center;">
-					<p>정말 탈퇴하싈?</p>
+					<p>정말 탈퇴하시겠습니까?</p>
 				</div>
 				<a href="outmem" class="btn btn-default">탈퇴</a>
 				</div>
