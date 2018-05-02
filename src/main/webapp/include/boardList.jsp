@@ -144,7 +144,7 @@ html, body, h1, h2, h3, h4, h5 {
 		<c:if test="${listSize < allSize }">
 		<div id="b_id" style="margin-left:40%; " >
 		
-			<button onclick="te()" id="showBt" style="border:0; outline: 0; background-color: skyblue; width:30%">더보기</button>
+			<button onclick="te()" id="showBt" style="border:0; outline: 0; background-color: skyblue; width:30%" class="w3-button w3-theme">더보기</button>
 		</div></c:if>
 		<!-- End Page Container -->
 	</div>
@@ -242,7 +242,7 @@ function sc(data) {
 		} 
 		
 		if(scrollIndex<allList){
-			$('#b_id').append("<div><button onclick='te()' id='showBt' style='border:0; outline: 0; background-color: skyblue; width:30%'>더보기</button></div>");	    	
+			$('#b_id').append("<div><button onclick='te()' id='showBt' style='border:0; outline: 0; background-color: skyblue; width:30%' class='w3-button w3-theme'>더보기</button></div>");	    	
 	 	}	
 	 	$("#showBt").hide();
 	} 

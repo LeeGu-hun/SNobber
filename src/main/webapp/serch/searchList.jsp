@@ -105,13 +105,12 @@ function check(){
 		<form action="searching" name="searchFriend" method="post" >
 			<div style="margin-left: 19px; text-align: center; margin: 0 auto;">
 				<select name="searchOption">
-					<option value="all,all">Member Search</option>
+				
 					<option value="mem_nickname,mem_nickname">Nickname</option>
 					<option value="mem_introduce,mem_introduce">Member
 						Introduce</option>
 					<option value="board_content,mem_nickname">SNobber</option>
-				</select> <input type="text" placeholder="Search.." name="keyword"
-					value="${keyword }" id="searchbox"> <input type="button" id="searchsu" value="조회" onclick="check()">
+				</select> <input type="text" placeholder="Search.." name="keyword">
 			</div>
 
 			<c:if test="${map.cntboard  > 0 }">

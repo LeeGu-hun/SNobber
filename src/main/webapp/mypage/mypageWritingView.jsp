@@ -214,7 +214,7 @@ function ingShow(num) {
 					<div style="margin-top: 5px; width: 90%; margin: 0 auto;">
 					댓글
 					<textarea id="reContent" style="width: 30%;"></textarea>
-					<input type="button" value="추가" onclick="reAdd(${bm.board_Num})">					
+					<input type="button" value="추가" class="w3-button w3-theme" onclick="reAdd(${bm.board_Num})">					
 					</div>
 					<br>
 					<c:forEach var="re" items="${re }">
@@ -288,7 +288,7 @@ function ingShow(num) {
 			</div>
 		</div>
 		<br>
-		<%@ include file="/include/footer.jsp" %>
+		
 	</div>
 </body>
 </html>

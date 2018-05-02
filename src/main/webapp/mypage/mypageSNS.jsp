@@ -38,7 +38,11 @@ body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Raleway", sans-serif
 }
 </style>
-
+<script language="javascript">
+		function photoModify() {
+			photoEdit.submit();
+		}
+</script>
 <script>
 	function mypagePro(num) {
 		$(location).attr('href', './mypagePro?num=' + num + '');
@@ -120,9 +124,9 @@ body, h1, h2, h3, h4, h5, h6 {
 											</div> 
 											<div style="margin-top:15px; margin-left: 35px">	
 												<c:if test="${member.mem_num==host }">
-													<a href="photoEdit">
-														사진 수정
-													</a>
+													<button type="button" class="btn btn-default btn-xs"
+															data-toggle="modal" data-target="#updateModalpho" style="background-color: white">
+															사진수정</button> 
 												</c:if>
 											</div>
 										</td>
@@ -132,7 +136,7 @@ body, h1, h2, h3, h4, h5, h6 {
 												<tr>
 													<td style="width: 200px;">닉네임 ${member.mem_Nickname }</td>
 													<td style="text-align: right;">
-													<button type="button" class="btn btn-default btn-xs" 
+													<button type="button" class="btn btn-default btn-xs" style="background-color: #fff"
 															data-toggle="modal" data-target="#updateModal">
 														수정
 													</button>
@@ -141,7 +145,7 @@ body, h1, h2, h3, h4, h5, h6 {
 												<tr>
 													<td style="width: 200px;">이메일 ${member.mem_Email }</td>												
 													<td style="text-align: right;">
-														<button type="button" class="btn btn-default btn-xs" 
+														<button type="button" class="btn btn-default btn-xs" style="background-color: #fff"
 																data-toggle="modal" data-target="#a">
 															팔로워 보기
 														</button>
@@ -150,8 +154,8 @@ body, h1, h2, h3, h4, h5, h6 {
 												<tr>
 													<td style="width: 200px;">소개 ${member.mem_Introduce }</td>
 													<td style="text-align: right;">
-														<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-																data-toggle="modal" data-target="#b">
+														<button type="button" class="btn btn-default btn-xs" data-toggle="modal" style="background-color: #fff"
+ 																data-toggle="modal" data-target="#b">
 															팔로잉 보기
 														</button>
 													</td>
@@ -171,7 +175,7 @@ body, h1, h2, h3, h4, h5, h6 {
 													<td style="width: 200px;">이메일 ${member.mem_Email }</td>
 													<td style="text-align: right;">
 														<button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-																data-toggle="modal" data-target="#b">
+																data-toggle="modal" data-target="#b" style="background-color: #fff">
 															팔로잉 보기
 														</button>
 													</td>
@@ -304,10 +308,9 @@ body, h1, h2, h3, h4, h5, h6 {
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="btn btn-default btn-xs"
-							data-dismiss="modal">
+					
 						팔로워 보기
-					</button>
+					
 				</div>
 				<div class="modal-body">
 					<div style="width:100%;">
@@ -358,10 +361,9 @@ body, h1, h2, h3, h4, h5, h6 {
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="btn btn-default btn-xs"
-							data-dismiss="modal">
+				
 						팔로잉 보기
-					</button>
+				
 				</div>
 				<div class="modal-body">
 					<div style="width:100%;">
@@ -457,8 +459,51 @@ body, h1, h2, h3, h4, h5, h6 {
 			</div>
 		</div>
 	</div>
+<!-- 사진 수정 모달 -->
+	<div class="modal fade" id="updateModalpho" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content" style="width: 300px" >
+				<div class="modal-header">
+						<h4 id="updateTitle" class="modal-title">사진 수정</h4><button type="button" class="close" data-dismiss="modal">&times;</button>
+				
+				</div>
+				<div class="modal-body" >
+					<form action="photoEdit" method="post" name="photoEdit"
+						enctype="multipart/form-data">
+						<table style="height: 200px;">
+							<tr>
+								<td rowspan="10" style="width: 100px;">
+									<div
+										style="width: 50%; height: 60%; border-radius: 50%; border: 1px solid gray; overflow: hidden;">
+										<c:if test="${member.mem_Photo != null}">
+											<img
+												src="${pageContext.request.contextPath}/${member.mem_Photo}"
+												style="max-width: 100%; height: auto;">
+										</c:if>
+										<c:if test="${member.mem_Photo == null}">
+											<img src="${pageContext.request.contextPath}/image/basic.png"
+												style="max-width: 100%; height: auto;">
+										</c:if>
+									</div> 
+									<br>
+									<input name="mem_Photo" type="file" value="${member.mem_Photo }">
+																<br>
+											<a href="javascript:photoModify()">변경</a>
+								<a href="javascript:history.back();">뒤로</a>
+								</td>
+							</tr>
 
+							<tr>
+								
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="w3-container w3-padding-large" style="margin-bottom: 32px">
-		<%@ include file="../include/footer.jsp"%>
+	
 </body>
 </html>

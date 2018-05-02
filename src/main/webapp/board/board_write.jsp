@@ -39,7 +39,7 @@
 	<!-- 게시판 등록 -->
 	<form:form method="POST" commandName="boardCommand" name="boardform"
 		enctype="multipart/form-data">
-		<table cellpadding="0" cellspacing="0">
+		<table cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td>
 					글 분류

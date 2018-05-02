@@ -55,7 +55,7 @@ html, body, h1, h2, h3, h4, h5 {
 		</div>
 		<div class="w3-row-padding" style="margin-top: 100px;">
 			<div class="w3-col m12" style="width: 60%; ">
-				<div class="w3-card w3-round w3-white" style="width: 80%; margin-left: 360px; text-align: center;">
+				<div class="w3-card w3-round w3-white" style="width: 107%; margin-left: 30%; text-align: center;">
 					<div class="w3-container w3-padding">
 						<a href="#" onclick="toggle()"> 글 작성</a>
 						<div id="writeDiv" style="display: none">
@@ -89,11 +89,7 @@ html, body, h1, h2, h3, h4, h5 {
 	<br>
 
 	<!-- Footer -->
-	<div>
-
-		<%@ include file="/include/footer.jsp"%>
-
-	</div>
+	
 
 	<script>
 		// Accordion

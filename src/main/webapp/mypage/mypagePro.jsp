@@ -242,10 +242,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<a href="#"> <img src="/w3images/avatar_g2.jpg"
 						style="width: 65px;"
 						class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity">
-					</a> <span
-						class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey"
-						onclick="w3_open()"> <i class="fa fa-bars"></i>
-					</span>
+					</a> 
 					<div class="w3-container" style="margin: auto 5%">
 						<h1>
 							<b>SNol</b>
@@ -467,7 +464,7 @@ body, h1, h2, h3, h4, h5, h6 {
 				<div class="w3-row-padding w3-padding-16" id="about"></div>
 			</div>
 		</div>
-		<%@ include file="../include/footer.jsp"%>
+		
 		<!-- End page content -->
 	</div>
 
