@@ -19,9 +19,9 @@
 	</tr>
 	<p style="text-align: center; width: 500px; margin: 0 auto; font-size: 28px;">${member.mem_Nickname} 회원을 복구하시겠습니까?</p>
 	<td colspan=2 style="text-align: center; width: 500px; font-size: 35px;">
-		<input type="submit" style="font-size: small;" value="복구">
+		<input type="submit" style="font-size: small; background-color: white;" value="복구">
 		&nbsp;&nbsp;
-		<button data-dismiss="modal" style="font-size: small;">돌아가기</button>
+		<button data-dismiss="modal" style="font-size: small; background-color: white;">돌아가기</button>
 	</td>
 </table>
 </form:form>

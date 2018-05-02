@@ -54,7 +54,7 @@ body, h1, h2, h3, h4, h5, h6 {
 <body>
 <%@ include file="/include/headerAdmin.jsp"%>
 	<form:form commandName="member" id="detail">
-	<div class="w3-container w3-flat-wet-asphalt" style="width:50%; margin-top:100px; margin-left:350px;">
+	<div class="w3-container w3-flat-wet-asphalt" style="width:30%; margin-top:100px; margin-left:35%;">
 
   <p>
   <c:if test="${member.mem_Photo != null}">
@@ -70,9 +70,9 @@ body, h1, h2, h3, h4, h5, h6 {
 	<p style="margin-left:100px">소개: ${member.mem_Introduce}</p>
 	<p style="margin-left:100px">상태: ${member.mem_Condition}</p>
 	<div style="text-align: center;">
-	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModals">[정지]</button>&nbsp;
-	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModalr">[복구]</button>&nbsp;
-	<a href="javascript:history.back();" class="btn btn-default btn-xs">[뒤로]</a>
+	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModals">정지</button>&nbsp;
+	<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModalr">복구</button>&nbsp;
+	<a href="javascript:history.back();" class="btn btn-default btn-xs">뒤로</a>
 	</div>
 	</div>
 
