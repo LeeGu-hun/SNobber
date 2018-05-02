@@ -117,6 +117,8 @@ public class MinController {
 		if (pageNum == host) {
 			erBean = new FollowBean(host);
 			ingBean = new FollowBean(host);
+			List<BoardBean> boardSNS = minService.mypageSNS(pageNum);
+			model.addAttribute("boardSNS", boardSNS);
 		} else {
 			FollowBean bean = new FollowBean();
 			bean.setMem_Num(host);
