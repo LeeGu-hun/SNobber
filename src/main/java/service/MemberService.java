@@ -56,6 +56,11 @@ public class MemberService {
 		Member member = sqlSession.selectOne("memberSQL.selectById", memId);
 		return member;
 	}
+	
+	public int host(String memId) {
+		int host = sqlSession.selectOne("memberSQL.getHost", memId);
+		return host;
+	} 
 
 	public void stop(int host) {
 		sqlSession.update("memberSQL.memberStop", host);
@@ -67,5 +72,9 @@ public class MemberService {
 	
 	public void delete(int host) {
 		sqlSession.delete("memberSQL.memberDelete", host);
+	}
+	
+	public void delete(String name) {
+		sqlSession.delete("memberSQL.adminDelete", name);
 	}
 }

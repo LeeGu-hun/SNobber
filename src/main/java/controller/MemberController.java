@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.TypeMismatchException;
@@ -44,18 +45,33 @@ public class MemberController {
 		return "member/memberDetail";
 	}
 	
-	@RequestMapping(value = "/deletemember/{id}", method = RequestMethod.GET)
-	public String deleteConGet(@PathVariable("id") String memId, Model model) {
+	@RequestMapping("deletemember/{id}")
+	public String memberDelete(@PathVariable("id") String memId, Model model) {
 		Member member = memberService.selectById(memId);
 		model.addAttribute("member", member);
-		return "member/deleteMember";
+		return "member/memberDetail";
 	}
 	
-	@RequestMapping(value="memberdetail/deletemem")
+	@RequestMapping(value = "memberlist/deletemem")
+	public String deleteConGet(Member mem,HttpServletRequest request) {
+		String name = request.getParameter("name");
+		System.out.println(name);
+		memberService.delete(name);
+		return "redirect:/memberlist";
+	}
+	
+	@RequestMapping(value="memberdetail/stopmem")
 	public String deleteConPost(MemberBean mem) {
 		int host = mem.getMem_num();
 		memberService.stop(host);
 		return "redirect:/memberlist";
+	}
+	
+	@RequestMapping(value = "/stopmember/{id}", method = RequestMethod.GET)
+	public String stopConGet(@PathVariable("id") String memId, Model model) {
+		Member member = memberService.selectById(memId);
+		model.addAttribute("member", member);
+		return "member/stopMember";
 	}
 	
 	@RequestMapping(value = "/repairmember/{id}", method = RequestMethod.GET)

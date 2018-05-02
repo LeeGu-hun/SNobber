@@ -87,7 +87,7 @@ body, h1, h2, h3, h4, h5, h6 {
 						<h4 class="modal-title">회원 권한 변경</h4>
 					</div>
 				<div class="modal-body">
-					<p><%@ include file="deleteMember.jsp"%></p>
+					<p><%@ include file="stopMember.jsp"%></p>
 				</div>
 				</div>
 		</div>
