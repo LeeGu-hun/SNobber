@@ -38,7 +38,7 @@
 	}
 	function mypageRe() {		
 		alert('댓글 쓰기 완료');
-		var next = $('.next').val();
+		var next = $('.next1').val();
 		$(location).attr('href', './mypageWritingView?num=' + next + '');
 	}
 	
@@ -51,7 +51,7 @@
 		});		
 	}
 	function modifyRe2() {		
-		var next = $('.next').val();
+		var next = $('.next1').val();
 		$(location).attr('href', './mypageWritingView?num=' + next + '');
 	}
 	
@@ -64,7 +64,7 @@
 		});		
 	}
 	function deleteRe2() {		
-		var next = $('.next').val();
+		var next = $('.next1').val();
 		$(location).attr('href', './mypageWritingView?num=' + next + '');
 	}
 	function boardNum(num) {
@@ -158,6 +158,7 @@ function ingShow(num) {
 			<br>
 			<c:forEach var="bm" items="${bm }">
 			<input class="next" type="text" value="${bm.mem_Num }" style="display: none;">
+			<input class="next1" type="text" value="${bm.board_Num }" style="display: none;">
 			<input id="addr" type="hidden" value="${pageContext.request.contextPath}">
 			<input id="likeNum" type="hidden" value="${likeNum}">
 			<div id="column">
