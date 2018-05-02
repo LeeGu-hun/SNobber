@@ -156,7 +156,7 @@ function te(){
 	$("#showBt").hide();
     var lastbno = $(".likeScroll:last").attr("data-ch");
 var lastbnoTest= Number(lastbno) + Number(10);
-alert("lastbnoTest:"+lastbnoTest);
+
 lastbno++;
     $.ajax({
 	  	type : "POST",

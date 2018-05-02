@@ -249,67 +249,9 @@ body, h1, h2, h3, h4, h5, h6 {
 			}
 
 		}
-		$(document).ready(
-				function() {
-					var issue_rowsCount = $(".hot_scroll:last").attr(
-							"data-issueIndex");
-					$(window).scroll(
-							function() {
+		
 
-								if ($(window).scrollTop() == $(document)
-										.height()
-										- $(window).height()) {
-									issue_rowsCount++;
-
-									$.ajax({
-										type : "POST",
-										dataType : "json",
-										url : "./issue_folderScroll",
-										data : "issue_rowsCount="
-												+ issue_rowsCount,
-										success : issueF
-									});
-								}
-							});
-				});
-
-		function issueF(data) {
-
-			var issue_title = data.issue_scrollAddTitle;
-			var issue_rownum = data.issue_scrollAddRownum;
-			var issue_mem_nickname = data.issue_scrollAddnickname;
-			var issue_allList = data.issue_allListsize;
-			var issue_fList = data.issue_fListsize;
-			var issue_rowsCount = data.issue_rowsCount;
-			var issue_mem_num = data.issue_mem_num;
-			var issue_foldernum = data.issue_scrollAddfoldernum;
-			var issue_mem_photo = data.issue_mem_photo;
-			console.log("issue_title :" + issue_title);
-			/* "<div class='w3-container w3-flat-emerald'><h2>"+issue_rownum+"</h2><p>"+nickname_tag+"</p>"			
-			+"<p class='hot_scroll' data-issueIndex="+issue_rowsCount +"><a href='#' onclick="+"folder(\""+issue_foldernum+"\")'>"+issue_title+"</a>"
-			+"</p></div>"
-			 */
-
-			nickname_tag = "<a href='#' onclick=" + "'yourPage(\""
-					+ issue_mem_num + "\")'>" + issue_mem_nickname + "</a>";
-			if (issue_fList < issue_allList) {
-
-				$('#issue_folder')
-						.append(
-								"<div class='w3-container w3-flat-clouds'><h2>RANK "
-										+ " "
-										+ issue_rownum
-										+ "</h2><p><img src=${pageContext.request.contextPath}/"
-										+ issue_mem_photo
-										+ "style='width:auto; height:auto; boarder-radius:50%;'>"
-										+ nickname_tag
-										+ "</p>"
-										+ "<p class='hot_scroll' data-issueIndex="+issue_rowsCount +"><a href='#' onclick="
-										+ "folder(\"" + issue_foldernum
-										+ "\")'>" + issue_title + "</a>"
-										+ "</p></div><br>");
-			}
-		}
+		
 		function logout() {
 			$(location).attr('href', "./logout");
 		}
