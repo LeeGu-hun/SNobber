@@ -93,7 +93,7 @@ function check(){
 </script>
 
 </head>
-<body style="background-color: silver;">
+<body style="background-color: #f5f7f8;">
 	<div style="margin-top: 100px;">
 		<div>
 			<%@ include file="/include/header.jsp"%>

@@ -151,7 +151,7 @@ function ingShow(num) {
 }
 </script>
 </head>
-<body style="background-color: silver;">
+<body style="background-color: #f5f7f8;">
 	
 	<div style="width: 100%; text-align: center;">	
 		<%@ include file="/include/header.jsp"%>
