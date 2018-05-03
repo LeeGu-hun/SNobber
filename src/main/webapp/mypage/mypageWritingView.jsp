@@ -151,7 +151,7 @@ function ingShow(num) {
 }
 </script>
 </head>
-<body style="background-color: silver;">
+<body style="background-color: #f1f1f1;">
 	
 	<div style="width: 100%; text-align: center;">	
 		<%@ include file="/include/header.jsp"%>
@@ -164,50 +164,52 @@ function ingShow(num) {
 			<div id="column">
 			<figure>
 				<p style="text-align: left; margin-left: 10px;">
-				<c:choose>
-					<c:when test="${bm.mem_photo != null}">
-						<img src="${pageContext.request.contextPath}/${bm.mem_photo}" style='width:15%;' >			
-					</c:when>
-					<c:otherwise>
-						<img src="${pageContext.request.contextPath}/image/basic.png" style='width:15%;'>
-					</c:otherwise>
-				</c:choose>
-				${bm.mem_Nickname }
-				</p>
-				<c:if test="${bm.board_File != null}">
-				<img src="${pageContext.request.contextPath}/${bm.board_File }" style="width: 500px; height: 500px;"/>
-				</c:if>
-				<figcaption>
-				<p style="width: 500px;">
-				${bm.board_Content }
-				</p>
-				좋아요
-				<span id="likeText">
-					${likeNum }
-				</span>
-				<span id="likeCheck">
 					<c:choose>
-						<c:when test="${like =='0'}">
-							<img src="${pageContext.request.contextPath}/image/unlike.png" onclick="checkLike('1')" style="width: 15px; height:15px;" >
-						</c:when>
-						<c:when test="${like == '1'}">
-							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" style="width: 15px; height:15px;">
+						<c:when test="${bm.mem_photo != null}">
+							<img src="${pageContext.request.contextPath}/${bm.mem_photo}" style='width:15%;' >			
 						</c:when>
 						<c:otherwise>
-							<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" style="width: 15px; height:15px;">
+							<img src="${pageContext.request.contextPath}/image/basic.png" style='width:15%;'>
 						</c:otherwise>
 					</c:choose>
-				</span>
-				<span>
-				${bm.board_Date }
-				</span>
-				<c:if test="${host eq bm.mem_Num }">
-				<a href="#" onclick="boardNum(${bm.board_Num})"style="text-align: left; font-size: 0.8em;">수정</a>
-				<a class="boardD" href="#" onclick="ingShow('${bm.board_Num}')" style="text-align: left; font-size: 0.8em;">
-				삭제
-				</a>	
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					${bm.mem_Nickname }
+				</p>
+				<c:if test="${bm.board_File != null}">
+					<img src="${pageContext.request.contextPath}/${bm.board_File }" 
+						style="min-width: 600px; max-width: 650px"/>
 				</c:if>
-			</figcaption>							
+				<figcaption>
+					<p style="min-width: 600px; max-width: 650px; text-align: left;">
+					${bm.board_Content }
+					</p>
+					좋아요
+					<span id="likeText">
+						${likeNum }
+					</span>
+					<span id="likeCheck">
+						<c:choose>
+							<c:when test="${like =='0'}">
+								<img src="${pageContext.request.contextPath}/image/unlike.png" onclick="checkLike('1')" style="width: 15px; height:15px;" >
+							</c:when>
+							<c:when test="${like == '1'}">
+								<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" style="width: 15px; height:15px;">
+							</c:when>
+							<c:otherwise>
+								<img src="${pageContext.request.contextPath}/image/like.png" onclick="checkLike('2')" style="width: 15px; height:15px;">
+							</c:otherwise>
+						</c:choose>
+					</span>
+					<span>
+					${bm.board_Date }
+					</span>
+					<c:if test="${host eq bm.mem_Num }">
+					<a href="#" onclick="boardNum(${bm.board_Num})"style="text-align: left; font-size: 0.8em;">수정</a>
+					<a class="boardD" href="#" onclick="ingShow('${bm.board_Num}')" style="text-align: left; font-size: 0.8em;">
+					삭제
+					</a>	
+					</c:if>
+				</figcaption>							
 			</figure>
 			</div>
 				<div>	
@@ -241,13 +243,21 @@ function ingShow(num) {
 								</td>
 								<td style="font-size: x-small; width: 10%;">
 									<c:if test="${host eq bm.mem_Num}">
+										<c:if test="${host eq re.mem_Num }">
+											<span onclick="modifyRe('${re.re_Num}')">
+												Edit
+											</span>																		
+										</c:if>
 										<span onclick="deleteRe('${re.re_Num}')">
 											Delete
 										</span>
-										
 									</c:if>
 									<c:if test="${host ne bm.mem_Num }">
 										<c:if test="${host eq re.mem_Num }">
+											<span onclick="modifyRe('${re.re_Num}')">
+												Edit												
+											</span>
+											
 											<span onclick="deleteRe('${re.re_Num}')">
 												Delete
 											</span>
