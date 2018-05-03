@@ -34,8 +34,6 @@
 	function move(num){
 		$(location).attr('href', './mypageWritingView?num=' + num + '');
 	}
-	
-	
 </script>
 <style>
 select {
@@ -77,19 +75,8 @@ function check(){
 	}else{
 	
 	    document.searchFriend.submit(); 
-
-
-		    }
 	}
-
-
-	
-	
-	
-
-
-
-
+}
 </script>
 
 </head>
@@ -98,14 +85,10 @@ function check(){
 		<div>
 			<%@ include file="/include/header.jsp"%>
 		</div>
-
-
-
 		<br>
 		<form action="searching" name="searchFriend" method="post" >
 			<div style="margin-left: 19px; text-align: center; margin: 0 auto;">
 				<select name="searchOption">
-					<option value="all,all">Member Search</option>
 					<option value="mem_nickname,mem_nickname">Nickname</option>
 					<option value="mem_introduce,mem_introduce">Member
 						Introduce</option>
@@ -113,10 +96,8 @@ function check(){
 				</select> <input type="text" placeholder="Search.." name="keyword"
 					value="${keyword }" id="searchbox"> <input type="button" id="searchsu" value="조회" onclick="check()">
 			</div>
-
 			<c:if test="${map.cntboard  > 0 }">
 				<c:forEach var="bo" items="${map.boardList}">
-
 					<div class="w3-third w3-container w3-margin-bottom"
 						style="margin-top: 80px; margin-left: 10%;">
 						<c:if test="${bo.board_File != null}">
@@ -142,14 +123,6 @@ function check(){
 
 						</div>
 					</div>
-
-
-
-
-
-
-
-
 				</c:forEach>
 			</c:if>
 
@@ -189,23 +162,14 @@ function check(){
 									<td>검색 키워드:${map.keyword}</td>
 								</tr>
 							</table>
-
 						</div>
 					</div>
-
-
-
 				</c:forEach>
 			</c:if>
-
 			<c:if test="${map.cntMember  <= 0 }">
 				검색 결과가 없습니다
 			</c:if>
-
-
 		</form>
-
 	</div>
-
 </body>
 </html>
