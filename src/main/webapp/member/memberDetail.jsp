@@ -58,7 +58,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
   <p>
   <c:if test="${member.mem_Photo != null}">
-  <img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 200px; height: 200px; border-radius: 45%; margin-left:100px">
+  <img src="${pageContext.request.contextPath}/${member.mem_Photo}" style="max-width: 200px; height: 200px; border-radius: 45%; margin-left:100px; margin-top: 10px">
   </c:if>
   <c:if test="${member.mem_Photo == null}">
   <img src="${pageContext.request.contextPath}/image/basic.png" style="max-width: 200px; height: 200px; border-radius: 45%; margin-left:100px">
