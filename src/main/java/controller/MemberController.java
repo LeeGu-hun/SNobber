@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bean.ListCommand;
 import bean.MemberBean;
-import bean.mypageEditCommand;
 import exception.MemberNotFoundException;
 import service.MemberService;
 import spring.AuthInfo;
@@ -44,51 +43,51 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "member/memberDetail";
 	}
-	
+
 	@RequestMapping("deletemember/{id}")
 	public String memberDelete(@PathVariable("id") String memId, Model model) {
 		Member member = memberService.selectById(memId);
 		model.addAttribute("member", member);
 		return "member/memberDetail";
 	}
-	
+
 	@RequestMapping(value = "memberlist/deletemem")
-	public String deleteConGet(Member mem,HttpServletRequest request) {
+	public String deleteConGet(Member mem, HttpServletRequest request) {
 		String name = request.getParameter("name");
 		System.out.println(name);
 		memberService.delete(name);
 		return "redirect:/memberlist";
 	}
-	
-	@RequestMapping(value="memberdetail/stopmem")
+
+	@RequestMapping(value = "memberdetail/stopmem")
 	public String deleteConPost(MemberBean mem) {
 		int host = mem.getMem_num();
 		memberService.stop(host);
 		return "redirect:/memberlist";
 	}
-	
+
 	@RequestMapping(value = "/stopmember/{id}", method = RequestMethod.GET)
 	public String stopConGet(@PathVariable("id") String memId, Model model) {
 		Member member = memberService.selectById(memId);
 		model.addAttribute("member", member);
 		return "member/stopMember";
 	}
-	
+
 	@RequestMapping(value = "/repairmember/{id}", method = RequestMethod.GET)
 	public String repairConGet(@PathVariable("id") String memId, Model model) {
 		Member member = memberService.selectById(memId);
 		model.addAttribute("member", member);
 		return "member/repairMember";
 	}
-	
-	@RequestMapping(value="memberdetail/repairmem")
+
+	@RequestMapping(value = "memberdetail/repairmem")
 	public String repairConPost(MemberBean mem) {
 		int host = mem.getMem_num();
 		memberService.repair(host);
 		return "redirect:/memberlist";
 	}
-	
-	@RequestMapping(value="outmem")
+
+	@RequestMapping(value = "outmem")
 	public String outCon(HttpSession session) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
 		memberService.delete(host);

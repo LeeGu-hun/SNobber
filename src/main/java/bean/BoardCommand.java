@@ -1,8 +1,5 @@
 package bean;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardCommand {

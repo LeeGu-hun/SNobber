@@ -3,9 +3,9 @@ package bean;
 public class FolderBean {
 	private int folder_Num, mem_Num, folder_secret;
 	private String mem_Nickname, folder_Title, folder_Content;
-	
+
 	private int like_on, follow_on;
-	
+
 	public FolderBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -98,7 +98,5 @@ public class FolderBean {
 	public void setFolder_Content(String folder_Content) {
 		this.folder_Content = folder_Content;
 	}
-	
-	
-	
+
 }

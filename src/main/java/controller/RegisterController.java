@@ -27,22 +27,23 @@ public class RegisterController {
 	public void setMemberRegisterService(MemberRegisterService memberRegisterService) {
 		this.memberRegisterService = memberRegisterService;
 	}
-	
+
 	@RequestMapping(value = "/step1", method = RequestMethod.GET)
 	public String step2Get(RegisterRequest rr) {
 		return "/register/step1";
 	}
 
 	@RequestMapping(value = "/step2", method = RequestMethod.POST)
-	public String step3Post(@RequestParam(value = "agree", defaultValue = "false") Boolean agreeVal,RegisterRequest rr, Errors errors, Model model, HttpServletRequest request) {
+	public String step3Post(@RequestParam(value = "agree", defaultValue = "false") Boolean agreeVal, RegisterRequest rr,
+			Errors errors, Model model, HttpServletRequest request) {
 		if (!agreeVal) {
 			return "redirect:step1";
 		}
 		new RegisterRequestValidator().validate(rr, errors);
 		MultipartFile multi = rr.getMem_Photo();
-		String originalFilename = multi.getOriginalFilename(); 
+		String originalFilename = multi.getOriginalFilename();
 		String newFilename = "";
-		MemberBean  mem = new MemberBean();
+		MemberBean mem = new MemberBean();
 		mem.setMem_Id(rr.getMem_Id());
 		mem.setMem_Password(rr.getMem_Password());
 		mem.setMem_Nickname(rr.getMem_Name());
@@ -51,13 +52,11 @@ public class RegisterController {
 		if (errors.hasErrors())
 			return "register/step1";
 		if (!originalFilename.equals("")) {
-			newFilename = System.currentTimeMillis() + "_" 
-					+ originalFilename;
+			newFilename = System.currentTimeMillis() + "_" + originalFilename;
 
 			// 파일 업로드 경로
-			String root_path = request.getSession()
-					.getServletContext().getRealPath("/");
-		
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+
 			String path = root_path + newFilename;
 			mem.setMem_Photo(newFilename);
 			try {
@@ -67,16 +66,16 @@ public class RegisterController {
 				LoginCommand loginCommand = new LoginCommand();
 				loginCommand.setId(mem.getMem_Id());
 				model.addAttribute("loginCommand", loginCommand);
-			}catch (AlreadyExistingMemberException e) {
-				if(e.getMessage().indexOf("dup mem_Id") == 0) {
+			} catch (AlreadyExistingMemberException e) {
+				if (e.getMessage().indexOf("dup mem_Id") == 0) {
 					errors.rejectValue("mem_Id", "duplicate");
-				} else if(e.getMessage().indexOf("dup mem_Name") == 0) {
+				} else if (e.getMessage().indexOf("dup mem_Name") == 0) {
 					errors.rejectValue("mem_Name", "duplicate");
-				} else if(e.getMessage().indexOf("dup mem_Email") == 0) {
+				} else if (e.getMessage().indexOf("dup mem_Email") == 0) {
 					errors.rejectValue("mem_Email", "duplicate");
 				}
 				return "register/step1";
-			}catch (IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
@@ -86,12 +85,12 @@ public class RegisterController {
 				LoginCommand loginCommand = new LoginCommand();
 				loginCommand.setId(mem.getMem_Id());
 				model.addAttribute("loginCommand", loginCommand);
-			}catch (AlreadyExistingMemberException e) {
-				if(e.getMessage().indexOf("dup mem_Id") == 0) {
+			} catch (AlreadyExistingMemberException e) {
+				if (e.getMessage().indexOf("dup mem_Id") == 0) {
 					errors.rejectValue("mem_Id", "duplicate");
-				} else if(e.getMessage().indexOf("dup mem_Name") == 0) {
+				} else if (e.getMessage().indexOf("dup mem_Name") == 0) {
 					errors.rejectValue("mem_Name", "duplicate");
-				} else if(e.getMessage().indexOf("dup mem_Email") == 0) {
+				} else if (e.getMessage().indexOf("dup mem_Email") == 0) {
 					errors.rejectValue("mem_Email", "duplicate");
 				}
 				return "register/step1";

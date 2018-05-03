@@ -2,9 +2,10 @@ package spring;
 
 public class AuthInfo {
 	private String id, email, name, photo, introduce;
-	private int mem_num,mem_condition;
+	private int mem_num, mem_condition;
 
-	public AuthInfo(String id, String email, String name, String photo, String introduce, int mem_num, int mem_condition) {
+	public AuthInfo(String id, String email, String name, String photo, String introduce, int mem_num,
+			int mem_condition) {
 		this.id = id;
 		this.email = email;
 		this.name = name;

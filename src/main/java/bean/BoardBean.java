@@ -1,6 +1,5 @@
 package bean;
 
-import java.sql.Blob;
 import java.util.Date;
 
 public class BoardBean {
@@ -18,8 +17,7 @@ public class BoardBean {
 	private int board_Type;
 	private int folder_Num;
 	private Date sysdate;
-	
-	
+
 	public Date getSysdate() {
 		return sysdate;
 	}
@@ -28,9 +26,9 @@ public class BoardBean {
 		this.sysdate = sysdate;
 	}
 
-		//매퍼의 리스트 수정하면서 이부분 추가했습니다   setter,getter포함
-		private int like_on;
-		private int count;
+	// 매퍼의 리스트 수정하면서 이부분 추가했습니다 setter,getter포함
+	private int like_on;
+	private int count;
 
 	public int getFolder_Num() {
 		return folder_Num;
@@ -39,8 +37,6 @@ public class BoardBean {
 	public void setFolder_Num(int folder_Num) {
 		this.folder_Num = folder_Num;
 	}
-
-	
 
 	public int getLike_on() {
 		return like_on;

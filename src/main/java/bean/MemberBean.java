@@ -1,7 +1,5 @@
 package bean;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import exception.IdPasswordNotMatchingException;
 
 public class MemberBean {

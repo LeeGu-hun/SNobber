@@ -1,10 +1,5 @@
 package spring;
 
-import java.sql.Blob;
-import java.util.Date;
-
-import org.springframework.web.multipart.MultipartFile;
-
 public class Board {
 	private int mem_Num;
 	private String BOARD_CONTENT;

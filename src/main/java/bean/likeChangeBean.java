@@ -1,8 +1,8 @@
 package bean;
 
 public class likeChangeBean {
-	private int board_Num, mem_Num,like_Target_Num;
-	String like_on;	
+	private int board_Num, mem_Num, like_Target_Num;
+	String like_on;
 
 	public int getLike_Target_Num() {
 		return like_Target_Num;
@@ -35,5 +35,5 @@ public class likeChangeBean {
 	public void setMem_Num(int mem_Num) {
 		this.mem_Num = mem_Num;
 	}
-	
+
 }

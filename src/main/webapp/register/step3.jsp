@@ -20,10 +20,5 @@
 			<a href="<c:url value='/'/>">[첫 화면 이동]</a>
 		</p>
 	</div>
-	<div>
-
-		<%@ include file="/include/footer.jsp"%>
-
-	</div>
 </body>
 </html>

@@ -58,5 +58,5 @@ public class mypageEditCommand {
 	public void setMem_Photo(MultipartFile mem_Photo) {
 		this.mem_Photo = mem_Photo;
 	}
-	
+
 }

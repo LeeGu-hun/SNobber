@@ -9,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import bean.FollowBean;
-import bean.FollowSubmitBean;
 import bean.LikeKeyBean;
-import bean.likeChangeBean;
 import service.KuService;
 import spring.AuthInfo;
 

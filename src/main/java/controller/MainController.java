@@ -30,7 +30,6 @@ import bean.FolderLikekey;
 import bean.FolderListBean;
 import bean.FolderUpdateStateBean;
 import bean.FolderlikeChangeBean;
-import bean.FollowBean;
 import bean.FollowFolderBean;
 import bean.FollowFolderKeyBean;
 import bean.FollowSubmitBean;

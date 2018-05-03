@@ -5,10 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import bean.BoardBean;
-import bean.BoardCommand;
 import bean.BoardMemberBean;
 import bean.FolderBean;
 import bean.FolderLikekey;
@@ -44,6 +42,7 @@ public class BoardService {
 		List<Member> results = sqlSession.selectList("memberSQL.getMemberList");
 		return results;
 	}
+
 	public List<BoardBean> boardListScroll(ListBeanScroll lb) {
 
 		List<BoardBean> list = sqlSession.selectList("boardSQL.boardListScroll", lb);
@@ -332,7 +331,7 @@ public class BoardService {
 	public void editBoard(BoardMemberBean bm) {
 		sqlSession.update("boardSQL.editBoard", bm);
 	}
-	
+
 	public void editBoardy(BoardMemberBean bm) {
 		sqlSession.update("boardSQL.editBoardy", bm);
 	}

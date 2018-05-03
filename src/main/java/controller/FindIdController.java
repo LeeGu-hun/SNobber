@@ -83,9 +83,9 @@ public class FindIdController {
 		props.put("mail.smtp.port", "465");
 		props.put("mail.smtp.starttls.enable", "true");
 
-		String subject = "안녕하세요 SNobber입니다."+mem.getMem_Nickname() +"님의 ID를 알려드립니다";
+		String subject = "안녕하세요 SNobber입니다." + mem.getMem_Nickname() + "님의 ID를 알려드립니다";
 
-		String body1 =  mem.getMem_Nickname() + "님의 ID는 " + mem.getMem_Id() + "입니다.";
+		String body1 = mem.getMem_Nickname() + "님의 ID는 " + mem.getMem_Id() + "입니다.";
 		String body2 = "SNobber에 돌아오셔서 마음껏 즐겨주세요!";
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
@@ -115,9 +115,9 @@ public class FindIdController {
 			BodyPart messageBodyPart = new MimeBodyPart();
 			// String htmlText = "<H1>Hello</H1><img src=\"cid:image\">";
 			String htmlText = "<center><img src=\"cid:image\"><H3>고객센터</H3>"
-					+ "<div style='width: 600px; height: 150px; border:1px solid'>안녕하세요 SNobber입니다."+mem.getMem_Nickname()+"님의 ID를 알려드립니다<br>" + 
-					"<hr>"+ body1+"<br>"+body2 + "<br> <a href='http://192.168.0.62:8080/SNobber'>SNobber로 바로가기</a>"
-					+ "</div></center>";
+					+ "<div style='width: 600px; height: 150px; border:1px solid'>안녕하세요 SNobber입니다."
+					+ mem.getMem_Nickname() + "님의 ID를 알려드립니다<br>" + "<hr>" + body1 + "<br>" + body2
+					+ "<br> <a href='http://192.168.0.62:8080/SNobber'>SNobber로 바로가기</a>" + "</div></center>";
 			messageBodyPart.setContent(htmlText, "text/html; charset=UTF-8");
 			// add it
 			multipart.addBodyPart(messageBodyPart);
@@ -142,7 +142,7 @@ public class FindIdController {
 			throw new RuntimeException(e);
 		}
 		response.setContentType("text/html; charset=UTF-8");
-		out.println("<script>alert('"+mem.getMem_Nickname()+"님의 "+mem.getMem_Email() +"로 ID를 전송했습니다.');");
+		out.println("<script>alert('" + mem.getMem_Nickname() + "님의 " + mem.getMem_Email() + "로 ID를 전송했습니다.');");
 		out.println("history.back();");
 		out.println("</script>");
 	}

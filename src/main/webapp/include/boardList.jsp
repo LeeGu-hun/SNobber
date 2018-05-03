@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3.css?ver=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css?ver=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css?ver=2">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
 

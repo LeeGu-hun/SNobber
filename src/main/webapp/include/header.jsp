@@ -41,12 +41,11 @@ html, body, h1, h2, h3, h4, h5 {
 </script>
 </head>
 <body>
-
 	<c:choose>
 		<c:when test="${sessionScope.authInfo.name !=null }">
 			<div class="w3-top">
 				<div class="w3-bar w3-theme-d2 w3-left-align w3-large"
-					style="background-color: #263959;">
+					style="background-color: #77b2e0;">
 					<a
 						class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
 						href="javascript:void(0);" onclick="openNav()"><i
@@ -72,29 +71,31 @@ html, body, h1, h2, h3, h4, h5 {
 		<c:otherwise>
 			<div class="w3-top">
 				<div class="w3-bar w3-theme-d2 w3-left-align w3-large"
-					style="background-color: #263959;">
+					style="background-color: #77b2e0;">
 					<a
 						class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
-						href="javascript:void(0);" onclick="openNav()"><i
-						class="fa fa-bars"></i></a> <a href="./"
-						class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i
-						class="fa fa-home w3-margin-right"></i>TODAY's Hot</a> <a href="#"
-						onclick="document.getElementById('id01').style.display='block'"
-						class="w3-button"><i class="fa fa-arrow-right"></i>Login
-						</button> <a href="./step1"
-						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+						href="javascript:void(0);" onclick="openNav()">
+						<i
+						class="fa fa-bars"></i></a><a href="./"
+						class="w3-bar-item w3-button w3-padding-large w3-theme-d4" style="background-color:#2b90d9"><i
+						class="fa fa-home w3-margin-right"></i>TODAY's SNobber</a>
+						
+						<a href="./step1" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages"
 						onclick="mypagePro('${sessionScope.authInfo.mem_num}')"><i
-							class="fa fa-male">회원 가입</i></a> <a herf="#"
+							class="fa fa-male">회원 가입</i></a> <a href="#"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages" data-toggle="modal" data-target="#myModals"><i
 							class="fa fa-male">ID 찾기</i></a> <a href="#"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages" data-toggle="modal" data-target="#myModalPass"><i
 							class="fa fa-male">Password 찾기</i></a>
+						<a href="#" onclick="document.getElementById('id01').style.display='block'"
+							class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">
+							<i class="fa fa-arrow-right"></i>Login
+						</a>
 				</div>
 			</div>
-
 
 			<!-- id 찾기 모달 -->
 			<div class="modal fade" id="myModals">
@@ -102,8 +103,8 @@ html, body, h1, h2, h3, h4, h5 {
 					<div class="modal-content">
 
 						<!-- Modal Header -->
-						<div class="modal-header">
-							<h4 class="modal-title">ID 찾기</h4>
+						<div class="modal-header" style="background-color: #77b2e0">
+							<h4 class="modal-title" >ID 찾기</h4>
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 
@@ -111,7 +112,6 @@ html, body, h1, h2, h3, h4, h5 {
 						<div class="modal-body">
 							<table>
 								<form action="find/idFind" method="post">
-
 									<tr>
 										<th width="70px">이름</th>
 										<th><input type="text" name="mem_Name" /></th>
@@ -121,15 +121,12 @@ html, body, h1, h2, h3, h4, h5 {
 										<th width="70px">이메일</th>
 										<th><input type="text" name="mem_Email" /></th>
 										<th>&nbsp;<input type="submit" value="Find"
-											style="background-color: #008CBA; border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" /></th>
+											style="background-color: #87a6bd; border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" /></th>
 									</tr>
 
 								</form>
 							</table>
 						</div>
-
-
-
 					</div>
 				</div>
 			</div>
@@ -139,8 +136,8 @@ html, body, h1, h2, h3, h4, h5 {
 					<div class="modal-content">
 
 						<!-- Modal Header -->
-						<div class="modal-header">
-							<h4 class="modal-title">비밀번호 찾기</h4>
+						<div class="modal-header" style="background-color: #77b2e0">
+							<h4 class="modal-title" >비밀번호 찾기</h4>
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 
@@ -155,41 +152,22 @@ html, body, h1, h2, h3, h4, h5 {
 												<th></th>
 									</tr>
 
-
-
 									<tr>
 										<th width="70px">이름</th>
 										<th><input type="text" name="mem_Name" /></th>	<th></th>
 									</tr>
-
-
 									<tr>
 										<th width="70px">이메일</th>
 										<th><input type="text" name="mem_Email" /></th>	<th><input
-											type="submit" value="Find" style="background-color: #008CBA; border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;"/></th>
+											type="submit" value="Find" style="background-color: #87a6bd; border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;"/></th>
 									</tr>
-
-
-									
 								</form>
 							</table>
-
 						</div>
-
-
-
 					</div>
 				</div>
 			</div>
-
 		</c:otherwise>
-
-
-
 	</c:choose>
-
-
-
-
 </body>
 </html>

@@ -23,7 +23,7 @@ public class Member {
 		this.mem_Photo = mem_Photo;
 		this.mem_Introduce = mem_Introduce;
 	}
-	
+
 	public Member(String mem_Email) {
 		super();
 		this.mem_Email = mem_Email;

@@ -28,7 +28,7 @@ public class BoardController {
 	public void setBoardService(BoardService boardService) {
 		this.boardService = boardService;
 	}
-	
+
 	@RequestMapping(value = "/boardEdit", method = RequestMethod.GET)
 	public String boardEditGet(Model model, HttpSession session, HttpServletRequest request) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();
@@ -41,7 +41,7 @@ public class BoardController {
 		model.addAttribute("bm", boardMember);
 		return "board/board_edit";
 	}
-	
+
 	@RequestMapping(value = "/boardEdit", method = RequestMethod.POST)
 	public String boardEditPost(HttpSession session, BoardCommand bean, HttpServletRequest request) {
 		int host = ((AuthInfo) session.getAttribute("authInfo")).getMem_num();

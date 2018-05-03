@@ -36,6 +36,7 @@
 			<form:errors path="mem_Id" />
 			</label>
 		</p>
+		<p>
 			<label>이름:<br> 
 			<form:input path="mem_Name" />
 			<form:errors path="mem_Name" />
@@ -76,11 +77,6 @@
 	</form:form>
 	</div>
 	<br>
-	<div>
-
-		<%@ include file="/include/footer.jsp"%>
-
-	</div>
 </div>
 </body>
 </html>

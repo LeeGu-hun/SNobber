@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import bean.FollowBean;
 import bean.FollowSubmitBean;
 import bean.LikeKeyBean;
-import spring.Board;
 
 @Service
 public class KuService {
@@ -43,10 +42,10 @@ public class KuService {
 	}
 
 	public void addLike(LikeKeyBean bean) {
-		sqlSession.insert("kuSQL.addLike",bean);
+		sqlSession.insert("kuSQL.addLike", bean);
 	}
 
 	public void deleteLike(LikeKeyBean bean) {
-		sqlSession.delete("kuSQL.deleteLike",bean);
+		sqlSession.delete("kuSQL.deleteLike", bean);
 	}
 }

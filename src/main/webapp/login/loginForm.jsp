@@ -15,7 +15,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/w3.css?ver=1">
+	href="${pageContext.request.contextPath}/resources/css/w3.css?ver=2">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet"
@@ -51,10 +51,6 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 </style>
 
-
-
-
-
 <body class="bo">
 	<input type="hidden" id="session"
 		value="${sessionScope.authInfo.mem_num}" />
@@ -85,8 +81,6 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<div class="w3-opacity">
 
-
-
 			<div class="w3-clear"></div>
 			<header class="w3-center w3-margin-bottom" style="margin-top: 150px">
 
@@ -105,7 +99,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<div id="id01" class="w3-modal">
 			<div class="w3-modal-content w3-card-4">
-				<header class="w3-container" style="background-color: #607d8b;">
+				<header class="w3-container" style="background-color: #77b2e0;">
 					<span
 						onclick="document.getElementById('id01').style.display='none'"
 						class="w3-button w3-display-topright">&times;</span>
@@ -130,13 +124,12 @@ body, h1, h2, h3, h4, h5, h6 {
 					</form:form>
 				</div>
 				<div style="margin-top: 20px; margin-bottom: 20px">
-					<footer class="w3-container" style="background-color: #607d8b;">
+					<footer class="w3-container" style="background-color: #ffffff;">
 						<br>
 					</footer>
 				</div>
 			</div>
 		</div>
-
 
 		<!-- Photo Grid -->
 		<br>
@@ -184,32 +177,10 @@ body, h1, h2, h3, h4, h5, h6 {
 										<td>♥${fl.count}</td>
 									</tr>
 								</table>
-
-
-
-
-
 							</div>
 						</div>
 					</c:forEach>
 				</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			</div>
 		</div>
 		<!-- End Page Content -->
@@ -241,8 +212,6 @@ body, h1, h2, h3, h4, h5, h6 {
 			}
 
 		}
-		
-
 		
 		function logout() {
 			$(location).attr('href', "./logout");

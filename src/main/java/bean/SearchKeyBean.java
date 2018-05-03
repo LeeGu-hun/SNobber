@@ -1,7 +1,7 @@
 package bean;
 
 public class SearchKeyBean {
-	String searchOption0,searchOption1, keyword;
+	String searchOption0, searchOption1, keyword;
 
 	public String getSearchOption0() {
 		return searchOption0;

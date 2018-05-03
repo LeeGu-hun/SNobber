@@ -2,15 +2,9 @@ package bean;
 
 public class FolderListBean {
 
-	private String folder_title, mem_nickname,mem_photo;
+	private String folder_title, mem_nickname, mem_photo;
 	private int folder_num, mem_num, count, like_on, rownum;
 
-	// rownum,nick 추가
-
-	
-	
-	
-	
 	public int getRownum() {
 		return rownum;
 	}

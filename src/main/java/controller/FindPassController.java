@@ -94,7 +94,7 @@ public class FindPassController {
 				return new PasswordAuthentication(id, pwd);
 			}
 		});
-		
+
 		try {
 
 			// Create a default MimeMessage object.
@@ -116,16 +116,16 @@ public class FindPassController {
 			BodyPart messageBodyPart = new MimeBodyPart();
 			// String htmlText = "<H1>Hello</H1><img src=\"cid:image\">";
 			String htmlText = "<center><img src=\"cid:image\"><H3>고객센터</H3>"
-					+ "<div style='width: 600px; height: 150px; border:1px solid'>안녕하세요 SNobber입니다."+mem.getMem_Nickname()+"님의 PASSWORD를 알려드립니다<br>" + 
-					"<hr>"+ body1+"<br>"+body2 + "<br> <a href='http://192.168.0.62:8080/SNobber'>SNobber로 바로가기</a>"
-					+ "</div></center>";
+					+ "<div style='width: 600px; height: 150px; border:1px solid'>안녕하세요 SNobber입니다."
+					+ mem.getMem_Nickname() + "님의 PASSWORD를 알려드립니다<br>" + "<hr>" + body1 + "<br>" + body2
+					+ "<br> <a href='http://192.168.0.62:8080/SNobber'>SNobber로 바로가기</a>" + "</div></center>";
 			messageBodyPart.setContent(htmlText, "text/html; charset=UTF-8");
 			// add it
 			multipart.addBodyPart(messageBodyPart);
 
 			// second part (the image)
 			messageBodyPart = new MimeBodyPart();
-			DataSource fds = new FileDataSource("D:/classSpring/snn.png");	// 이미지파일경로
+			DataSource fds = new FileDataSource("D:/classSpring/snn.png"); // 이미지파일경로
 
 			messageBodyPart.setDataHandler(new DataHandler(fds));
 			messageBodyPart.setHeader("Content-ID", "<image>");
@@ -144,7 +144,7 @@ public class FindPassController {
 			throw new RuntimeException(e);
 		}
 		response.setContentType("text/html; charset=UTF-8");
-		out.println("<script>alert('"+mem.getMem_Nickname()+"님의 "+mem.getMem_Email() +"로 PASSWORD를 전송했습니다.');");
+		out.println("<script>alert('" + mem.getMem_Nickname() + "님의 " + mem.getMem_Email() + "로 PASSWORD를 전송했습니다.');");
 		out.println("history.back();");
 		out.println("</script>");
 	}

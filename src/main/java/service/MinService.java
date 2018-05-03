@@ -9,23 +9,10 @@ import org.springframework.stereotype.Service;
 import bean.BoardBean;
 import bean.BoardMemberBean;
 import bean.FolderBean;
-import bean.FolderLikekey;
-import bean.FolderListBean;
-import bean.FolderUpdateStateBean;
-import bean.FolderlikeChangeBean;
 import bean.FollowBean;
-import bean.FollowFolderBean;
-import bean.FollowFolderKeyBean;
-import bean.FollowSubmitBean;
 import bean.LikeKeyBean;
-import bean.ListBean;
-import bean.ListBeanScroll;
-import bean.MemberBean;
 import bean.ReBean;
-import bean.SearchKeyBean;
-import bean.UpdateStateBean;
 import bean.likeChangeBean;
-import spring.Board;
 import spring.Member;
 
 @Service

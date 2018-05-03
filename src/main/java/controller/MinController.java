@@ -20,7 +20,6 @@ import bean.FollowBean;
 import bean.LikeKeyBean;
 import bean.ReBean;
 import bean.likeChangeBean;
-import bean.mypageEditCommand;
 import service.MinService;
 import spring.AuthInfo;
 import spring.Member;

@@ -1,6 +1,6 @@
 package controller;
 
-import javax.servlet.http.Cookie; 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,7 +38,7 @@ public class SessionController {
 			return "login/loginForm";
 		try {
 			AuthInfo authInfo = authService.authenticate(loginCommand.getId(), loginCommand.getPassword());
-			session.setAttribute("authInfo", authInfo);	//로그인 한사람의 정보들 
+			session.setAttribute("authInfo", authInfo); // 로그인 한사람의 정보들
 			Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getId());
 			rememberCookie.setPath("/");
 			if (loginCommand.isRememberId())

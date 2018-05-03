@@ -31,21 +31,12 @@
 	
 	<bean class="controller.KuController">
 		<property name="kuService" ref="kuService"/>
-	</bean>
-	
-	<bean class="controller.GoneController">
-		<property name="goneService" ref="goneService"/>
-	</bean>
+	</bean>	
 	
 	<bean class="controller.MinController">
 		<property name="minService" ref="minService"/>
 	</bean>
-	
-	<bean class="controller.SuController">
-		<property name="suService" ref="suService"/>
-	</bean>
-	
-			
+		
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/edit/**" />
