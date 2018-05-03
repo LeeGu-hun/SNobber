@@ -105,12 +105,13 @@ function check(){
 		<form action="searching" name="searchFriend" method="post" >
 			<div style="margin-left: 19px; text-align: center; margin: 0 auto;">
 				<select name="searchOption">
-				
+					<option value="all,all">Member Search</option>
 					<option value="mem_nickname,mem_nickname">Nickname</option>
 					<option value="mem_introduce,mem_introduce">Member
 						Introduce</option>
 					<option value="board_content,mem_nickname">SNobber</option>
-				</select> <input type="text" placeholder="Search.." name="keyword">
+				</select> <input type="text" placeholder="Search.." name="keyword"
+					value="${keyword }" id="searchbox"> <input type="button" id="searchsu" value="조회" onclick="check()">
 			</div>
 
 			<c:if test="${map.cntboard  > 0 }">
@@ -120,11 +121,11 @@ function check(){
 						style="margin-top: 80px; margin-left: 10%;">
 						<c:if test="${bo.board_File != null}">
 							<img src="${pageContext.request.contextPath}/${bo.board_File}"
-								onclick="move(${bo.board_Num})" style="width: 280px"
+								onclick="move(${bo.board_Num})" style="width: 100px"
 								class="w3-hover-opacity" height="150px">
 						</c:if>
 
-						<div class="w3-container w3-white" style="width: 280px">
+						<div class="w3-container w3-white">
 							<table>
 								<tr>
 									<td><b><a href="#" onclick="memNum('${bo.mem_Num}')">

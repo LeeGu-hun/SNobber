@@ -11,16 +11,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/w3.css?ver=1.2">
+	href="${pageContext.request.contextPath}/resources/css/w3.css?ver=2">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css?ver=1">
+	href="${pageContext.request.contextPath}/resources/css/w3-theme-blue-grey.css?ver=2">
 <link rel='stylesheet'
 	href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.csss?ver=1" />
-
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -49,7 +46,7 @@ html, body, h1, h2, h3, h4, h5 {
 		<c:when test="${sessionScope.authInfo.name !=null }">
 			<div class="w3-top">
 				<div class="w3-bar w3-theme-d2 w3-left-align w3-large"
-					style="background-color: #000000;">
+					style="background-color: #263959;">
 					<a
 						class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
 						href="javascript:void(0);" onclick="openNav()"><i
@@ -75,7 +72,7 @@ html, body, h1, h2, h3, h4, h5 {
 		<c:otherwise>
 			<div class="w3-top">
 				<div class="w3-bar w3-theme-d2 w3-left-align w3-large"
-					style="background-color: #000000;">
+					style="background-color: #263959;">
 					<a
 						class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
 						href="javascript:void(0);" onclick="openNav()"><i
@@ -83,7 +80,7 @@ html, body, h1, h2, h3, h4, h5 {
 						class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i
 						class="fa fa-home w3-margin-right"></i>TODAY's Hot</a> <a href="#"
 						onclick="document.getElementById('id01').style.display='block'"
-						class="w3-button w3-black">Login
+						class="w3-button"><i class="fa fa-arrow-right"></i>Login
 						</button> <a href="./step1"
 						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 						title="Messages"

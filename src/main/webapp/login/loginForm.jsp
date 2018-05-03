@@ -105,7 +105,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<div id="id01" class="w3-modal">
 			<div class="w3-modal-content w3-card-4">
-				<header class="w3-container w3-black">
+				<header class="w3-container" style="background-color: #607d8b;">
 					<span
 						onclick="document.getElementById('id01').style.display='none'"
 						class="w3-button w3-display-topright">&times;</span>
@@ -130,7 +130,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					</form:form>
 				</div>
 				<div style="margin-top: 20px; margin-bottom: 20px">
-					<footer class="w3-container w3-black">
+					<footer class="w3-container" style="background-color: #607d8b;">
 						<br>
 					</footer>
 				</div>
