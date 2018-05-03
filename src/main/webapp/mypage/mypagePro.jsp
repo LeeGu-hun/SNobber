@@ -622,8 +622,8 @@ body, h1, h2, h3, h4, h5, h6 {
 				<div class="modal-header">팔로우 취소</div>
 				<div class="modal-body">
 					<form action="followsubmit" method="POST">
-						<h3>${member.mem_Nickname }님팔로우를 취소 하겠습니까?</h3>
-						<br> <input type="submit" value="취소">
+						<h3>${member.mem_Nickname }님 팔로우를 취소 하겠습니까?</h3>
+						<br> <input type="submit" value="확인">
 						<button type="button" data-dismiss="modal">취소</button>
 						<input type="hidden" id="type" name="type" value="1" /> <input
 							type="hidden" id="title" name="title" value="${member.mem_num }" />
