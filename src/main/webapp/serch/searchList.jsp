@@ -24,6 +24,8 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
 	type="text/javascript"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/min.css" />	
 <script type="text/javascript">
 	function boardNum(num) {
 		$(location).attr('href', './mypageWritingView?num=' + num + '');
@@ -99,11 +101,11 @@ function check(){
 			<c:if test="${map.cntboard  > 0 }">
 				<c:forEach var="bo" items="${map.boardList}">
 					<div class="w3-third w3-container w3-margin-bottom"
-						style="margin-top: 80px; margin-left: 10%;">
+						style="margin-top: 80px; margin-left: 90px; margin-top: 150px; width: 28%; max-width: 250px;">
 						<c:if test="${bo.board_File != null}">
 							<img src="${pageContext.request.contextPath}/${bo.board_File}"
 								onclick="move(${bo.board_Num})" style="width: 100%"
-								class="w3-hover-opacity" height="150px">
+								class="w3-hover-opacity" height="200px">
 						</c:if>
 
 						<div class="w3-container w3-white">
@@ -114,7 +116,7 @@ function check(){
 									<td></td>
 								</tr>
 								<tr>
-									<td>${bo.board_Content}</td>
+									<td class="content">${bo.board_Content}</td>
 								</tr>
 								<tr>
 									<td>검색 키워드:${map.keyword}</td>
@@ -133,23 +135,25 @@ function check(){
 			<c:if test="${map.cntMember > 0 }">
 				<c:forEach var="bo" items="${map.memberList}">
 					<div class="w3-third w3-container w3-margin-bottom"
-						style="margin-top: 80px; margin-left: 90px; margin-top: 150px; width: 28%">
+						style="margin-top: 80px; margin-left: 90px; margin-top: 150px; width: 28%; max-width: 250px;">
 						<c:if test="${bo.mem_Photo ne null}">
 							<img src="${pageContext.request.contextPath}/${bo.mem_Photo}"
-								onclick="memNum('${bo.mem_num}')" style="width: 50%"
+								onclick="memNum('${bo.mem_num}')" style="width: 100%;"
 								class="w3-hover-opacity" height="200px;">
-						</c:if>
+						</c:if>						
 						<c:if test="${bo.mem_Photo eq null}">
 							<img src="${pageContext.request.contextPath}/image/basicsq.png"
-								onclick="memNum('${bo.mem_num}')" style="width: 50%"
+								onclick="memNum('${bo.mem_num}')" style="width: 100%;"
 								class="w3-hover-opacity" height="200px;">
 						</c:if>
 						<!-- 그사람 사진 -->
 
 						<div class="w3-container"
-							style="background-color: white; width: 50%;">
-
-							<table>
+							style="background-color: white; width: 100%;">
+							<p onclick="memNum('${bo.mem_num}')">${bo.mem_Nickname}</p>
+							<p>${bo.mem_Introduce}</p>
+							<p>검색 키워드:${map.keyword}</p>
+<%-- 							<table>
 								<tr>
 									<td><b><a href="#" onclick="memNum('${bo.mem_num}')">
 												${bo.mem_Nickname} </a></b></td>
@@ -162,7 +166,7 @@ function check(){
 									<td>검색 키워드:${map.keyword}</td>
 								</tr>
 							</table>
-						</div>
+ --%>						</div>
 					</div>
 				</c:forEach>
 			</c:if>
