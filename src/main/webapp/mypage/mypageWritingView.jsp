@@ -23,7 +23,7 @@
 	type="text/javascript"></script>
 <link href="${pageContext.request.contextPath}/css/style.css"
 	rel="stylesheet" ver="1.2">
-<link rel="stylesheet"href="${pageContext.request.contextPath}/resources/css/min.css" ver="1.2" />
+<link rel="stylesheet"href="${pageContext.request.contextPath}/resources/css/min.css" ver="2.9" />
 <script src="${pageContext.request.contextPath}/js/common.js?ver=2"></script>
 <script>
 	function reAdd(num) {
@@ -166,10 +166,10 @@ function ingShow(num) {
 				<p style="text-align: left; margin-left: 10px;">
 					<c:choose>
 						<c:when test="${bm.mem_photo != null}">
-							<img src="${pageContext.request.contextPath}/${bm.mem_photo}" style='width:15%;' >			
+							<img src="${pageContext.request.contextPath}/${bm.mem_photo}" style="width:15%; border-radius: 50%;" >			
 						</c:when>
 						<c:otherwise>
-							<img src="${pageContext.request.contextPath}/image/basic.png" style='width:15%;'>
+							<img src="${pageContext.request.contextPath}/image/basic.png" style="width:15%; border-radius: 50%;">
 						</c:otherwise>
 					</c:choose>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -213,7 +213,7 @@ function ingShow(num) {
 			</figure>
 			</div>
 				<div>	
-					<div style="margin-top: 5px; width: 90%; margin: 0 auto;">
+					<div style="margin-top: 5px; width: 90%; margin:auto;">
 					댓글
 					<textarea id="reContent" style="width: 30%;"></textarea>
 					<input type="button" value="추가" class="w3-button w3-theme" onclick="reAdd(${bm.board_Num})">					
